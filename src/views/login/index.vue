@@ -28,7 +28,7 @@
             <svg-icon icon-class="user" />
            </span>
           <el-input class="yzminput" name="code" type="text" v-model="loginForm.code" autoComplete="on" placeholder="验证码" />
-          <img id="img" :src="codeimgs" />
+          <img id="img" @click="changeimg()" :src="codeimgs" />
           <a href='#'  @click="changeimg()" style="color:white;"><label style="color:#ccc;">看不清？</label></a>
         </div>
       </el-form-item>
@@ -90,7 +90,8 @@
       }
     },
     mounted(){
-      var num = 200;//总数量
+      this.changeimg();//初始化执行，获取二维码
+      var num = 80;//总数量
       var w = window.innerWidth;
       var h = window.innerHeight;
       var max = 100;
@@ -399,14 +400,14 @@
           }.bind(this));
           //每次点击就加10个
           window.addEventListener('mousedown', function(e) {
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 5; i++) {
               this.add();
             }
           }.bind(this));
           //每次触屏时加10个
           window.addEventListener('touchstart', function(e) {
             e.preventDefault();
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 5; i++) {
               this.add();
             }
           }.bind(this));
@@ -419,7 +420,7 @@
         canvas.height = h = window.innerHeight;
       }, false);
 
-      this.changeimg();//初始化执行，获取二维码
+
     },
     methods: {
       showPwd() {
@@ -433,8 +434,6 @@
       //请求和切换验证码
       changeimg(){
         changeCodeImg(this.listQuery).then(response => {
-          console.log(11);
-          console.log(response);
           this.codeimgs = response.data.data;
         }).catch(() => {
 
