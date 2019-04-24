@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export function login(username, password) {
   return request({
-    url: '/user/login',
+    url: '/login/login',
     method: 'post',
     data: {
       username,
@@ -14,7 +14,7 @@ export function login(username, password) {
 
 export function getInfo(token) {
   return request({
-    url: '/user/info',
+    url: '/login/info',
     method: 'get',
     params: { token }
   })
@@ -22,7 +22,7 @@ export function getInfo(token) {
 
 export function changeCodeImg() {
   return request({
-    url: '/admin/login/changeCodeImg',
+    url: '/login/changeCodeImg',
     method: 'get'
   })
 }
@@ -42,7 +42,7 @@ export function getRouter(roule) {
 
 export function logout() {
   return request({
-    url: '/user/logout',
+    url: '/login/logout',
     method: 'post'
   })
 }
