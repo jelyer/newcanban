@@ -20,6 +20,13 @@ export function getInfo(token) {
   })
 }
 
+export function changeCodeImg() {
+  return request({
+    url: '/admin/login/changeCodeImg',
+    method: 'get'
+  })
+}
+
 export function getRouter(roule) {
   console.log(roule)
   if (roule === 'admin') {
