@@ -252,7 +252,7 @@
 
 <script>
   import operationForm from "@/components/operationForm/operationForm";
-  import {getbox1data} from "@/api/box1"
+ // import {getbox1data} from "@/api/box1"
   export default {
     name: 'box1',
     components: {
@@ -334,10 +334,10 @@
           }
           this.echartArr[0].setOption(this.echartObjArr[0]);
         });
-        getbox1data(this.listQuery).then(response => {
+        /*getbox1data(this.listQuery).then(response => {
           this.list = response.data.items
           this.listLoading = false
-        })
+        })*/
         this.$axios.get('static/json/'+response.data.data[1].dataKey+'.json').then((res) => {
 
           if(response.data.data[1].key!=0){
