@@ -108,9 +108,14 @@ export default {
   }
   .navbutton .navb:hover{opacity: .8}
   .navbar {
-    height: 60px;
-    line-height: 60px;
+    height: 3.5rem;
+    line-height: 3.5rem;
     border-radius: 0px !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #000;
     .hamburger-container {
       line-height: 60px;
       height: 60px;

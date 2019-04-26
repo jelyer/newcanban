@@ -186,7 +186,7 @@
   }
   .componentsContent{
     width: 100%;
-    height:24rem ;
+    height:26rem ;
     border: 2px solid #2e323b;
   }
   .componentsTitle{
@@ -208,19 +208,19 @@
   .btnDiv{
     margin-top:1rem;
   }
-  .subBtn{
+  .btnDiv>div{
+    width: 6rem;
+    height: 2.1rem;
     display: inline-block;
-    padding: 0.1rem 2rem;
-    border: 1px solid ;
-    margin-right: 1rem;
+    line-height: 2.1rem;
+    text-align: center;
+    background: url(/static/image/choicBtn.png) no-repeat center;
+    background-size: 100% 100%;
+    color: #3caff2;
+    font-size: .95rem;
     cursor: pointer;
   }
-  .addDataBtn{
-    display: inline-block;
-    border: 1px solid ;
-    padding: 0.2rem 0.5rem;
-    cursor: pointer;
-  }
+
 
   .el-message-box__header span,.el-message-box__content textarea{
     color: black;

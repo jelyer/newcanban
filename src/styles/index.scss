@@ -80,7 +80,8 @@ a:hover {
 //main-container全局样式
 .app-main {
   min-height: 100%;
-  height:calc(100vh - 84px) ;
+  height:calc(100vh - 5rem) ;
+  margin-top: 4rem;
 }
 
 .app-container {
@@ -120,4 +121,5 @@ a:hover {
 .routerDiv,.mainBox{height: calc(100vh - 84px);}
 .largeScreen .app-main{
   height: 100vh;
+  margin-top: 0;
 }
