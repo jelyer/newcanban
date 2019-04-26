@@ -39,6 +39,7 @@ export default {
       'sidebar'
     ]),
     routes() {
+      console.log(this.$store.getters.routerList)
       return this.$store.getters.routerList
     },
     variables() {

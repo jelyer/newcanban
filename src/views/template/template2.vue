@@ -12,24 +12,7 @@
               <p class="boxTitle">仓库预警报表</p>
               <div class="boxContent">
                 <div class="boxContent-div">
-                  <el-row>
-                    <el-col :span="6">
-                      <p><span></span>商品过期数量</p>
-                      <div><span>35</span>个</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <p><span></span>订单超时数量</p>
-                      <div><span>35</span>个</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <p><span></span>安全库存预警数量</p>
-                      <div><span>35</span>个</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <p><span></span>禁售库存数量</p>
-                      <div><span>35</span>个</div>
-                    </el-col>
-                  </el-row>
+
                 </div>
                 <div class="icoTL"></div>
                 <div class="icoTR"></div>
@@ -42,67 +25,7 @@
                 <p class="boxTitle">到货预约信息</p>
                 <div class="boxContent">
                   <div class="boxContent-div">
-                    <div class="Tb-box">
-                      <div class="Tb-title">
-                        <el-row>
-                          <el-col :span="14">
-                            商品名称
-                          </el-col>
-                          <el-col :span="4">
-                            单数
-                          </el-col>
-                          <el-col :span="6">
-                            件数
-                          </el-col>
-                        </el-row>
-                      </div>
-                      <div class="Tb-content">
-                        <el-row>
-                          <el-col :span="14" title="百草味-每日坚果每日坚果每日坚果">
-                            百草味-每日坚果每日坚果每日坚果
-                          </el-col>
-                          <el-col :span="4">
-                            1234
-                          </el-col>
-                          <el-col :span="6">
-                            56789
-                          </el-col>
-                        </el-row>
-                        <el-row>
-                          <el-col :span="14" title="百草味-每日坚果">
-                            百草味-每日坚果
-                          </el-col>
-                          <el-col :span="4">
-                            1234
-                          </el-col>
-                          <el-col :span="6">
-                            56789
-                          </el-col>
-                        </el-row>
-                        <el-row>
-                          <el-col :span="14" title="百草味-肉松饼">
-                            百草味-肉松饼
-                          </el-col>
-                          <el-col :span="4">
-                            1234
-                          </el-col>
-                          <el-col :span="6">
-                            56789
-                          </el-col>
-                        </el-row>
-                        <el-row>
-                          <el-col :span="14" title="百草味-芒果干">
-                            百草味-芒果干
-                          </el-col>
-                          <el-col :span="4">
-                            1234
-                          </el-col>
-                          <el-col :span="6">
-                            56789
-                          </el-col>
-                        </el-row>
-                      </div>
-                    </div>
+
                   </div>
                   <div class="icoTL"></div>
                   <div class="icoTR"></div>
@@ -114,82 +37,7 @@
                 <p class="boxTitle">快递订单完成情况</p>
                 <div class="boxContent">
                   <div class="boxContent-div">
-                    <div class="Tb-box">
-                      <div class="Tb-title">
-                        <el-row>
-                          <el-col :span="10">
-                            快递公司
-                          </el-col>
-                          <el-col :span="5">
-                            总单量
-                          </el-col>
-                          <el-col :span="5">
-                            完成量
-                          </el-col>
-                          <el-col :span="4">
-                            占比
-                          </el-col>
-                        </el-row>
-                      </div>
-                      <div class="Tb-content">
-                        <el-row>
-                          <el-col :span="10" title="百草味-每日坚果每日坚果每日坚果">
-                            百草味-每日坚果每日坚果每日坚果
-                          </el-col>
-                          <el-col :span="5">
-                            42537
-                          </el-col>
-                          <el-col :span="5">
-                            1344
-                          </el-col>
-                          <el-col :span="4">
-                            36%
-                          </el-col>
-                        </el-row>
-                        <el-row>
-                          <el-col :span="10" title="百草味-每日坚果">
-                            百草味-每日坚果
-                          </el-col>
-                          <el-col :span="5">
-                            51234
-                          </el-col>
-                          <el-col :span="5">
-                            2345
-                          </el-col>
-                          <el-col :span="4">
-                            42%
-                          </el-col>
-                        </el-row>
-                        <el-row>
-                          <el-col :span="10" title="百草味-肉松饼">
-                            百草味-肉松饼
-                          </el-col>
-                          <el-col :span="5">
-                            56789
-                          </el-col>
-                          <el-col :span="5">
-                            1234
-                          </el-col>
-                          <el-col :span="4">
-                            40%
-                          </el-col>
-                        </el-row>
-                        <el-row>
-                          <el-col :span="10" title="百草味-芒果干">
-                            百草味-芒果干
-                          </el-col>
-                          <el-col :span="5">
-                            56789
-                          </el-col>
-                          <el-col :span="5">
-                            1234
-                          </el-col>
-                          <el-col :span="4">
-                            50%
-                          </el-col>
-                        </el-row>
-                      </div>
-                    </div>
+
                   </div>
                   <div class="icoTL"></div>
                   <div class="icoTR"></div>
@@ -252,9 +100,8 @@
 
 <script>
   import operationForm from "@/components/operationForm/operationForm";
-  import {getbox1data} from "@/api/box1"
   export default {
-    name: 'box1',
+    name: 'box2',
     components: {
       operationForm
     },
@@ -334,10 +181,6 @@
           }
           this.echartArr[0].setOption(this.echartObjArr[0]);
         });
-        getbox1data(this.listQuery).then(response => {
-          this.list = response.data.items
-          this.listLoading = false
-        })
         this.$axios.get('static/json/'+response.data.data[1].dataKey+'.json').then((res) => {
 
           if(response.data.data[1].key!=0){
@@ -385,8 +228,8 @@
           let nowDivBox=document.getElementById(eleId);
           //let echartBox=nowDivBox.getElementsByClassName("boxContent")[0];
           if(nowDivBox.getAttribute("class").indexOf('active')==-1){
-            this.$refs.operation_form.form.boxTitle=nowDivBox.getElementsByClassName('boxTitle')[0].innerHTML;
-           document.getElementById('dataKey').value='';
+            this.$refs.operation_form.form.boxTitle=nowDivBox.getElementsByClassName('boxTitle')[0].innerHTML;;
+            document.getElementById('dataKey').value='';
             this.allData=null;
             this.nowDivIndex=nowDivBox.getAttribute('index')*1;
             this.nowDivKey=this.pageData.data[this.nowDivIndex].key;
@@ -695,114 +538,5 @@
   }
   .rightSetting{background:rgb(10, 17, 50)}
   .rightSetting .title{width:100%;height:60px;line-height: 60px;text-align: center;font-size: 16px;color: #209ff2;}
-  .rightSetting .content{height: calc(100vh - 84px); background: black;  margin: 0 5px;overflow: hidden;  /*border: 1px solid #0db3fd;*/}
-
-
-  /*数据样式##########################starrt*/
-  .firstLeftTop .el-row{
-    height: 100%;
-    padding-top: 1.3rem;
-  }
-  .el-row>div{
-    height: 100%;
-    text-align: center;
-  }
-  .el-row .el-col p{
-    font-size: 1.2rem;
-  }
-  .el-row .el-col p span{
-    width: 0.7rem;
-    height: 0.7rem;
-    border-radius: 50%;
-    display: inline-block;
-    margin:0 0.5rem;
-    vertical-align: middle;
-  }
-  .el-row .el-col:nth-child(1) p span{
-    background-color: #ffb522;
-  }
-  .el-row .el-col:nth-child(2) p span{
-    background-color: #44b9ef;
-  }
-  .el-row .el-col:nth-child(3) p span{
-    background-color: #61e263;
-  }
-  .el-row .el-col:nth-child(4) p span{
-    background-color: #fd3126;
-  }
-  .el-row .el-col div{
-    margin-top: 0.5rem;
-  }
-  .el-row .el-col div span{
-    font-size: 2rem;
-    margin:0 0.5rem;
-  }
-
-  /*列表样式##########################starrt*/
-  .Tb-box{
-    width: 100%;
-    height: 100%;
-    padding-left: 1.3rem;
-    overflow: hidden;
-  }
-  .Tb-box .el-row .el-col{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.8rem;
-  }
-  .Tb-title{
-    height: 20%;
-    color: #3caff2;
-  }
-  .Tb-title div{
-    height: 100%;
-
-  }
-  .Tb-box .el-row .el-col:nth-child(1){
-    text-align: left;
-  }
-  .Tb-content{
-    height: 75%;
-    overflow-y: scroll;
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  ::-webkit-scrollbar{
-    display: none;
-  }
+  .rightSetting .content{height: calc(100vh - 80px); background: rgb(16, 40, 74);  margin: 0 5px;  border: 1px solid #0db3fd;}
 </style>

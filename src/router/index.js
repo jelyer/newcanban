@@ -31,27 +31,27 @@ export const StaticRouterMap = [
   },
   { path: '/404', component: () => import('@/views/404'), hidden: true },
   {
-    path: '/',
+    path: '',
     component: Layout,
-    redirect: '/box1',
-    name: 'box1',
-    meta: { title: '主页', icon: '/static/image/box3.png' },
+    redirect: '/template1',
+    name: 'template1',
+    meta: { title: '模板一页面标题', icon: '/static/image/box3.png' },
     children: [
       {
-        path: 'box1',
-        component: () => import('@/views/box1/index')
+        path: 'template1',
+        component: () => import('@/views/template/template1')
       }
     ]
   },
   {
-    path: '/box2',
+    path: '',
     component: Layout,
-    name: 'box2',
-    meta: { title: '主页', icon: '/static/image/box3.png' },
+    name: 'template2',
+    meta: { title: '模板二页面标题', icon: '/static/image/box3.png' },
     children: [
       {
-        path: '/box2/box2',
-        component: () => import('@/views/box2/line')
+        path: 'template2',
+        component: () => import('@/views/template/template2')
       }
     ]
   }

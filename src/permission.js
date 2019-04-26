@@ -64,23 +64,23 @@ function gotoRouter(to, next) {
       console.log('解析后端动态路由', res.data.data.router)
       console.log(JSON.stringify(res.data.data.router))
       var jsondata = [{
-        "name": "Nested",
+        "name": "template1",
         "url": "",
-        "title": "box1",
+        "title": "模板1新增看板1",
         "icon": "/static/image/box1.png",
         "children":  [{
-          "name": "box1",
-          "url": "/box1?pageId=p2",
+          "name": "template1",
+          "url": "/template1?pageId=p2",
          }]
       },
       {
-        "name": "box2",
-        "url": "/",
-        "title": "box2",
+        "name": "template2",
+        "url": "",
+        "title": "模板2新增看板1",
         "icon": "/static/image/box2.png",
           "children":  [{
-            "name": "box2",
-            "url": "box2/box2?pageId=p3"
+            "name": "template2",
+            "url": "/template2?pageId=p3"
           }]
        }
     ]

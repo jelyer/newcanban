@@ -93,7 +93,10 @@
 }
 .menu-wrapper div{border: 1px solid #ccc;box-sizing: border-box}
 .menu-wrapper .router-link-exact-active li{background:none !important;}
+.menu-wrapper li>div{position: relative}
 .menu-wrapper .router-link-exact-active div{width:100%;height:100%;border: 1px solid #0db3fd;box-sizing: border-box}
+.menu-wrapper .el-menu-item .itemTitle{width:100%;height:1.4rem;box-sizing: border-box;position:absolute;left: 0;text-align: center;background: #000;
+  font-size: 1rem;line-height:1.4rem;border: none; color: #0db3fd;bottom: 0;transition: all 0.3s; }
 .menu-wrapper div:hover{width:100%;height:100%;border: 2px solid #0db3fd;}
 .menu-wrapper .el-menu-item{/*height:85px; */   height: auto;}
 .menu-wrapper .el-menu-item{background:none !important}

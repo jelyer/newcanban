@@ -9,7 +9,7 @@ const map = {
   'Menu1-2': () => import('@/views/nested/menu1/menu1-2'),
   line:() => import('@/views/charts/line'),
   keyboard:() => import('@/views/charts/keyboard'),
-  box2:() => import('@/views/box2/line'),
+  template2:() => import('@/views/template/template2'),
 
 
   form: () => import('@/views/layout/Layout'),
