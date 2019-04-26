@@ -21,8 +21,8 @@
 
       </div>
       <div class="btnDiv">
-        <div class="subBtn" id="subBtn" @click="saveChanges()">保存</div>
-        <div class="addDataBtn" id="addDataBtn"  @click="addDataWindow()">新增</div>
+        <div class="" id="subBtn" @click="saveChanges()">保存看板</div>
+        <div class="addDataBtn" id="addDataBtn"  @click="addDataWindow()">新增数据</div>
       </div>
     </el-form>
 </template>
@@ -206,19 +206,7 @@
   .btnDiv{
     margin-top:1rem;
   }
-  .subBtn{
-    display: inline-block;
-    padding: 0.3rem 2rem;
-    border: 1px solid ;
-    margin-right: 1rem;
-    cursor: pointer;
-  }
-  .addDataBtn{
-    display: inline-block;
-    border: 1px solid ;
-    padding: 0.3rem 1rem;
-    cursor: pointer;
-  }
+
 
   .el-message-box__header span,.el-message-box__content textarea{
     color: black;

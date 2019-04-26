@@ -59,6 +59,9 @@ export default {
       //this.$store.dispatch('ToggleSideBar')
       let theSideBar=document.getElementsByClassName('app-wrapper')[0];
       if(theSideBar.getAttribute("class").indexOf('openSidebar')==-1){
+        if(document.getElementsByClassName('main-container')[0].getElementsByClassName('active').length>0){
+          document.getElementsByClassName('main-container')[0].getElementsByClassName('active') [0].classList.remove('active');
+        }
         theSideBar.classList.remove('hideSidebar');
         theSideBar.classList.add('openSidebar');
       }else {
@@ -72,6 +75,10 @@ export default {
       })
     },
     largeScreen:function(){
+      if(document.getElementsByClassName('main-container')[0].getElementsByClassName('active').length>0){
+        document.getElementsByClassName('main-container')[0].getElementsByClassName('active') [0].classList.remove('active');
+      }
+
       document.getElementsByClassName('app-wrapper')[0].classList.add('largeScreen');
       this.$message('esc键 退出大屏展示');
       document.onkeydown=function () {
@@ -108,9 +115,14 @@ export default {
   }
   .navbutton .navb:hover{opacity: .8}
   .navbar {
-    height: 60px;
-    line-height: 60px;
+    height: 3.5rem;
+    line-height: 3.5rem;
     border-radius: 0px !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #000;
     .hamburger-container {
       line-height: 60px;
       height: 60px;

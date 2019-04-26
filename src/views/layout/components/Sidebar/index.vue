@@ -1,8 +1,8 @@
 <template>
   <el-scrollbar wrap-class="scrollbar-wrapper">
-    <div class="sidebtn">
+    <!--<div class="sidebtn">
       <div class="sidb">设置</div>
-    </div>
+    </div>-->
 
     <el-menu
       :default-active="$route.path"

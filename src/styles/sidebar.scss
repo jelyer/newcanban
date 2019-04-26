@@ -8,6 +8,7 @@
     margin-left: $sideBarWidth;
     margin-right: 20px;
     position: relative;
+    overflow: hidden;
   }
 
   // 侧边栏 Sidebar container
@@ -22,7 +23,7 @@
     left: 0;
     z-index: 1001;
     overflow: hidden;
-    padding-top: 60px;
+    padding-top: 4rem;
 
     //reset element-ui css
     .horizontal-collapse-transition {
@@ -71,15 +72,13 @@
   .rightSetting{
     transition: width 0.28s;
     width: 0px;
-    height: 100%;
     position: fixed;
     font-size: 0px;
-    top: 0;
+    top: 3.5rem;
     bottom: 0;
     right: 0;
     z-index: 1001;
     overflow: hidden;
-    padding-top: 60px;
   }
 
   .hideSidebar {
@@ -88,11 +87,11 @@
     }
 
     .sidebtn{visibility:hidden}
-    .rightSetting{width:250px}
+    .rightSetting{width:17rem}
 
     .main-container {
-      margin-left: 20px;
-      margin-right:260px
+      margin-left: 1rem;
+      margin-right:18rem;
     }
 
     .submenu-title-noDropdown {
