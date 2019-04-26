@@ -434,9 +434,4 @@
   .secondBox .boxContent{
     height:85% ;
   }
-
-
-  .rightSetting{background:rgb(10, 17, 50)}
-  .rightSetting .title{width:100%;height:60px;line-height: 60px;text-align: center;font-size: 16px;color: #209ff2;}
-  .rightSetting .content{height: calc(100vh - 80px); background: rgb(16, 40, 74);  margin: 0 5px;  border: 1px solid #0db3fd;}
 </style>
