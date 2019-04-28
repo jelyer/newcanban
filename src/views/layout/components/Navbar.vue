@@ -232,7 +232,7 @@ export default {
         color: #0db3fd;
         font-size: 1.2rem;
         margin-left: 0.5rem;
-        padding-top: 1.8rem;
+        padding-top: 1.6rem;
         line-height: 1.2rem;
       }
     }

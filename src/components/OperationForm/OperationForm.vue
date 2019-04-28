@@ -208,8 +208,6 @@
   .operaform{
     color: white;
     font-size: 12px;
-  }
-  .operaform .form{
     background: black;
     padding: 0 1rem;
   }
@@ -277,8 +275,20 @@
   }
   .btnDiv{
     margin-top:1rem;
+    text-align: center;
   }
-
+  .btnDiv>div{
+    width: 6rem;
+    height: 2.1rem;
+    display: inline-block;
+    line-height: 2.1rem;
+    text-align: center;
+    background: url(/static/image/choicBtn.png) no-repeat center;
+    background-size: 100% 100%;
+    color: #3caff2;
+    font-size: .95rem;
+    cursor: pointer;
+  }
 
   .el-message-box__header span,.el-message-box__content textarea{
     color: black;
