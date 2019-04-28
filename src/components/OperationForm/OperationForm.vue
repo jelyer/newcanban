@@ -27,24 +27,24 @@
         </div>
       </el-form>
 
-      <el-dialog modal="false" v-dialogDrag title="添加数据源" :visible.sync="dialogFormVisible">
+      <el-dialog modal="false" v-dialogDrag title="添加数据源" width="500px" :visible.sync="dialogFormVisible">
         <el-form :rules="rules" ref="dataForm" :model="dataForm" status-icon label-position="left" label-width="100px" style='margin:0 30px;'>
-          <el-form-item label="编码" >
+          <el-form-item label="编码" prop="code">
             <el-input size="mini" v-model="dataForm.code"></el-input>
           </el-form-item>
-          <el-form-item label="名称" >
+          <el-form-item label="名称" prop="name">
             <el-input size="mini" v-model="dataForm.name"></el-input>
           </el-form-item>
-          <el-form-item label="类型" >
-            <el-select size="mini" v-model="dataForm.type" placeholder="请选择">
+          <el-form-item label="类型" prop="type">
+            <el-select multiple size="mini" v-model="dataForm.type" placeholder="请选择">
               <el-option label="1" value="0">
               </el-option>
               <el-option label="2" value="1">
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="sql" >
-            <el-input size="mini" v-model="dataForm.sql" type="textarea" :rows="4"></el-input>
+          <el-form-item label="sql" prop="sql">
+            <el-input size="mini" v-model="dataForm.sql" type="textarea" :rows="5"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -56,6 +56,7 @@
 
 </template>
 <script>
+  import {addSourseData} from '@/api/chartSetting'
   export default {
     name: 'OperationForm',
     data() {
@@ -75,7 +76,13 @@
           name:undefined,
           type:undefined,
           sql:undefined
-        }
+        },
+        rules: {
+          code: [{ required: true, message: '请输入编码', trigger: 'blur' }],
+          name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
+          type: [{ required: true, message: '请选择类型', trigger: 'blur' }],
+          sql: [{ required: true, message: '请输入数据源', trigger: 'blur' }],
+        },
       }
     },
     methods: {
@@ -164,6 +171,34 @@
           console.log(2)
         }
         console.log(this.form)
+      },
+      //保存添加数据源
+      submitSourData(){
+        this.$refs['dataForm'].validate((valid) => {
+          if (valid) {
+            alert(1)
+            addSourseData(this.dataForm).then((response) => {
+              this.dialogFormVisible = false
+              if(response.data.errno == 0) {
+                this.$notify({
+                  title: '成功',
+                  message: '添加成功',
+                  type: 'success',
+                  duration: 2000
+                })
+                //刷新数据源列表 TODO
+
+              }else{
+                this.$notify({
+                  title: '提示',
+                  message: response.data.errmsg,
+                  type: 'error',
+                  duration: 3000
+                })
+              }
+            })
+          }
+        })
       }
     }
   }

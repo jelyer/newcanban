@@ -249,6 +249,7 @@ export default {
           float: left;
           overflow: hidden;
           cursor: pointer;
+          display: flex;
           span{
             display:block ;
             width: 2.4rem;
