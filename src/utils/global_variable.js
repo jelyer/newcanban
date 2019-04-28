@@ -4,19 +4,19 @@ const data3 =[100, 280, 300, 350, 550, 126, 470,335];
 const fixedChart=[
   {
     url: "c1",
-    key: "c1"
+    key: "0"
   },
   {
     url: "c2",
-    key: "c2"
+    key: "1"
   },
   {
     url: "c3",
-    key: "c3"
+    key: "2"
   },
   {
     url: "c4",
-    key: "c4"
+    key: "3"
   },
 ];
 const allChartObj =[

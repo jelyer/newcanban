@@ -308,6 +308,7 @@
         this.echartArr[0]=this.$echarts.init(document.getElementById('firstRightChart'));
         this.echartArr[1]=this.$echarts.init(document.getElementById('secondRightChart'));
         this.echartArr[2]=this.$echarts.init(document.getElementById('secondLeftChart'));
+        debugger
         this.echartObjArr[0]= this.GLOBAL.allChartObj[response.data.data[0].key];
         this.echartObjArr[1]= this.GLOBAL.allChartObj[response.data.data[1].key];
         this.echartObjArr[2]= this.GLOBAL.allChartObj[response.data.data[2].key];
