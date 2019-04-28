@@ -135,7 +135,7 @@
 </script>
 <style>
   /*表单样式############### start*/
-  .content{
+/*  .content{
     color: white;
     font-size: 12px;
   }
@@ -224,5 +224,6 @@
 
   .el-message-box__header span,.el-message-box__content textarea{
     color: black;
-  }
+  }*/
+  .v-modal{z-index: 1000}
 </style>

@@ -1,30 +1,59 @@
 <template>
-    <el-form ref="form" :model="form" label-width="80px">
-      <el-form-item label="主标题">
-        <el-input v-model="mainTitle" id="mainTitle"  v-on:input="changMainTitle()"></el-input>
-      </el-form-item>
-      <el-form-item label="图表标题">
-        <el-input v-model="form.boxTitle" id="chartTitle"  v-on:input="changTitle()"></el-input>
-      </el-form-item>
-      <el-form-item label="选择数据">
-        <el-select v-model="form.dataKey" placeholder="请选择要绑定的数据"  @change="selected()" id="dataKey">
-          <el-option :value="item.key" v-for="(item,i) in this.$parent.allData" :label="item.name" :key="i"></el-option>
-        </el-select>
-      </el-form-item>
-      <div class="componentsBox">
-        <div class="componentsTitle" >可选图表</div>
-        <div class="componentsContent">
-          <el-row>
-            <el-col :span="8" v-for="(item,i) in ableChartsData" :key="i"><div class="imgBox"  v-on:click="selectionChart(item.key)"><img :src="'/static/image/'+(item.url)+'.png'" alt=""></div></el-col>
-          </el-row>
-        </div>
+    <div class="form">
+      <el-form class="operaform" ref="form" :model="form" label-width="80px">
+        <el-form-item label="主标题">
+          <el-input v-model="mainTitle" id="mainTitle"  v-on:input="changMainTitle()"></el-input>
+        </el-form-item>
+        <el-form-item label="图表标题">
+          <el-input v-model="form.boxTitle" id="chartTitle"  v-on:input="changTitle()"></el-input>
+        </el-form-item>
+        <el-form-item label="选择数据">
+          <el-select v-model="form.dataKey" placeholder="请选择要绑定的数据"  @change="selected()" id="dataKey">
+            <el-option :value="item.key" v-for="(item,i) in this.$parent.allData" :label="item.name" :key="i"></el-option>
+          </el-select>
+        </el-form-item>
+        <div class="componentsBox">
+          <div class="componentsTitle" >可选图表</div>
+          <div class="componentsContent">
+            <el-row>
+              <el-col :span="8" v-for="(item,i) in ableChartsData" :key="i"><div class="imgBox"  v-on:click="selectionChart(item.key)"><img :src="'/static/image/'+(item.url)+'.png'" alt=""></div></el-col>
+            </el-row>
+          </div>
 
-      </div>
-      <div class="btnDiv">
-        <div class="" id="subBtn" @click="saveChanges()">保存看板</div>
-        <div class="addDataBtn" id="addDataBtn"  @click="addDataWindow()">新增数据</div>
-      </div>
-    </el-form>
+        </div>
+        <div class="btnDiv">
+          <div class="" id="subBtn" @click="saveChanges()">保存看板</div>
+          <div class="addDataBtn" id="addDataBtn"  @click="addDataWindow()">新增数据</div>
+        </div>
+      </el-form>
+
+      <el-dialog modal="false" v-dialogDrag title="添加数据源" :visible.sync="dialogFormVisible">
+        <el-form :rules="rules" ref="dataForm" :model="dataForm" status-icon label-position="left" label-width="100px" style='margin:0 30px;'>
+          <el-form-item label="编码" >
+            <el-input size="mini" v-model="dataForm.code"></el-input>
+          </el-form-item>
+          <el-form-item label="名称" >
+            <el-input size="mini" v-model="dataForm.name"></el-input>
+          </el-form-item>
+          <el-form-item label="类型" >
+            <el-select size="mini" v-model="dataForm.type" placeholder="请选择">
+              <el-option label="1" value="0">
+              </el-option>
+              <el-option label="2" value="1">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="sql" >
+            <el-input size="mini" v-model="dataForm.sql" type="textarea" :rows="4"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button size="mini"  @click="dialogFormVisible = false">取消</el-button>
+          <el-button size="mini"  type="primary" @click="submitSourData">确定</el-button>
+        </div>
+      </el-dialog>
+    </div>
+
 </template>
 <script>
   export default {
@@ -39,7 +68,14 @@
           dataKey: '',//图表数据
         },
         nowEditData:[],//现在编辑地div的数据
-
+        dialogFormVisible: false,
+        dataForm:{
+          id:undefined,
+          code:undefined,
+          name:undefined,
+          type:undefined,
+          sql:undefined
+        }
       }
     },
     methods: {
@@ -93,9 +129,10 @@
         this.$parent.echartArr[this.$parent.nowDivIndex].setOption(this.$parent.echartObjArr[this.$parent.nowDivIndex]);
       },
       addDataWindow: function () {
-        this.$alert('<div><textarea style="min-width: 300px;min-height: 100px" ></textarea></textarea></div>', '添加数据', {
+        /*this.$alert('<div><textarea style="min-width: 300px;min-height: 100px" ></textarea></textarea></div>', '添加数据', {
           dangerouslyUseHTMLString: true
-        });
+        });*/
+        this.dialogFormVisible = true;
       },
       //保存这个小的div的修改
       saveChanges: function () {
@@ -133,15 +170,15 @@
 </script>
 <style>
   /*表单样式############### start*/
-  .content{
+  .operaform{
     color: white;
     font-size: 12px;
   }
-  .content form{
+  .operaform .form{
     background: black;
     padding: 0 1rem;
   }
-  .content .el-input__inner{
+  .operaform .el-input__inner{
     height: 1.4rem;
     font-size: 0.85rem ;
     border-radius: 0;
@@ -150,21 +187,21 @@
     color: #a3a3a3;
     padding-left: 0.4rem;
   }
-  .content .el-input__icon{
+  .operaform .el-input__icon{
     line-height: 1.4rem;
   }
-  .content .el-form-item__label{
+  .operaform .el-form-item__label{
     height: 1.4rem;
     line-height: 1.4rem;
     color: white;
     width: 5.5rem !important;
     padding-right: 1rem;
   }
-  .content .el-form-item__content{
+  .operaform .el-form-item__content{
     height: 1.4rem;
     line-height: 1.4rem;
   }
-  .content  .el-form-item{
+  .operaform  .el-form-item{
     margin-top: 1rem;
   }
   .el-scrollbar .el-select-dropdown__item{
