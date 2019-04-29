@@ -9,7 +9,7 @@
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
           <div>
             <img width="100%" height="100%" :src="item.meta.icon != undefined ? item.meta.icon : ''"/>
-            <div class="itemTitle" v-text="item.meta.title"></div>
+            <div class="itemTitle" v-text="item.name"></div>
             <!--<img width="100%" height="100%" :src="item.meta.icon == 1 ? zhu2 : zhu3"/>-->
             <!--:icon="onlyOneChild.meta.icon||item.meta.icon"  :title="generateTitle(onlyOneChild.meta.title)"-->
             <item  v-if="onlyOneChild.meta"   />

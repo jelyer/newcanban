@@ -18,8 +18,11 @@ import '@/permission' // permission control
 import echarts from 'echarts'
 import commonFun from './utils/commonFun'
 import globalVariable from './utils/global_variable'
+import './directives'
 
 import  axios from 'axios'
+import qs from 'qs';
+Vue.prototype.$qs = qs;
 Vue.prototype.$axios=axios;
 Vue.prototype.$echarts=echarts;
 Vue.prototype.COMMONFUN=commonFun; //将全局函数当做插件来进行注册

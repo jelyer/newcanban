@@ -225,5 +225,4 @@
   .el-message-box__header span,.el-message-box__content textarea{
     color: black;
   }*/
-  .v-modal{z-index: 1000}
 </style>

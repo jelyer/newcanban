@@ -64,9 +64,9 @@ function gotoRouter(to, next) {
       console.log('解析后端动态路由', res.data.data.router)
       console.log(JSON.stringify(res.data.data.router))
       var jsondata = [{
-        "name": "template1",
+        "name": "模板1新增看板1",
         "url": "",
-        "title": "模板1新增看板1",
+        "title":"2",
         "icon": "/static/image/box1.png",
         "children":  [{
           "name": "template1",
@@ -74,9 +74,9 @@ function gotoRouter(to, next) {
          }]
       },
       {
-        "name": "template2",
+        "name": "模板2新增看板1",
         "url": "",
-        "title": "模板2新增看板1",
+        "title":"1",
         "icon": "/static/image/box2.png",
           "children":  [{
             "name": "template2",

@@ -252,7 +252,7 @@
 
 <script>
   import operationForm from "@/components/operationForm/operationForm";
- // import {getbox1data} from "@/api/box1"
+  import {getSourDataAll} from '@/api/chartSetting'
   export default {
     name: 'box1',
     components: {
@@ -400,11 +400,21 @@
           }
         }
       },
-      //获取所有的可取后台数据列表
+      //获取数据源下拉列表
       getAllDatas:function () {
+        getSourDataAll().then((response) => {
+            if(response.data.errno == 0) {
 
-        this.$axios.get('static/json/allDatas.json').then(response => {
-          this.allData=response.data.allDatas;
+              var options = [];
+              for(var i=0;i<response.data.data.length;i++){
+                var tree = {};
+                tree.label = response.data.data[i].dataname;
+                tree.value = response.data.data[i].datakey;
+                options.push(tree);
+              }
+              this.allData = options;
+              console.log(this.allData)
+            }
         })
       },
     },

@@ -7,7 +7,7 @@ axios.default = IPCONFIG;//设置默认ip
 const service = axios.create({
   //baseURL: process.env.BASE_API, // api 的 base_url
   baseURL:IPCONFIG,
-  timeout: 5000 // 请求超时时间
+  timeout: 50000 // 请求超时时间
 })
 
 // request拦截器
@@ -60,7 +60,7 @@ service.interceptors.response.use(
     Message({
       message: '登录连接超时（后台不能连接，请联系系统管理员）',
       type: 'error',
-      duration:5000
+      duration:3000
     })
     return Promise.reject(error)
   })

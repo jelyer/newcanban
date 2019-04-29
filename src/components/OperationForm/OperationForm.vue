@@ -9,7 +9,7 @@
         </el-form-item>
         <el-form-item label="选择数据">
           <el-select v-model="form.dataKey" placeholder="请选择要绑定的数据"  @change="selected()" id="dataKey">
-            <el-option :value="item.key" v-for="(item,i) in this.$parent.allData" :label="item.name" :key="i"></el-option>
+            <el-option :value="item.value" v-for="(item,i) in this.$parent.allData" :label="item.label" :key="i"></el-option>
           </el-select>
         </el-form-item>
         <div class="componentsBox">
@@ -29,27 +29,30 @@
 
       <el-dialog modal="false" v-dialogDrag title="添加数据源" width="500px" :visible.sync="dialogFormVisible">
         <el-form :rules="rules" ref="dataForm" :model="dataForm" status-icon label-position="left" label-width="100px" style='margin:0 30px;'>
-          <el-form-item label="编码" prop="code">
-            <el-input size="mini" v-model="dataForm.code"></el-input>
+          <el-form-item label="数据编码" prop="datakey">
+            <el-input clearable size="mini" v-model="dataForm.datakey"></el-input>
           </el-form-item>
-          <el-form-item label="名称" prop="name">
-            <el-input size="mini" v-model="dataForm.name"></el-input>
+          <el-form-item label="数据名称" prop="dataname">
+            <el-input clearable size="mini" v-model="dataForm.dataname"></el-input>
           </el-form-item>
-          <el-form-item label="类型" prop="type">
-            <el-select multiple size="mini" v-model="dataForm.type" placeholder="请选择">
-              <el-option label="1" value="0">
-              </el-option>
-              <el-option label="2" value="1">
-              </el-option>
+          <el-form-item label="图表类型" prop="datatype">
+            <el-select clearable style="width:300px"  multiple size="mini" v-model="dataForm.datatype" placeholder="请选择">
+              <el-option label="横向柱状图" value="0"></el-option>
+              <el-option label="纵向柱状图" value="1"></el-option>
+              <el-option label="折线图" value="2"></el-option>
+              <el-option label="饼状图" value="3"></el-option>
+              <el-option label="环形图" value="4"></el-option>
+              <el-option label="数据表" value="5"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="sql" prop="sql">
-            <el-input size="mini" v-model="dataForm.sql" type="textarea" :rows="5"></el-input>
+          <el-form-item label="数据配置" prop="rema">
+            <el-input clearable size="mini" v-model="dataForm.rema" type="textarea" :rows="5"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button size="mini"  @click="dialogFormVisible = false">取消</el-button>
-          <el-button size="mini"  type="primary" @click="submitSourData">确定</el-button>
+          <el-button size="mini"   @click="resetForm('dataForm')">重置</el-button>
+          <el-button size="mini"  type="primary" @click="submitSourData">保存</el-button>
         </div>
       </el-dialog>
     </div>
@@ -71,19 +74,21 @@
         nowEditData:[],//现在编辑地div的数据
         dialogFormVisible: false,
         dataForm:{
-          id:undefined,
-          code:undefined,
-          name:undefined,
-          type:undefined,
-          sql:undefined
+          datakey:undefined,
+          dataname:undefined,
+          datatype:undefined,
+          rema:undefined
         },
         rules: {
-          code: [{ required: true, message: '请输入编码', trigger: 'blur' }],
-          name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
-          type: [{ required: true, message: '请选择类型', trigger: 'blur' }],
-          sql: [{ required: true, message: '请输入数据源', trigger: 'blur' }],
+          datakey: [{ required: true, message: '请输入编码', trigger: 'blur' }],
+          dataname: [{ required: true, message: '请输入名称', trigger: 'blur' }],
+          datatype: [{ required: true, message: '请选择类型', trigger: 'blur' }],
+          rema: [{ required: true, message: '请输入数据源', trigger: 'blur' }],
         },
       }
+    },
+    mounted(){
+      this.getTempleteAll();
     },
     methods: {
       //主标题联动改变
@@ -176,8 +181,20 @@
       submitSourData(){
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
-            alert(1)
-            addSourseData(this.dataForm).then((response) => {
+           // this.dataForm.rema = ""
+            let datatype = this.dataForm.datatype;
+            if(datatype.length > 0){
+               let datastr = "";
+               for(let d in datatype){
+                 if(d == datatype.length -1){
+                   datastr = datastr + datatype[d];
+                 }else{
+                   datastr = datastr + datatype[d] + ","
+                 }
+               }
+              this.dataForm.datatype = datastr;
+            }
+            addSourseData(this.$qs.stringify(this.dataForm)).then((response) => {
               this.dialogFormVisible = false
               if(response.data.errno == 0) {
                 this.$notify({
@@ -197,6 +214,24 @@
                 })
               }
             })
+          }
+        })
+      },
+      //重置
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      },
+      getTempleteAll(){
+        getSourDataAll().then((response) => {
+          if(response.data.errno == 0) {
+            var options = [];
+            for(var i=0;i<response.data.data.length;i++){
+              var tree = {};
+              tree.label = response.data.data[i].appkey;
+              tree.value = response.data.data[i].appkey;
+              options.push(tree);
+            }
+            this.options = options;
           }
         })
       }
@@ -237,16 +272,16 @@
   .operaform  .el-form-item{
     margin-top: 1rem;
   }
-  .el-scrollbar .el-select-dropdown__item{
+  .operaform .el-scrollbar .el-select-dropdown__item{
     height: 1.4rem;
     font-size: 0.85rem !important;
     line-height: 1.4rem;
   }
-  .el-scrollbar .el-select-dropdown__item span{
+  .operaform .el-scrollbar .el-select-dropdown__item span{
     color: black;
     font-size: 0.85rem !important;
   }
-  .el-form-item{
+  .operaform .el-form-item{
     margin-bottom: 0;
   }
   .componentsBox{
@@ -290,7 +325,7 @@
     cursor: pointer;
   }
 
-  .el-message-box__header span,.el-message-box__content textarea{
+  .operaform .el-message-box__header span,.el-message-box__content textarea{
     color: black;
   }
 </style>
