@@ -38,7 +38,4 @@ export default{
     }
     return newData;
   },
-  addDataWindows:function () {
-    console.log(123)
-  }
 }

@@ -107,7 +107,7 @@
         this.$axios.get('static/json/' + this.form.dataKey + '.json').then(response => {
           let theData = response.data.dataUrl1;
           _this.nowEditData =theData;
-          if (_this.$parent.nowDivKey != 0) {
+          /*if (_this.$parent.nowDivKey != 0) {
             let dataX = [];
             let dataY = [];
             for (var i = 0; i < theData.length; i++) {
@@ -122,11 +122,14 @@
 
           _this.$parent.$echarts.init(document.getElementById(_this.$parent.nowEditChartId)).clear();
           _this.$parent.echartArr[_this.$parent.nowDivIndex].setOption(_this.$parent.echartObjArr[_this.$parent.nowDivIndex]);
-          _this.ableChartsData = response.data.ableCharts
+          _this.ableChartsData = response.data.ableCharts*/
         })
       },
       //选中某一图表后及时反映到页面
       selectionChart: function (key) {
+        if(this.nowEditData.length<0){
+          return ;
+        }
         this.form.key = key;
         this.$parent.echartObjArr[this.$parent.nowDivIndex] = this.GLOBAL.allChartObj[key];
         if (key != 0) {

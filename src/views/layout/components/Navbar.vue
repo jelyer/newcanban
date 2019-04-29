@@ -84,7 +84,11 @@ export default {
         }
         theSideBar.classList.remove('hideSidebar');
         theSideBar.classList.add('openSidebar');
+        if(document.getElementsByClassName('editPanel')[0].getAttribute("class").indexOf('selected')!=-1){
+          document.getElementsByClassName('editPanel')[0].classList.remove('selected');
+        }
       }else {
+        document.getElementsByClassName('editPanel')[0].classList.add('selected');
         theSideBar.classList.remove('openSidebar');
         theSideBar.classList.add('hideSidebar');
       }
@@ -283,6 +287,11 @@ export default {
         .editPanel:hover span{
           background: url("/static/image/top-ico/icon-edit-selected.png") no-repeat center;
           background-size: 80%;
+        }
+        .editPanel.selected span{
+          background: url("/static/image/top-ico/icon-edit-selected.png") no-repeat center;
+          background-size: 80%;
+          border-top: 2px solid #0db3fd;
         }
         .fullScreen{
           span{

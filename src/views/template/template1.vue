@@ -379,6 +379,7 @@
       },
       //点击需要编辑的div后
       toEditDiv:function (eleId) {
+        debugger
         let theStatus=document.getElementsByClassName('app-wrapper')[0];
         //if(!this.sidebar.opened){
         if(theStatus.getAttribute("class").indexOf('openSidebar')==-1){
