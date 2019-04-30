@@ -1,9 +1,33 @@
 一、图表类型
      横向柱状图：0
      纵向柱状图：1
-     折线图 2
-     饼状图 3
-     环形图 4
-     数据表 5
+     折线图: 2
+     饼状图: 3
+     环形图: 4
+     数据表: 5
 
-二、
+二、模板ID
+     基础模板
+        baseTemplate1
+        baseTemplate2
+        baseTemplate3
+        baseTemplate4
+        ...
+     拓展模板(基础模板-Expand序号)
+        baseTemplate1Expand1
+        baseTemplate1-Expand2
+        ...
+
+        baseTemplate2-Expand1
+        baseTemplate2-Expand2
+        ...
+
+三、页面模块ID
+
+    moduleId1
+    moduleId2
+    moduleId3
+    ...
+
+
+
