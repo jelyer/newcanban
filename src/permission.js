@@ -61,29 +61,24 @@ router.afterEach(() => {
 function gotoRouter(to, next) {
   getRouter(store.getters.token) // 获取动态路由的方法
     .then(res => {
-      console.log('解析后端动态路由', res.data.data.router)
-      console.log(JSON.stringify(res.data.data.router))
-      var jsondata = [{
-        "name": "模板1新增看板1",
-        "url": "",
-        "title":"2",
-        "icon": "/static/image/box1.png",
-        "children":  [{
-          "name": "template1",
-          "url": "/template1?pageId=p2",
-         }]
-      },
-      {
-        "name": "模板2新增看板1",
-        "url": "",
-        "title":"1",
-        "icon": "/static/image/box2.png",
-          "children":  [{
-            "name": "template2",
-            "url": "/template2?pageId=p3"
-          }]
-       }
-    ]
+     // console.log(res.data.data);
+      var result = res.data.data;
+      var jsondata = [];
+      if(result.length > 0){
+        for(let n in result){
+          var data = {
+            "name": result[n].tempname,
+            "url":'',
+            "icon":"/static/image/box2.png",
+            "children":[{
+                "name":result[n].tempid,
+                "url":result[n].tempurl+"?pageId="+result[n].tempid
+            }]
+          }
+          jsondata.push(data);
+        }
+      }
+
       const asyncRouter = addRouter(jsondata) // 进行递归解析
       store.dispatch('setroles', res.data.data.permit)
       console.log(res.data.data.permit)
