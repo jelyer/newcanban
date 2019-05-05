@@ -6,6 +6,7 @@ import 'nprogress/nprogress.css' // Progress 进度条样式
 import { Message } from 'element-ui'
 import { getRouter } from './api/login'
 import { addRouter } from './utils/addRouter'
+import {getTempleteAll} from './api/chartSetting'
 
 const whiteList = ['/login']
 var data = false // 本次demo用变量凑合一下,项目里面应该放到vuex内
@@ -59,6 +60,9 @@ router.afterEach(() => {
 })
 
 function gotoRouter(to, next) {
+  getTempleteAll().then((response) => {
+    console.log(response)
+  })
   getRouter(store.getters.token) // 获取动态路由的方法
     .then(res => {
      // console.log(res.data.data);
