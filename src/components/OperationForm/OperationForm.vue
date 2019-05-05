@@ -9,7 +9,7 @@
         </el-form-item>
         <el-form-item label="选择数据">
           <el-select v-model="form.dataKey" placeholder="请选择要绑定的数据"  @change="selected()" id="dataKey">
-            <el-option :value="item.value" v-for="(item,i) in this.$parent.allData" :label="item.label" :key="i"></el-option>
+            <el-option :value="item.datakey" v-for="(item,i) in this.$parent.allData" :label="item.dataname" :key="i" :datatype="item.datatype"></el-option>
           </el-select>
         </el-form-item>
         <div class="componentsBox">
@@ -59,7 +59,7 @@
 
 </template>
 <script>
-  import {addSourseData} from '@/api/chartSetting'
+  import {addSourseData,getSourDataAll,saveTemplateSetting} from '@/api/chartSetting'
   export default {
     name: 'OperationForm',
     data() {
@@ -101,29 +101,17 @@
         theWrapBox.getElementsByClassName('boxTitle')[0].innerHTML = this.form.boxTitle;
         this.$parent.form.boxTitle = this.form.boxTitle;
       },
+      getAbleCharts:function(ableCharts){
+
+      },
       //选择一条后台数据之后发送请求，获取数据，渲染数据
       selected: function () {
+        this.getAbleCharts();
         let _this = this
-        this.$axios.get('static/json/' + this.form.dataKey + '.json').then(response => {
+        /*this.$axios.get('static/json/' + this.form.dataKey + '.json').then(response => {
           let theData = response.data.dataUrl1;
           _this.nowEditData =theData;
-          /*if (_this.$parent.nowDivKey != 0) {
-            let dataX = [];
-            let dataY = [];
-            for (var i = 0; i < theData.length; i++) {
-              dataX.push(theData[i].dataX);
-              dataY.push(theData[i].dataY);
-            }
-            _this.$parent.echartObjArr[_this.$parent.nowDivIndex].xAxis.data = dataX;
-            _this.$parent.echartObjArr[_this.$parent.nowDivIndex].series.data = dataY;
-          }else {
-            _this.$parent.echartObjArr[_this.$parent.nowDivIndex].series[0].data = this.COMMONFUN.getChartDataPie(_this.nowEditData);
-          }
-
-          _this.$parent.$echarts.init(document.getElementById(_this.$parent.nowEditChartId)).clear();
-          _this.$parent.echartArr[_this.$parent.nowDivIndex].setOption(_this.$parent.echartObjArr[_this.$parent.nowDivIndex]);
-          _this.ableChartsData = response.data.ableCharts*/
-        })
+        })*/
       },
       //选中某一图表后及时反映到页面
       selectionChart: function (key) {
@@ -151,6 +139,7 @@
       },
       //保存这个小的div的修改
       saveChanges: function () {
+        let tempid,tempname,tempconfig,tempstat,tempurl;
         this.$parent.pageData.pageTitle = this.mainTitle;
         if (this.form.dataKey == '') {
           alert('请选择数据');
@@ -169,16 +158,45 @@
           return
         }
         this.$parent.pageData.data[this.$parent.nowDivIndex] = this.form;
+        tempid=1
+        tempname=this.mainTitle;
+        tempconfig=JSON.stringify(this.$parent.pageData.data) ;
+        tempurl='/template1'
         if (this.$parent.pageData.isModle) {
           this.$parent.pageData.isModle = false;
           //新增页面
-          console.log(1)
+          tempstat=1
         } else {
           this.$parent.pageData.isModle = false;
           //不新增，只是修改页面
-          console.log(2)
+          tempstat=5
         }
-        console.log(this.form)
+        let datas={
+          tempid:tempid,
+          tempname:tempname,
+          tempconfig:tempconfig,
+          tempstat:tempstat,
+          tempurl:tempurl
+      }
+        saveTemplateSetting(this.$qs.stringify(datas)).then((response) => {
+          if(response.data.errno == 0) {
+            this.$notify({
+              title: '成功',
+              message: '添加成功',
+              type: 'success',
+              duration: 2000
+            })
+            //刷新数据源列表 TODO
+
+          }else{
+            this.$notify({
+              title: '提示',
+              message: response.data.errmsg,
+              type: 'error',
+              duration: 3000
+            })
+          }
+        })
       },
       //保存添加数据源
       submitSourData(){

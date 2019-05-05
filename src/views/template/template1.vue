@@ -379,7 +379,6 @@
       },
       //点击需要编辑的div后
       toEditDiv:function (eleId) {
-        debugger
         let theStatus=document.getElementsByClassName('app-wrapper')[0];
         //if(!this.sidebar.opened){
         if(theStatus.getAttribute("class").indexOf('openSidebar')==-1){
@@ -405,8 +404,8 @@
       getAllDatas:function () {
         getSourDataAll().then((response) => {
             if(response.data.errno == 0) {
-
-              var options = [];
+              this.allData=response.data.data
+             /* var options = [];
               for(var i=0;i<response.data.data.length;i++){
                 var tree = {};
                 tree.label = response.data.data[i].dataname;
@@ -414,7 +413,7 @@
                 options.push(tree);
               }
               this.allData = options;
-              console.log(this.allData)
+              console.log(this.allData)*/
             }
         })
       },
