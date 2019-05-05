@@ -29,9 +29,9 @@ export function getTempleteAll() {
 
 //保存属性设置
 export function saveTemplateSetting(data){
-   return request({
-     url:'/adminTemplete/save',
-     method:'post',
-     data
-   })
+  return request({
+    url:'/adminTemplete/save',
+    method:'post',
+    data
+  })
 }

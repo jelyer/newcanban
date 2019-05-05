@@ -7,7 +7,8 @@ const user = {
     name: '',
     avatar: '',
     roles: [],
-    RouterList: [] // 动态路由
+    RouterList: [], // 动态路由
+    RouterData:[],//路由数据
   },
 
   mutations: {
@@ -25,6 +26,9 @@ const user = {
     },
     set_router: (state, RouterList) => {
       state.RouterList = RouterList
+    },
+    set_routerData: (state, RouterData) => {
+      state.RouterData = RouterData
     }
   },
 
@@ -71,6 +75,11 @@ const user = {
     setRouterList({ commit }, routerList) {
 
       commit('set_router', StaticRouterMap.concat(routerList)) // 进行路由拼接并存储
+    },
+
+    // 存储路由数据
+    setRouterData({ commit }, RouterData) {
+      commit('set_routerData', RouterData) // 进行路由拼接并存储
     },
     // 存储颗粒话权限
     setroles({ commit }, roleList) {

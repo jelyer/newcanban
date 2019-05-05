@@ -7,6 +7,8 @@
      数据表: 5
 
 二、模板ID
+  2.1制定模板id
+
      基础模板
         baseTemplate1
         baseTemplate2
@@ -21,6 +23,10 @@
         baseTemplate2-Expand1
         baseTemplate2-Expand2
         ...
+
+  2.2模板状态
+
+  模板状态(1 系统模板, 5 用户编辑中模板, 9用户发布模板)
 
 三、页面模块ID
 

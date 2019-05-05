@@ -78,10 +78,11 @@ function gotoRouter(to, next) {
           jsondata.push(data);
         }
       }
+      store.dispatch('setRouterData', result) // 存储到路由数据到vuex
 
       const asyncRouter = addRouter(jsondata) // 进行递归解析
-      store.dispatch('setroles', res.data.data.permit)
-      console.log(res.data.data.permit)
+      //store.dispatch('setroles', res.data.data.permit)
+      //console.log(res.data.data.permit)
       // 一定不能写在静态路由里面,否则会出现,访问动态路由404的情况.所以在这列添加
       /*asyncRouter.push({ path: '*', redirect: '/404', hidden: true })*/
       return asyncRouter
