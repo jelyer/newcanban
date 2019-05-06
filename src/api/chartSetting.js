@@ -35,3 +35,21 @@ export function saveTemplateSetting(data){
     data
   })
 }
+
+//修改模板配置
+export function updataTemSetting(data){
+  return request({
+    url:'/adminTemplete/update',
+    method:'post',
+    data
+  })
+}
+
+//根据模板Id查找模板配置
+export function getTempById(data){
+  return request({
+    url:'/adminTemplete/findModel',
+    method:'post',
+    data
+  })
+}

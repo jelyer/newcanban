@@ -1,21 +1,31 @@
 const data1 = [1, 2, 3, 4, 5, 6, 7];
 const data2 =[500, 480, 200, 250, 350, 186, 440,130];
 const data3 =[100, 280, 300, 350, 550, 126, 470,335];
+//modeltype[可放置的容器限制]: 0：数据表；1：正方形图表；2：长方形图表；3：其它
 const fixedChart=[
   {
+    url: "c0",
+    modeltype:[0],
+    key: "-1"
+  },
+  {
     url: "c1",
+    modeltype:[1,3],
     key: "0"
   },
   {
     url: "c2",
+    modeltype:[1,2,3],
     key: "1"
   },
   {
     url: "c3",
+    modeltype:[1,2,3],
     key: "2"
   },
   {
     url: "c4",
+    modeltype:[1,2,3],
     key: "3"
   },
 ];

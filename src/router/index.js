@@ -35,7 +35,8 @@ export const StaticRouterMap = [
     component: Layout,
     redirect: '/template1',
     name: 'template1',
-    meta: { title: '模板一页面标题', icon: '/static/image/box3.png' },
+    meta: { icon: '/static/image/box3.png' },
+    stat:'已发布',
     children: [
       {
         path: 'template1',
@@ -47,7 +48,8 @@ export const StaticRouterMap = [
     path: '',
     component: Layout,
     name: 'template2',
-    meta: { title: '模板二页面标题', icon: '/static/image/box3.png' },
+    meta: { icon: '/static/image/box3.png' },
+    stat:'已发布',
     children: [
       {
         path: 'template2',
@@ -58,43 +60,6 @@ export const StaticRouterMap = [
 ]
 
 export const AsyncRouterMap = [
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    name: 'from',
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-
 ]
 
 export default new Router({

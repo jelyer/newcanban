@@ -100,6 +100,7 @@
 
 <script>
   import operationForm from "@/components/operationForm/operationForm";
+  import {getSourDataAll,getTempById} from '@/api/chartSetting'
   export default {
     name: 'box2',
     components: {
@@ -107,6 +108,8 @@
     },
     data(){
       return{
+        pageId:undefined,
+        isModle:true,//是否是模板页面
         echartArr:[],
         echartObjArr:[],
         //isFirst:true,

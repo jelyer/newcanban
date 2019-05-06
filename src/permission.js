@@ -61,7 +61,7 @@ router.afterEach(() => {
 
 function gotoRouter(to, next) {
   getTempleteAll().then((response) => {
-    console.log(response)
+    //console.log(response)
   })
   getRouter(store.getters.token) // 获取动态路由的方法
     .then(res => {
@@ -72,11 +72,12 @@ function gotoRouter(to, next) {
         for(let n in result){
           var data = {
             "name": result[n].tempname,
+            "stat": result[n].tempstat,
             "url":'',
             "icon":"/static/image/box2.png",
             "children":[{
                 "name":result[n].tempid,
-                "url":result[n].tempurl+"?pageId="+result[n].tempid
+                "url":result[n].tempurl+"?pageId="+result[n].tempid+"&stat="+result[n].tempstat
             }]
           }
           jsondata.push(data);
@@ -99,7 +100,7 @@ function gotoRouter(to, next) {
       next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
     })
     .catch(e => {
-      console.log(e)
+      //console.log(e)
       removeToken()
     })
 }

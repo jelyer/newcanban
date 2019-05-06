@@ -16,13 +16,22 @@
           <div class="componentsTitle" >可选图表</div>
           <div class="componentsContent">
             <el-row>
-              <el-col :span="8" v-for="(item,i) in ableChartsData" :key="i"><div class="imgBox"  v-on:click="selectionChart(item.key)"><img :src="'/static/image/'+(item.url)+'.png'" alt=""></div></el-col>
+              <!--curModelType-->
+
+              <el-col :span="8" v-for="(item,i) in ableChartsData" :key="i">
+
+                <div class="imgBox" v-if="item.modeltype.indexOf(curModelType) > -1"  v-on:click="selectionChart(item.key)">
+                  <img :src="'/static/image/'+(item.url)+'.png'" alt="">
+                </div>
+              </el-col>
+
             </el-row>
           </div>
 
         </div>
         <div class="btnDiv">
-          <div class="" id="subBtn" @click="saveChanges()">保存看板</div>
+          <div class=""  v-if="this.$parent.$data.isModle" id="subBtn" @click="saveChanges()">保存看板</div>
+          <div class="" v-else  @click="updataChangesData()">保存修改</div>
           <div class="addDataBtn" id="addDataBtn"  @click="addDataWindow()">新增数据</div>
         </div>
       </el-form>
@@ -45,13 +54,13 @@
               <el-option label="数据表" value="5"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="数据配置" prop="rema">
-            <el-input clearable size="mini" v-model="dataForm.rema" type="textarea" :rows="5"></el-input>
+          <el-form-item label="数据配置" prop="dataconfig">
+            <el-input clearable size="mini" v-model="dataForm.dataconfig" type="textarea" :rows="5"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button size="mini"  @click="dialogFormVisible = false">取消</el-button>
-          <el-button size="mini"   @click="resetForm('dataForm')">重置</el-button>
+          <el-button size="mini"  @click="resetForm('dataForm')">重置</el-button>
           <el-button size="mini"  type="primary" @click="submitSourData">保存</el-button>
         </div>
       </el-dialog>
@@ -59,7 +68,7 @@
 
 </template>
 <script>
-  import {addSourseData,getSourDataAll,saveTemplateSetting} from '@/api/chartSetting'
+  import {addSourseData,getSourDataAll,saveTemplateSetting,updataTemSetting} from '@/api/chartSetting'
   export default {
     name: 'OperationForm',
     data() {
@@ -77,18 +86,20 @@
           datakey:undefined,
           dataname:undefined,
           datatype:undefined,
-          rema:undefined
+          dataconfig:undefined
         },
         rules: {
           datakey: [{ required: true, message: '请输入编码', trigger: 'blur' }],
           dataname: [{ required: true, message: '请输入名称', trigger: 'blur' }],
           datatype: [{ required: true, message: '请选择类型', trigger: 'blur' }],
-          rema: [{ required: true, message: '请输入数据源', trigger: 'blur' }],
+          dataconfig: [{ required: true, message: '请输入数据源', trigger: 'blur' }],
         },
       }
     },
+    props:['mainTitle','curModelType'],
     mounted(){
       this.getTempleteAll();
+      //console.log("3333")
     },
     methods: {
       //主标题联动改变
@@ -142,27 +153,40 @@
         let tempid,tempname,tempconfig,tempstat,tempurl;
         this.$parent.pageData.pageTitle = this.mainTitle;
         if (this.form.dataKey == '') {
-          alert('请选择数据');
+          this.$message({
+            type: 'error',
+            message: '请选择数据'
+          });
           return
         }
         if (this.form.boxTitle == '') {
-          alert('请填写图表标题');
-          return
-        }
-        if (this.form.key == '') {
-          alert('请选择图表类型');
+          this.$message({
+            type: 'error',
+            message: '请填写图表标题'
+          });
           return
         }
         if (this.mainTitle == '') {
-          alert('填写页面标题');
+          this.$message({
+            type: 'error',
+            message: '填写页面标题'
+          });
+          return
+        }
+        if (this.form.key == '') {
+          this.$message({
+            type: 'error',
+            message: '请选择图表类型'
+          });
           return
         }
         this.$parent.pageData.data[this.$parent.nowDivIndex] = this.form;
-        tempid=1
+        tempid = Date.parse(new Date());
+        //if(tempid == undefined){tempid = "baseTemplate1Expand1"};
         tempname=this.mainTitle;
-        tempconfig=JSON.stringify(this.$parent.pageData.data) ;
-        tempurl='/template1'
-        if (this.$parent.pageData.isModle) {
+        tempconfig=JSON.stringify(this.$parent.pageData);
+        tempurl=this.$parent.$data.tempurl;
+        /*if (this.$parent.pageData.isModle) {
           this.$parent.pageData.isModle = false;
           //新增页面
           tempstat=1
@@ -170,23 +194,32 @@
           this.$parent.pageData.isModle = false;
           //不新增，只是修改页面
           tempstat=5
-        }
+        }*/
+        tempstat=5;//新增编辑中页面
         let datas={
           tempid:tempid,
           tempname:tempname,
           tempconfig:tempconfig,
           tempstat:tempstat,
           tempurl:tempurl
-      }
+        }
+        const loading = this.$loading({
+          lock: true,
+          text: '提交中...',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
         saveTemplateSetting(this.$qs.stringify(datas)).then((response) => {
+          setTimeout(() => {
+            loading.close();
+          }, 1000)
           if(response.data.errno == 0) {
             this.$notify({
               title: '成功',
-              message: '添加成功',
+              message: '添加成功!',
               type: 'success',
               duration: 2000
             })
-            //刷新数据源列表 TODO
 
           }else{
             this.$notify({
@@ -196,6 +229,58 @@
               duration: 3000
             })
           }
+        })
+      },
+      //如果是编辑中的模板，那么保存修改
+      updataChangesData(){
+        let tempid = this.$parent.$data.pageId;
+        let tempname= this.mainTitle;
+        let tempconfig=JSON.stringify(this.$parent.pageData);
+        if (this.form.boxTitle == '') {
+          this.$message({
+            type: 'error',
+            message: '请填写图表标题'
+          });
+          return
+        }
+        if (this.mainTitle == '') {
+          this.$message({
+            type: 'error',
+            message: '填写页面标题'
+          });
+          return
+        }
+        let datas={
+          tempid:tempid,
+          tempname:tempname,
+          tempconfig:tempconfig,
+        }
+        const loading = this.$loading({
+          lock: true,
+          text: '提交中...',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
+        updataTemSetting(this.$qs.stringify(datas)).then(response => {
+          setTimeout(() => {
+            loading.close();
+          }, 1000)
+          if(response.data.errno == 0) {
+            this.$notify({
+              title: '成功',
+              message: '修改成功!',
+              type: 'success',
+              duration: 2000
+            })
+          }else{
+            this.$notify({
+              title: '提示',
+              message: response.data.errmsg,
+              type: 'error',
+              duration: 3000
+            })
+          }
+
         })
       },
       //保存添加数据源
@@ -310,7 +395,7 @@
   }
   .componentsContent{
     width: 100%;
-    height:26rem ;
+    height:23.5rem ;
     border: 2px solid #2e323b;
   }
   .componentsTitle{

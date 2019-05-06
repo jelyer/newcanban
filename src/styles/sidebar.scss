@@ -74,7 +74,7 @@
     width: 0px;
     position: fixed;
     font-size: 0px;
-    top: 3.5rem;
+    top: 4rem;
     bottom: 0;
     right: 0;
     z-index: 1001;
@@ -87,7 +87,7 @@
     }
 
     .sidebtn{visibility:hidden}
-    .rightSetting{width:17rem}
+    .rightSetting{width:17rem;height: calc(100vh - 5rem);}
 
     .main-container {
       margin-left: 1rem;

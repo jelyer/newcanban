@@ -8,7 +8,7 @@
       <div class="mainContent">
         <div class="firstBox">
           <div class="firstLeft">
-            <div class="firstLeftTop" @click="toEditDiv('firstLeftTop')" id="firstLeftTop"   index=3>
+            <div class="firstLeftTop" @click="toEditDiv('firstLeftTop',0)" id="firstLeftTop"   index=3>
               <p class="boxTitle">仓库预警报表</p>
               <div class="boxContent">
                 <div class="boxContent-div">
@@ -38,7 +38,7 @@
               </div>
             </div>
             <div class="firstLeftBot">
-              <div class="firstLeftBot1" @click="toEditDiv('firstLeftBot1')" id="firstLeftBot1"   index=4>
+              <div class="firstLeftBot1" @click="toEditDiv('firstLeftBot1',0)" id="firstLeftBot1"   index=4>
                 <p class="boxTitle">到货预约信息</p>
                 <div class="boxContent">
                   <div class="boxContent-div">
@@ -110,7 +110,7 @@
                   <div class="icoBR"></div>
                 </div>
               </div>
-              <div class="firstLeftBot2" @click="toEditDiv('firstLeftBot2')" id="firstLeftBot2"  index=5>
+              <div class="firstLeftBot2" @click="toEditDiv('firstLeftBot2',0)" id="firstLeftBot2"  index=5>
                 <p class="boxTitle">快递订单完成情况</p>
                 <div class="boxContent">
                   <div class="boxContent-div">
@@ -199,7 +199,7 @@
               </div>
             </div>
           </div>
-          <div class="firstRight"  @click="toEditDiv('firstRight')" id="firstRight"  index=0>
+          <div class="firstRight"  @click="toEditDiv('firstRight',3)" id="firstRight"  index=0>
             <p class="boxTitle">订单进展情况</p>
             <div class="boxContent" >
               <div class="boxContent-div"  id="firstRightChart">
@@ -213,7 +213,7 @@
           </div>
         </div>
         <div class="secondBox">
-          <div class="secondLeft" @click="toEditDiv('secondLeft')" id="secondLeft" index=2>
+          <div class="secondLeft" @click="toEditDiv('secondLeft',3)" id="secondLeft" index=2>
             <p class="boxTitle">到货预约信息</p>
             <div class="boxContent">
               <div class="boxContent-div"  id="secondLeftChart">
@@ -225,7 +225,7 @@
               <div class="icoBR"></div>
             </div>
           </div>
-          <div class="secondRight" @click="toEditDiv('secondRight')" id="secondRight" index=1>
+          <div class="secondRight" @click="toEditDiv('secondRight',2)" id="secondRight" index=1>
             <p class="boxTitle">快递订单完成情况</p>
             <div class="boxContent">
               <div class="boxContent-div"  id="secondRightChart">
@@ -243,16 +243,15 @@
     <div class="rightSetting">
       <div class="title">属性设置</div>
       <div class="content">
-        <operation-form ref="operation_form"></operation-form>
+        <operation-form :mainTitle="mainTitle" :curModelType="curModelType" ref="operation_form"></operation-form>
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
   import operationForm from "@/components/operationForm/operationForm";
-  import {getSourDataAll} from '@/api/chartSetting'
+  import {getSourDataAll,getTempById} from '@/api/chartSetting'
   export default {
     name: 'box1',
     components: {
@@ -260,11 +259,15 @@
     },
     data(){
       return{
+        pageId:undefined,
+        isModle:true,//是否是模板页面
+        curModelType:undefined,//当前模块类型,1:表格，2：长形图表，3：正方形图表
+        tempurl:'/template1',
         echartArr:[],
         echartObjArr:[],
         //isFirst:true,
         thePageId:'',//页面传参的id
-        mainTitle: '深圳仓订单进展统计',
+        mainTitle: '',
         allData:[],
         nowDivIndex:' ',//要编辑的div的编号
         nowDivKey:'',
@@ -291,6 +294,10 @@
         this.thePageId='p1';
       }
 
+      var pageId = this.$route.query.pageId;//页面Id
+      if(pageId != undefined){
+        this.pageId = pageId
+      }
     },
     mounted(){
       this.$axios.get('static/json/box1-'+this.thePageId+'.json').then((response) => {
@@ -298,8 +305,21 @@
         this.pageData=response.data;
         this.drawLine(response);
       });
+      if(this.pageId != undefined){
+        this.getTempDataById(this.pageId);
+      }
+    },
+    watch:{
+      "$route":"getData"    //监听路由变化
     },
     methods:{
+      getData(){
+        var pageId = this.$route.query.pageId;//页面Id
+        if(pageId != undefined){
+          this.pageId = pageId
+        }
+        this.getTempDataById(pageId)
+      },
       //获取页面数据，以及渲染数据
       drawLine:function(response){
         this.mainTitle=response.data.pageTitle;
@@ -377,8 +397,9 @@
           this.echartArr[2].setOption(this.echartObjArr[2]);
         });
       },
-      //点击需要编辑的div后
-      toEditDiv:function (eleId) {
+      //点击需要编辑的div后  param: 元素id，模块类型
+      toEditDiv:function (eleId,curModelType) {
+        this.curModelType = curModelType;
         let theStatus=document.getElementsByClassName('app-wrapper')[0];
         //if(!this.sidebar.opened){
         if(theStatus.getAttribute("class").indexOf('openSidebar')==-1){
@@ -404,19 +425,42 @@
       getAllDatas:function () {
         getSourDataAll().then((response) => {
             if(response.data.errno == 0) {
-              this.allData=response.data.data
-             /* var options = [];
+              this.allData=response.data.data;
+            /*  var options = [];
               for(var i=0;i<response.data.data.length;i++){
                 var tree = {};
                 tree.label = response.data.data[i].dataname;
                 tree.value = response.data.data[i].datakey;
                 options.push(tree);
               }
-              this.allData = options;
-              console.log(this.allData)*/
+              this.allData = options;*/
             }
         })
       },
+      //根据模板id查找模板配置数据
+      getTempDataById(pageId){
+        let paramid = {
+          tempid:pageId
+        }
+        getTempById(this.$qs.stringify(paramid)).then(response => {
+           if(response.data.errno == 0){
+             //是否模板页面
+             if(response.data.data.tempstat == 1){
+               this.isModle =true;
+             }else{
+               this.isModle =false;
+             }
+
+             //渲染数据
+             this.mainTitle= response.data.data.tempname;
+             var temconfig = response.data.data.tempconfig;
+             if(temconfig != null && temconfig != ""){
+               temconfig = JSON.parse(temconfig);
+             }
+           }
+        })
+      }
+
     },
 
     /*props: {

@@ -1,16 +1,18 @@
 import _import from '../router/_import' // 获取组件的方法
 
 /**
- * 生成路由
+ * 生成路由,这里将动态添加的路由格式化
  * @param {Array} routerlist 格式化路由
  * @returns
  */
 export function addRouter(routerlist) {
   const router = []
   routerlist.forEach(e => {
+    if(e.stat == 1){e.stat = "系统模板"}else if(e.stat == 5){e.stat = "编辑中"}else{e.stat = "已发布"};
     let e_new = {
       path: e.url,
       name: e.name,
+      stat:e.stat,
       component: _import(e.name)
     }
     if (e.children) {

@@ -18,7 +18,7 @@
         <li class="elpGuide" title="帮助指导">
           <span></span>
         </li>
-        <li class="Logout" title="退出登录">
+        <li class="Logout" @click="logout" title="退出登录">
           <span></span>
         </li>
       </ul>
@@ -94,8 +94,14 @@ export default {
       }
     },
     logout() {
-      this.$store.dispatch('LogOut').then(() => {
-        location.reload() // 为了重新实例化vue-router对象 避免bug
+      this.$confirm('您确定要退出登录吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$store.dispatch('LogOut').then(() => {
+          location.reload() // 为了重新实例化vue-router对象 避免bug
+        })
       })
     },
     largeScreen:function(){

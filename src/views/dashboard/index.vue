@@ -653,7 +653,7 @@
   }
   .componentsContent{
     width: 100%;
-    height:24rem ;
+    height:23.5rem ;
     border: 2px solid #2e323b;
   }
   .componentsTitle{
