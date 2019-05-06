@@ -8,8 +8,8 @@
       <div class="mainContent">
         <div class="firstBox">
           <div class="firstLeft">
-            <div class="firstLeftTop" @click="toEditDiv('firstLeftTop',0)" id="firstLeftTop"   index=3>
-              <p class="boxTitle">仓库预警报表</p>
+            <div class="firstLeftTop" @click="toEditDiv('firstLeftTop',0,0)" :id="domConfig[0].id"   index=3>
+              <p class="boxTitle">{{domConfig[0].boxTitle}}</p>
               <div class="boxContent">
                 <div class="boxContent-div">
                   <el-row>
@@ -38,8 +38,8 @@
               </div>
             </div>
             <div class="firstLeftBot">
-              <div class="firstLeftBot1" @click="toEditDiv('firstLeftBot1',0)" id="firstLeftBot1"   index=4>
-                <p class="boxTitle">到货预约信息</p>
+              <div class="firstLeftBot1" @click="toEditDiv('firstLeftBot1',0,1)" :id="domConfig[1].id"   index=4>
+                <p class="boxTitle">{{domConfig[1].boxTitle}}</p>
                 <div class="boxContent">
                   <div class="boxContent-div">
                     <div class="Tb-box">
@@ -110,8 +110,8 @@
                   <div class="icoBR"></div>
                 </div>
               </div>
-              <div class="firstLeftBot2" @click="toEditDiv('firstLeftBot2',0)" id="firstLeftBot2"  index=5>
-                <p class="boxTitle">快递订单完成情况</p>
+              <div class="firstLeftBot2" @click="toEditDiv('firstLeftBot2',0,2)" :id="domConfig[2].id"  index=5>
+                <p class="boxTitle">{{domConfig[2].boxTitle}}</p>
                 <div class="boxContent">
                   <div class="boxContent-div">
                     <div class="Tb-box">
@@ -199,8 +199,8 @@
               </div>
             </div>
           </div>
-          <div class="firstRight"  @click="toEditDiv('firstRight',3)" id="firstRight"  index=0>
-            <p class="boxTitle">订单进展情况</p>
+          <div class="firstRight"  @click="toEditDiv('firstRight',3,3)" :id="domConfig[3].id"  index=0>
+            <p class="boxTitle">{{domConfig[3].boxTitle}}</p>
             <div class="boxContent" >
               <div class="boxContent-div"  id="firstRightChart">
 
@@ -213,8 +213,8 @@
           </div>
         </div>
         <div class="secondBox">
-          <div class="secondLeft" @click="toEditDiv('secondLeft',3)" id="secondLeft" index=2>
-            <p class="boxTitle">到货预约信息</p>
+          <div class="secondLeft" @click="toEditDiv('secondLeft',3,4)" :id="domConfig[4].id" index=2>
+            <p class="boxTitle">{{domConfig[4].boxTitle}}</p>
             <div class="boxContent">
               <div class="boxContent-div"  id="secondLeftChart">
 
@@ -225,8 +225,8 @@
               <div class="icoBR"></div>
             </div>
           </div>
-          <div class="secondRight" @click="toEditDiv('secondRight',2)" id="secondRight" index=1>
-            <p class="boxTitle">快递订单完成情况</p>
+          <div class="secondRight" @click="toEditDiv('secondRight',2,5)" :id="domConfig[5].id" index=1>
+            <p class="boxTitle">{{domConfig[5].boxTitle}}</p>
             <div class="boxContent">
               <div class="boxContent-div"  id="secondRightChart">
 
@@ -272,6 +272,39 @@
         nowDivIndex:' ',//要编辑的div的编号
         nowDivKey:'',
         pageData:'',//渲染页面的数据
+        domConfig:[
+          {
+            id:"firstLeftTop",
+            boxTitle:"仓库预警报表2",
+            key:undefined,
+            dataKey:undefined,
+          },{
+            id:"firstLeftBot1",
+            boxTitle:"到货预约信息",
+            key:undefined,
+            dataKey:undefined,
+          },{
+            id:"firstLeftBot2",
+            boxTitle:"快递订单完成情况",
+            key:undefined,
+            dataKey:undefined,
+          },{
+            id:"firstRight",
+            boxTitle:"订单进展情况",
+            key:undefined,
+            dataKey:undefined,
+          },{
+            id:"secondLeft",
+            boxTitle:"到货预约信息1",
+            key:undefined,
+            dataKey:undefined,
+          },{
+            id:"secondRight",
+            boxTitle:"快递订单完成情况",
+            key:undefined,
+            dataKey:undefined,
+          }
+        ],
         form: {
           boxTitle: '',//表标题
           key:'',//图表类型
@@ -317,6 +350,8 @@
         var pageId = this.$route.query.pageId;//页面Id
         if(pageId != undefined){
           this.pageId = pageId
+        }else{
+          this.isModle = true;
         }
         this.getTempDataById(pageId)
       },
@@ -331,9 +366,9 @@
         this.echartObjArr[0]= this.GLOBAL.allChartObj[response.data.data[0].key];
         this.echartObjArr[1]= this.GLOBAL.allChartObj[response.data.data[1].key];
         this.echartObjArr[2]= this.GLOBAL.allChartObj[response.data.data[2].key];
-        document.getElementById('firstRight').getElementsByTagName('p')[0].innerHTML=response.data.data[0].boxTitle;
+        /*document.getElementById('firstRight').getElementsByTagName('p')[0].innerHTML=response.data.data[0].boxTitle;
         document.getElementById('secondRight').getElementsByTagName('p')[0].innerHTML=response.data.data[1].boxTitle;
-        document.getElementById('secondLeft').getElementsByTagName('p')[0].innerHTML=response.data.data[2].boxTitle;
+        document.getElementById('secondLeft').getElementsByTagName('p')[0].innerHTML=response.data.data[2].boxTitle;*/
 
         this.$axios.get('static/json/'+response.data.data[0].dataKey+'.json').then((res) => {
 
@@ -397,8 +432,9 @@
           this.echartArr[2].setOption(this.echartObjArr[2]);
         });
       },
-      //点击需要编辑的div后  param: 元素id，模块类型
-      toEditDiv:function (eleId,curModelType) {
+      //点击需要编辑的div后  param: 元素id，模块类型,模块下标
+      toEditDiv:function (eleId,curModelType,modelIndex) {
+        this.$refs.operation_form.currModelIndex = modelIndex;
         this.curModelType = curModelType;
         let theStatus=document.getElementsByClassName('app-wrapper')[0];
         //if(!this.sidebar.opened){

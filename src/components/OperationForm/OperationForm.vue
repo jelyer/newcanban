@@ -36,7 +36,7 @@
         </div>
       </el-form>
 
-      <el-dialog modal="false" v-dialogDrag title="添加数据源" width="500px" :visible.sync="dialogFormVisible">
+      <el-dialog  v-dialogDrag title="添加数据源" width="500px" :visible.sync="dialogFormVisible">
         <el-form :rules="rules" ref="dataForm" :model="dataForm" status-icon label-position="left" label-width="100px" style='margin:0 30px;'>
           <el-form-item label="数据编码" prop="datakey">
             <el-input clearable size="mini" v-model="dataForm.datakey"></el-input>
@@ -74,8 +74,10 @@
     data() {
       return {
         mainTitle: '',
+        currModelIndex:0,//当前模块下标
         ableChartsData: this.GLOBAL.fixedChart,//所有可用图表
         form: {
+          modelId:'',//模块id
           boxTitle: '',//表标题
           key: '',//图表类型
           dataKey: '',//图表数据
@@ -108,9 +110,10 @@
       },
       //编辑的小div标题的联动改变
       changTitle: function () {
-        let theWrapBox = document.getElementById('mainBox').getElementsByClassName('active')[0];
-        theWrapBox.getElementsByClassName('boxTitle')[0].innerHTML = this.form.boxTitle;
-        this.$parent.form.boxTitle = this.form.boxTitle;
+        /*let theWrapBox = document.getElementById('mainBox').getElementsByClassName('active')[0];
+        theWrapBox.getElementsByClassName('boxTitle')[0].innerHTML = this.form.boxTitle;*/
+        //this.$parent.form.boxTitle = this.form.boxTitle;
+        this.$parent.domConfig[this.currModelIndex].boxTitle = this.form.boxTitle;
       },
       getAbleCharts:function(ableCharts){
 
@@ -118,7 +121,8 @@
       //选择一条后台数据之后发送请求，获取数据，渲染数据
       selected: function () {
         this.getAbleCharts();
-        let _this = this
+        let _this = this;
+        this.$parent.domConfig[this.currModelIndex].dataKey = this.form.dataKey;
         /*this.$axios.get('static/json/' + this.form.dataKey + '.json').then(response => {
           let theData = response.data.dataUrl1;
           _this.nowEditData =theData;
@@ -126,6 +130,9 @@
       },
       //选中某一图表后及时反映到页面
       selectionChart: function (key) {
+
+        this.$parent.domConfig[this.currModelIndex].key = key;
+
         if(this.nowEditData.length<0){
           return ;
         }
@@ -184,7 +191,8 @@
         tempid = Date.parse(new Date());
         //if(tempid == undefined){tempid = "baseTemplate1Expand1"};
         tempname=this.mainTitle;
-        tempconfig=JSON.stringify(this.$parent.pageData);
+        //tempconfig=JSON.stringify(this.$parent.pageData);
+        tempconfig=JSON.stringify(this.$parent.domConfig);
         tempurl=this.$parent.$data.tempurl;
         /*if (this.$parent.pageData.isModle) {
           this.$parent.pageData.isModle = false;
