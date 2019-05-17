@@ -1,3 +1,4 @@
+import {getDataByDataKey} from '@/api/chartSetting'
 export default{
   GetRequest:function(){
     let url = location.search; //获取url中"?"符后的字串
@@ -13,24 +14,53 @@ export default{
     }
     return theRequest;
   },
-  getChartData:function (data) {
+  //环形、条形、折线图数据转换
+  getChartData:function (data,type) {
     let newData1=[];
     let newData2=[];
     for (var i=0;i<data.length;i++){
-      newData1.push(data[i].dataX);
-      newData2.push(data[i].dataY);
+      newData1.push(data[i].name);
+      newData2.push(data[i].value);
     }
     let newData=[newData1,newData2];
     return newData;
   },
+  //多条折线图
+  getChartsData:function(data,type){
+    let alldata ={
+      legend : [],
+       xdata : [],
+      series : []
+    }
+
+    for(let i in data.legend){
+      let legs = {name:'', icon: 'circle',
+        textStyle: {
+          color: '#fff'
+        }
+      }
+      legs.name = data.legend[i];
+      alldata.legend.push(legs);
+      let ser = {name: '', type: type, data: []};
+      ser.name = data.legend[i];
+      for(let c in data.data[i]){
+        ser.data.push(data.data[i][c].value);
+      }
+      alldata.series.push(ser)
+    }
+    for(let i in data.data[0]){
+      alldata.xdata.push(data.data[0][i].name);
+    }
+    return alldata;
+  },
   getChartDataPie :function(data){
     let newData=[];
 
-    if(data[0].dataX!=undefined){
+    if(data != null && data.length > 0){
       for (var i=0;i<data.length;i++){
         let Obj={name:'',value:''}
-        Obj.name=data[i].dataX;
-        Obj.value=data[i].dataY;
+        Obj.name=data[i].name;
+        Obj.value=data[i].value;
         newData.push(Obj);
       }
     }else{
@@ -38,4 +68,42 @@ export default{
     }
     return newData;
   },
+  //格式化日期
+  parseTime:function(fmt, date) {
+    var fmt = fmt || "yyyy-MM-dd hh:mm:ss";
+    var o = {
+      "M+" : date.getMonth()+1,                 //月份
+      "d+" : date.getDate(),                    //日
+      "h+" : date.getHours(),                   //小时
+      "m+" : date.getMinutes(),                 //分
+      "s+" : date.getSeconds(),                 //秒
+      "q+" : Math.floor((date.getMonth()+3)/3), //季度
+      "S"  : date.getMilliseconds()             //毫秒
+    };
+    if(/(y+)/.test(fmt))
+      fmt=fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));
+    for(var k in o)
+      if(new RegExp("("+ k +")").test(fmt))
+        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+    return fmt;
+  },
+  //根据元素返回数组下标 arrays:数组，Obj:元素
+  contains:function(arrays, obj) {
+    var i = arrays.length;
+    while (i--) {
+      if (arrays[i] === obj) {
+        return i;
+      }
+    }
+    return -1;
+  },
+  //根据模块dataKey加载数据
+  getDataByDataKeys:function(data){
+    var dataKey = {
+       dataKey:data.dataKey
+    }
+    getDataByDataKey(this.$qs.stringify(dataKey)).then(response => {
+
+    })
+  }
 }

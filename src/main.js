@@ -6,7 +6,6 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 import { directive } from './utils/directive'
-
 import '@/styles/index.scss' // global css
 
 import App from './App'
@@ -27,7 +26,8 @@ Vue.prototype.$axios=axios;
 Vue.prototype.$echarts=echarts;
 Vue.prototype.COMMONFUN=commonFun; //将全局函数当做插件来进行注册
 Vue.prototype.GLOBAL=globalVariable;
-
+Vue.prototype.$store= store;
+Vue.prototype.$routers= router;
 Vue.use(ElementUI, { locale })
 directive()
 Vue.config.productionTip = false

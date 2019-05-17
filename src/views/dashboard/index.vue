@@ -653,8 +653,9 @@
   }
   .componentsContent{
     width: 100%;
-    height:23.5rem ;
+    height:20.5rem ;
     border: 2px solid #2e323b;
+    overflow: auto;
   }
   .componentsTitle{
     height: 1.8rem;

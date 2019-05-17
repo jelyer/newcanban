@@ -22,10 +22,10 @@
           <span></span>
         </li>
       </ul>
-      <div class="user-inform">
+    <!--  <div class="user-inform">
         <p class="userName">何进</p>
         <p class="userSubordinate">赖世文组织织织</p>
-      </div>
+      </div>-->
     </div>
     <!--<hamburger
       :toggle-click="toggleSideBar"
@@ -76,8 +76,8 @@ export default {
   },
   methods: {
     toggleSideBar() {
-      //this.$store.dispatch('ToggleSideBar')
-      let theSideBar=document.getElementsByClassName('app-wrapper')[0];
+      this.$store.dispatch('ToggleSideBar')
+    /*  let theSideBar=document.getElementsByClassName('app-wrapper')[0];
       if(theSideBar.getAttribute("class").indexOf('openSidebar')==-1){
         if(document.getElementsByClassName('main-container')[0].getElementsByClassName('active').length>0){
           document.getElementsByClassName('main-container')[0].getElementsByClassName('active') [0].classList.remove('active');
@@ -91,7 +91,7 @@ export default {
         document.getElementsByClassName('editPanel')[0].classList.add('selected');
         theSideBar.classList.remove('openSidebar');
         theSideBar.classList.add('hideSidebar');
-      }
+      }*/
     },
     logout() {
       this.$confirm('您确定要退出登录吗?', '提示', {
@@ -225,7 +225,7 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    background: #000;
+    background: #1c1f25;
     overflow: hidden;
     .navbar-left{
       float:left;

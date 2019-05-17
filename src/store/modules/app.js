@@ -6,7 +6,9 @@ const app = {
       opened: !+Cookies.get('sidebarStatus'),//0 true / 1 false
       withoutAnimation: false
     },
-    device: 'desktop'
+    device: 'desktop',
+    routerstat:false, //控制是否重新加载路由，false：加载；true：不加载
+    routerlb:[],//用于路由轮播
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {
@@ -25,7 +27,13 @@ const app = {
     },
     TOGGLE_DEVICE: (state, device) => {
       state.device = device
-    }
+    },
+    set_routerstat: (state, stat) => {
+      state.routerstat = stat
+    },
+    set_routerlb: (state, routerlb) => {
+      state.routerlb = routerlb
+    },
   },
   actions: {
     ToggleSideBar: ({ commit }) => {
@@ -36,6 +44,12 @@ const app = {
     },
     ToggleDevice({ commit }, device) {
       commit('TOGGLE_DEVICE', device)
+    },
+    SetReloadRouter({commit},stat){
+      commit('set_routerstat', stat) // 进行路由拼接并存储
+    },
+    SetRouterLb({commit},routerlb){
+      commit('set_routerlb', routerlb)
     }
   }
 }

@@ -695,7 +695,7 @@
   }
   .rightSetting{background:rgb(10, 17, 50)}
   .rightSetting .title{width:100%;height:60px;line-height: 60px;text-align: center;font-size: 16px;color: #209ff2;}
-  .rightSetting .content{height: calc(100vh - 84px); background: black;  margin: 0 5px;overflow: hidden;  /*border: 1px solid #0db3fd;*/}
+  .rightSetting .content{height: calc(100vh - 84px); background: #1c1f25;  margin: 0 5px;overflow: hidden;  /*border: 1px solid #0db3fd;*/}
 
 
   /*数据样式##########################starrt*/

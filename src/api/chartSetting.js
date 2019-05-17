@@ -19,6 +19,24 @@ export function getSourDataAll() {
   })
 }
 
+//修改数据源
+export function editSourData(data) {
+  return request({
+    url: '/adminData/update',
+    method:'post',
+    data
+  })
+}
+
+//删除数据源
+export function delSourData(data) {
+  return request({
+    url: '/adminData/delete',
+    method:'post',
+    data
+  })
+}
+
 //加载所有模板
 export function getTempleteAll() {
   return request({
@@ -49,6 +67,16 @@ export function updataTemSetting(data){
 export function getTempById(data){
   return request({
     url:'/adminTemplete/findModel',
+    method:'post',
+    data
+  })
+}
+
+
+//根据模板dataKey获取数据
+export function getDataByDataKey(data){
+  return request({
+    url:'/adminTemplete/excute',
     method:'post',
     data
   })

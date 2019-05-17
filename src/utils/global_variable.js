@@ -1,36 +1,26 @@
 const data1 = [1, 2, 3, 4, 5, 6, 7];
 const data2 =[500, 480, 200, 250, 350, 186, 440,130];
 const data3 =[100, 280, 300, 350, 550, 126, 470,335];
-//modeltype[可放置的容器限制]: 0：数据表；1：正方形图表；2：长方形图表；3：其它
+/**
+ * @type {[null,null,null,null,null]}
+ */
 const fixedChart=[
-  {
-    url: "c0",
-    modeltype:[0],
-    key: "-1"
-  },
-  {
-    url: "c1",
-    modeltype:[1,3],
-    key: "0"
-  },
-  {
-    url: "c2",
-    modeltype:[1,2,3],
-    key: "1"
-  },
-  {
-    url: "c3",
-    modeltype:[1,2,3],
-    key: "2"
-  },
-  {
-    url: "c4",
-    modeltype:[1,2,3],
-    key: "3"
-  },
+  {url: "c0", name:"数据表", key: '-1'},
+  {url: "c1", name:"环装图", key: '0'},
+  {url: "c2", name:"折线图", key: '1'},
+  {url: "c3", name:"柱状图", key: '2'},
+  {url: "c4", name:"纵向柱状图", key: '3'},
+  {url: "c2", name:"无y网格线折线图", key: '4'},
+  {url: "c8", name:"饼状图", key: '5'},
+  {url: "c6", name:"多条折线图", key: '6'},
+  {url: "c7", name:"多条柱状图", key: '7'},
 ];
+/**
+ * @type {[null,null,null,null,null,null,null,null]}
+ */
 const allChartObj =[
 
+  //0-环形图
   {
     tooltip: {
       trigger: 'item',
@@ -74,26 +64,12 @@ const allChartObj =[
         data:[]
       }
     ]
-  },//环形图
+  },
+
+  //1-折线图
   {
     tooltip: {
       show: false,
-    },
-    legend: {
-      data:[{
-        name:'深圳仓',
-        icon: 'circle',
-        textStyle: {
-          color: '#fff'
-        }
-      },
-        {
-          name:'北京仓',
-          icon: 'circle',
-          textStyle: {
-            color: '#fff'
-          }
-        },]
     },
     grid: {
       left: '5%',
@@ -102,7 +78,6 @@ const allChartObj =[
       right: '5%',
       containLabel: true
     },
-
     xAxis: {
       axisLabel: {
         interval: 0,
@@ -125,45 +100,37 @@ const allChartObj =[
       },
       data: data1
     },
-
     yAxis: {
-      axisLabel: {
-        color: "#fff",
-      },
-      name: '单位',
-      type: 'value',
-      nameTextStyle:{
-        color:'#fff',
-      },
-      splitLine: {
-        show: false,
-        lineStyle: {
-          color: '#cecece',
-          type: 'dashed'
+        axisLabel: {
+          color: "#fff",
+        },
+        name: '单位',
+        type: 'value',
+        nameTextStyle:{
+          color:'#fff',
+        },
+        splitLine: {
+          show: false,
+          lineStyle: {
+            color: '#cecece', type: 'dashed'
+          }
+        }, //网格线
+        axisLine: {
+          /*show: false*/
+        },
+        /*scale: true,*/            //y轴起点是否根据最下值来定
+        axisTick: {
+          show: false,
         }
-      }, //网格线
-      axisLine: {
-        /*show: false*/
-      },
-      /*scale: true,*/            //y轴起点是否根据最下值来定
-      axisTick: {
-        show: false,
-      }
-
     },
-
     series: [{
-      name: '深圳仓',
-      type: 'line',
-      data: data2
-    },{
-      name: '北京仓',
-      type: 'line',
-      data: data3
-    }
-    ]
-  },//正常折线图
+        name: '深圳仓',
+        type: 'line',
+        data: data2
+      }]
+  },
 
+   // 2-柱状图
   {
     /*title:'',*/
     tooltip: {
@@ -202,6 +169,7 @@ const allChartObj =[
       name: '单位',
       min: 0,
       type: 'value',
+      data:'',
       splitArea: { show: false },
       splitLine: {
         show: false ,
@@ -243,8 +211,91 @@ const allChartObj =[
         }
       },
     }
-  },//柱状图
+  },
+  //3、纵向柱状图
+  {
+    /*title:'',*/
+    tooltip: {
+      show:false,
+    },
+    grid: {
+      left: '10',
+      bottom: '10',
+      top: '35',
+      right: '10',
+      containLabel: true
+    },
+    yAxis: {
+      name: '',
+      min: 0,
+      type: 'category', //纵向柱状图，若需要为横向，则此处值为'value'， 下面 yAxis 的type值为'category'
+      data: data1,
+      nameTextStyle:{
+        color:'#cbcbcb'
+      },
+      axisLine: {
+        lineStyle: {
+          color: '#363e43'
+        }
+      },
+      axisTick: {
+        show: false
+      },
+      axisLabel: {
+        textStyle: {
+          color: '#cbcbcb'
+        }
+      },
+    },
+    xAxis: [{
+      name: '单位',
+      min: 0,
+      type: 'value',
+      data:'',
+      splitArea: { show: false },
+      splitLine: {
+        show: false ,
+      },//去除网格线
+      nameTextStyle:{
+        color:'#cbcbcb',
+      },
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: '#cbcbcb'
+        }
+      },
+      axisTick: {
+        show: true
+      },
+      axisLabel: {
+        textStyle: {
+          color: '#cbcbcb'
+        }
+      }
+    }],
+    series: {
+      name: '销量',
+      type: 'bar',
+      data: data2,
+      barWidth: 15,
+      itemStyle: {
+        normal: {
+          show: false,//鼠标悬停时显示label数据
+          color:'',
+          /*color: new this.$echarts.graphic.LinearGradient(
+            0, 0, 0, 1,
+            [
+              {offset: 0, color: '#44cbf5'},
+              {offset: 1, color:'#2669c5'}
+            ]
+          )*/
+        }
+      },
+    }
+  },
 
+  //4、无y有网格线折线图
   {
     tooltip: {
       show: false,
@@ -281,42 +332,38 @@ const allChartObj =[
     },
 
     yAxis: {
-      axisLabel: {
-        color: "#fff",
-      },
-      name: '',
-      type: 'value',
-      splitLine: {
-        show: true,
-        lineStyle: {
-          color: '#cecece',
-          type: 'dashed'
-        }
-      }, //网格线
-      axisLine: {
-        show: false
-      },
-      scale: true,
-      axisTick: {
-        show: false,
-      }
-
-    },
-
-    series: {
-
-      label: {
-        normal: {
+        axisLabel: {
+          color: "#fff",
+        },
+        name: '',
+        type: 'value',
+        splitLine: {
+          show: true,
+          lineStyle: {
+            color: '#cecece',
+            type: 'dashed'
+          }
+        }, //网格线
+        axisLine: {
+          show: false
+        },
+        scale: true,
+        axisTick: {
           show: false,
-
         }
+    },
+    series: {
+      label: {
+        normal: {show: false,}
       },
       name: '',
       type: 'line',
       smooth: false,
       data: data2
     }
-  },//无y有网格线折线图
+  },
+
+  //5、饼图
   {
     /*title : {
       text: '同名数量统计',
@@ -352,7 +399,206 @@ const allChartObj =[
         }
       }
     ]
-  },//饼图
+  },
+  //6、多条折线图
+  {
+    tooltip: {
+      show: false,
+    },
+    legend: {
+      data:[{
+        name:'深圳仓',
+        icon: 'circle',
+        textStyle: {
+          color: '#fff'
+        }
+      }, {
+          name:'北京仓',
+          icon: 'circle',
+          textStyle: {
+            color: '#fff'
+          }
+        },]
+    },
+    grid: {
+      left: '5%',
+      bottom: '6%',
+      top: '20%',
+      right: '5%',
+      containLabel: true
+    },
+
+    xAxis: {
+      axisLabel: {
+        interval: 0,
+        margin: 7,
+        color: "#fff",
+      },
+      name: '',
+      type: 'category',
+      boundaryGap: true,
+      nameTextStyle: {
+        color: '#fff'
+      },
+      axisLine: {
+        lineStyle: {
+          color: '#cccccc',
+        },
+      },
+      axisTick: {
+        alignWithLabel: true
+      },
+      data: data1
+    },
+    yAxis: {
+      axisLabel: {
+        color: "#fff",
+      },
+      name: '单位',
+      type: 'value',
+      nameTextStyle:{
+        color:'#fff',
+      },
+      splitLine: {
+        show: false,
+        lineStyle: {
+          color: '#cecece',
+          type: 'dashed'
+        }
+      }, //网格线
+      axisLine: {
+        /*show: false*/
+      },
+      /*scale: true,*/            //y轴起点是否根据最下值来定
+      axisTick: {
+        show: false,
+      }
+    },
+    series: [
+      {name: '深圳仓', type: 'line', data: data2},
+      {name: '北京仓', type: 'line', data: data3}
+      ]
+  },
+  //7、多个柱状图
+  {
+    color: ['#117dd1', '#f56c6c', '#4cabce', '#e5323e'],
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {type: 'shadow'}
+    },
+    legend: {
+      data:[
+        {
+          name:'Forest',
+          icon: 'circle',
+          textStyle: {
+            color: '#fff'
+          }
+        }, {
+          name:'Steppe',
+          icon: 'circle',
+          textStyle: {
+            color: '#fff'
+          }
+        }, {
+          name:'Desert',
+          icon: 'circle',
+          textStyle: {
+            color: '#fff'
+          }
+        }, {
+          name:'Wetland',
+          icon: 'circle',
+          textStyle: {
+            color: '#fff'
+          }
+        }
+      ]
+      //data: ['Forest', 'Steppe', 'Desert', 'Wetland']
+    },
+    grid: {
+      left: '5%',
+      bottom: '5%',
+      top: '20%',
+      right: '5%',
+      containLabel: true
+    },
+
+    toolbox: {
+      show: true,
+      orient: 'vertical',
+      left: 'right',
+      top: 'center',
+      feature: {
+        mark: {show: true},
+        dataView: {show: true, readOnly: false},
+        magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+        restore: {show: true},
+        saveAsImage: {show: true}
+      }
+    },
+    calculable: true,
+    xAxis: {
+      axisLabel: {
+        interval: 0,
+        margin: 7,
+        color: "#fff",
+      },
+      name: '',
+      type: 'category',
+      boundaryGap: true,
+      nameTextStyle: {
+        color: '#fff'
+      },
+      axisLine: {
+        lineStyle: {
+          color: '#cccccc',
+        },
+      },
+      axisTick: {
+        alignWithLabel: true
+      },
+      data: ['2012', '2013', '2014', '2015', '2016']
+    },
+    yAxis: {
+      axisLabel: {
+        color: "#fff",
+      },
+      name: '单位',
+      type: 'value',
+      nameTextStyle:{
+        color:'#fff',
+      }
+    },
+    series: [
+      {
+        name: 'Forest',
+        type: 'bar',
+        barGap: 0,
+        /*label: labelOption,*/
+        data: [320, 332, 301, 334, 390]
+      },
+      {
+        name: 'Steppe',
+        type: 'bar',
+        /*label: labelOption,*/
+        data: [220, 182, 191, 234, 290]
+      },
+      {
+        name: 'Desert',
+        type: 'bar',
+        /*label: labelOption,*/
+        data: [150, 232, 201, 154, 190]
+      },
+      {
+        name: 'Wetland',
+        type: 'bar',
+        /*label: labelOption,*/
+        data: [98, 77, 101, 99, 40]
+      }
+    ]
+  },
+  //嵌套环形图
   {
     tooltip: {
       trigger: 'item',
@@ -399,7 +645,10 @@ const allChartObj =[
         ]
       }
     ]
-  },//嵌套环形图
+  },
+
+
+  //层级饼图
   {
     /*title : {
       text: '南丁格尔玫瑰图',
@@ -438,20 +687,12 @@ const allChartObj =[
         roseType : 'radius',
         silent:true,
         label: {
-          normal: {
-            show: false
-          },
-          emphasis: {
-            show: true
-          }
+          normal: {show: false},
+          emphasis: {show: true}
         },
         lableLine: {
-          normal: {
-            show: false
-          },
-          emphasis: {
-            show: true
-          }
+          normal: {show: false},
+          emphasis: {show: true}
         },
         data:[
           {value:10, name:'rose1'},
@@ -483,72 +724,9 @@ const allChartObj =[
         ]
       }*/
     ]
-  },//层级饼图
-  {
-    color: ['#003366', '#006699', '#4cabce', '#e5323e'],
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow'
-      }
-    },
-    legend: {
-      data: ['Forest', 'Steppe', 'Desert', 'Wetland']
-    },
-    toolbox: {
-      show: true,
-      orient: 'vertical',
-      left: 'right',
-      top: 'center',
-      feature: {
-        mark: {show: true},
-        dataView: {show: true, readOnly: false},
-        magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-        restore: {show: true},
-        saveAsImage: {show: true}
-      }
-    },
-    calculable: true,
-    xAxis: [
-      {
-        type: 'category',
-        axisTick: {show: false},
-        data: ['2012', '2013', '2014', '2015', '2016']
-      }
-    ],
-    yAxis: [
-      {
-        type: 'value'
-      }
-    ],
-    series: [
-      {
-        name: 'Forest',
-        type: 'bar',
-        barGap: 0,
-        /*label: labelOption,*/
-        data: [320, 332, 301, 334, 390]
-      },
-      {
-        name: 'Steppe',
-        type: 'bar',
-        /*label: labelOption,*/
-        data: [220, 182, 191, 234, 290]
-      },
-      {
-        name: 'Desert',
-        type: 'bar',
-        /*label: labelOption,*/
-        data: [150, 232, 201, 154, 190]
-      },
-      {
-        name: 'Wetland',
-        type: 'bar',
-        /*label: labelOption,*/
-        data: [98, 77, 101, 99, 40]
-      }
-    ]
-  },//多个柱状图
+  },
+
+
 
 
 ];

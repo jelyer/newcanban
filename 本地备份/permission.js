@@ -6,19 +6,19 @@ import 'nprogress/nprogress.css' // Progress 进度条样式
 import { Message } from 'element-ui'
 import { getRouter } from './api/login'
 import { addRouter } from './utils/addRouter'
-import {getTempleteAll} from './api/chartSetting'
 
 const whiteList = ['/login']
+var data = false // 本次demo用变量凑合一下,项目里面应该放到vuex内
 router.beforeEach((to, from, next) => {
   NProgress.start()
   if (getToken()) {
     // 判断cookice是否存在 不存在即为未登录
     if (to.path !== '/login') {
-      if (store.state.app.routerstat) {
-        // 获取了动态路由 routerstat一定true,就无需再次请求 直接放行
+      if (data) {
+        // 获取了动态路由 data一定true,就无需再次请求 直接放行
         next()
       } else {
-        // routerstat为false,一定没有获取动态路由,就跳转到获取动态路由的方法
+        // data为false,一定没有获取动态路由,就跳转到获取动态路由的方法
         gotoRouter(to, next)
       }
       /*if (store.getters.roles.length === 0) {
@@ -38,6 +38,7 @@ router.beforeEach((to, from, next) => {
       next('/')
     }
   } else {
+    data = false
     if (whiteList.indexOf(to.path) !== -1) {
       // 免登陆白名单 直接进入
       next()
@@ -58,52 +59,64 @@ router.afterEach(() => {
 })
 
 function gotoRouter(to, next) {
-  getTempleteAll().then((response) => {
-    //console.log(response)
-  })
   getRouter(store.getters.token) // 获取动态路由的方法
     .then(res => {
+      /*console.log('解析后端动态路由', res.data.data.router)
+      console.log(JSON.stringify(res.data.data.router))*/
+      console.log(res.data.data);
       var result = res.data.data;
       var jsondata = [];
-      var roulunbo = [];
       if(result.length > 0){
         for(let n in result){
           var data = {
             "name": result[n].tempname,
-            "stat": result[n].tempstat,
             "url":'',
             "icon":"/static/image/box2.png",
             "children":[{
                 "name":result[n].tempid,
-                "url":result[n].tempurl+"?pageId="+result[n].tempid+"&stat="+result[n].tempstat
+                "url":result[n].tempurl
             }]
           }
           jsondata.push(data);
-          //lunbo
-          let list = {title:undefined,url:undefined,checked:true};
-          list.title = result[n].tempname;
-          list.url = result[n].tempurl+"?pageId="+result[n].tempid+"&stat="+result[n].tempstat;
-          roulunbo.push(list);
         }
       }
-      store.dispatch('setRouterData', result) // 存储到路由数据到vuex
+
+     /* var jsondata = [{
+        "name": "模板1新增看板1",
+        "url": "",
+        "title":"2",
+        "icon": "/static/image/box1.png",
+        "children":  [{
+          "name": "template1",
+          "url": "/template1?pageId=p2",
+         }]
+      },
+      {
+        "name": "模板2新增看板1",
+        "url": "",
+        "title":"1",
+        "icon": "/static/image/box2.png",
+          "children":  [{
+            "name": "template2",
+            "url": "/template2?pageId=p3"
+          }]
+       }]*/
       const asyncRouter = addRouter(jsondata) // 进行递归解析
-      store.dispatch('SetRouterLb', roulunbo)//存储路由数据，用于轮播
-      //store.dispatch('setroles', res.data.data.permit)
-      //console.log(res.data.data.permit)
+      store.dispatch('setroles', res.data.data.permit)
+      console.log(res.data.data.permit)
       // 一定不能写在静态路由里面,否则会出现,访问动态路由404的情况.所以在这列添加
       /*asyncRouter.push({ path: '*', redirect: '/404', hidden: true })*/
-      return asyncRouter;
+      return asyncRouter
     })
     .then(asyncRouter => {
       router.addRoutes(asyncRouter) // vue-router提供的addRouter方法进行路由拼接
-      store.dispatch('SetReloadRouter', true) // 记录路由获取状态
+      data = true // 记录路由获取状态
       store.dispatch('setRouterList', asyncRouter) // 存储到vuex
       store.dispatch('GetInfo')
       next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
     })
     .catch(e => {
-      //console.log(e)
+      console.log(e)
       removeToken()
     })
 }

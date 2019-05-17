@@ -473,7 +473,7 @@
   .editDiv .el-form-item__label{
     height: 1.4rem;
     line-height: 1.4rem;
-    color: white;
+    color: #eee;
     width: 5.5rem !important;
     padding-right: 1rem;
   }
