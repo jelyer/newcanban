@@ -331,7 +331,7 @@
         }
 
         let tempid,tempname,tempconfig,tempstat,tempurl;
-        this.$parent.pageData.pageTitle = this.mainTitle;
+        //this.$parent.pageData.pageTitle = this.mainTitle;
         if (this.form.dataKey == '') {
           this.$message({
             type: 'error',
@@ -360,7 +360,7 @@
           });
           return
         }
-        this.$parent.pageData.data[this.$parent.nowDivIndex] = this.form;
+        //this.$parent.pageData.data[this.$parent.nowDivIndex] = this.form;
         tempid = Date.parse(new Date());
         tempname=this.mainTitle;
         tempconfig=JSON.stringify(this.$parent.domConfig);
