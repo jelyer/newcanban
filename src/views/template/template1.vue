@@ -386,7 +386,11 @@
         this.$refs.operation_form.currId = ele.id;//当前选择的Id
         this.$refs.operation_form.currDataKey = ele.dataKey//当前图表数据源编码
         this.$refs.operation_form.form.boxTitle= ele.boxTitle;//模块标题
-        this.isActive = index;
+        let theStatus=document.getElementsByClassName('app-wrapper')[0];
+        if(theStatus.getAttribute("class").indexOf('openSidebar')==-1){
+          this.isActive = index;
+        }
+
         //this.getAllDatas();//加载对应数据源
       /*
        let theStatus=document.getElementsByClassName('app-wrapper')[0];
