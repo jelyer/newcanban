@@ -77,7 +77,7 @@ export default {
   methods: {
     toggleSideBar() {
       this.$store.dispatch('ToggleSideBar')
-    /*  let theSideBar=document.getElementsByClassName('app-wrapper')[0];
+      let theSideBar=document.getElementsByClassName('app-wrapper')[0];
       if(theSideBar.getAttribute("class").indexOf('openSidebar')==-1){
         if(document.getElementsByClassName('main-container')[0].getElementsByClassName('active').length>0){
           document.getElementsByClassName('main-container')[0].getElementsByClassName('active') [0].classList.remove('active');
@@ -91,7 +91,7 @@ export default {
         document.getElementsByClassName('editPanel')[0].classList.add('selected');
         theSideBar.classList.remove('openSidebar');
         theSideBar.classList.add('hideSidebar');
-      }*/
+      }
     },
     logout() {
       this.$confirm('您确定要退出登录吗?', '提示', {
