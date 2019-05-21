@@ -61,7 +61,11 @@ const allChartObj =[
             }
           }
         },
-        data:[]
+        data:[
+          {name:'item1',value:10},
+          {name:'item2',value:10},
+          {name:'item3',value:10},
+        ]
       }
     ]
   },
@@ -251,7 +255,7 @@ const allChartObj =[
       name: '单位',
       min: 0,
       type: 'value',
-      data:'',
+      data:data1,
       splitArea: { show: false },
       splitLine: {
         show: false ,
@@ -381,7 +385,11 @@ const allChartObj =[
         radius : '55%',
         center: ['50%', '50%'],
         silent:true,
-        data: [],
+        data: [
+          {name:'item1',value:10},
+          {name:'item2',value:10},
+          {name:'item3',value:10},
+        ],
         label: {
           normal: {
             textStyle: {
