@@ -69,12 +69,6 @@
           </el-form-item>
           <el-form-item label="图表类型" prop="datatype">
             <el-select  style="width:300px"  size="mini"  multiple v-model="dataForm.datatype" placeholder="请选择">
-              <!--  <el-option label="横向柱状图" value="0"></el-option>
-                <el-option label="纵向柱状图" value="1"></el-option>
-                <el-option label="折线图" value="2"></el-option>
-                <el-option label="饼状图" value="3"></el-option>
-                <el-option label="环形图" value="4"></el-option>
-                <el-option label="数据列表" value="5"></el-option>-->
               <el-option-group
                 v-for="group in chartOption"
                 :key="group.label"
@@ -86,6 +80,22 @@
                   :value="item.value">
                 </el-option>
               </el-option-group>
+             <!-- <el-option-group  label="数据列表">
+                <el-option label="数据列表" value="-1"></el-option>
+              </el-option-group>
+              <el-option-group  label="单维图表">
+                <el-option label="折线统计图" value="1"></el-option>
+                <el-option label="柱状统计图" value="2"></el-option>
+                <el-option label="饼状图" value="5"></el-option>
+                <el-option label="环形图" value="0"></el-option>
+              </el-option-group>
+              <el-option-group  label="多维图表">
+                <el-option label="多条折线统计图" value="6"></el-option>
+                <el-option label="多条柱状统计图" value="7"></el-option>
+              </el-option-group>
+              <el-option-group  label="其它">
+                <el-option label="纵向柱状图" value="3"></el-option>
+              </el-option-group>-->
             </el-select>
           </el-form-item>
           <el-form-item label="数据配置" prop="dataconfig">
@@ -609,8 +619,14 @@
           }).then(() => {
               this.dialogStatus = 'update';
               this.dialogFormVisible = true;
+
+              if(typeof row.datatype == "number"){
+                row.datatype = '["'+row.datatype+'"]';
+              };
+              if(typeof row.datatype == "string"){
+                row.datatype = JSON.parse(row.datatype);
+              }
               this.dataForm = row;
-              this.dataForm.datatype = JSON.parse(row.datatype);
           })
       },
       //限制输入数字
