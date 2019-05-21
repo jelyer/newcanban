@@ -305,7 +305,7 @@
         this.$nextTick(() => {
           this.$refs['dataForm'].clearValidate()
         })
-        this.$refs[formName].resetFields();//清空
+        //this.$refs[formName].resetFields();//清空
       },
       //保存这个小的div的修改
       saveChanges: function () {
@@ -391,6 +391,12 @@
               duration: 2000
             })
             this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
+            var _this = this;
+            this.$store.dispatch('ToggleSideBar')
+            setTimeout(function(){
+              _this.$routers.replace('/');//刷新页面
+            },1000)
+
           }else{
             this.$notify({
               title: '提示',
@@ -465,6 +471,11 @@
               duration: 2000
             })
             this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
+            var _this = this;
+            this.$store.dispatch('ToggleSideBar')
+            setTimeout(function(){
+              _this.$routers.replace('/');//刷新页面
+            },1000)
           }else{
             this.$notify({
               title: '提示',
