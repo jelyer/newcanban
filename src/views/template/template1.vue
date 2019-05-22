@@ -703,7 +703,7 @@
     display: none;
   }
 
-  .temtable thead th{text-align: center;color:#3caff2}
+  .temtable thead th{text-align: center;color:#3caff2;height: 1.6rem;}
   .temtable tbody tr td{text-align: center}
   .temtable tbody tr{height: 1.5rem;}
 </style>
