@@ -11,7 +11,7 @@ import {getTempleteAll} from './api/chartSetting'
 const whiteList = ['/login']
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  if (getToken()) {
+  //if (getToken()) {
     // 判断cookice是否存在 不存在即为未登录
     if (to.path !== '/login') {
       if (store.state.app.routerstat) {
@@ -33,10 +33,10 @@ router.beforeEach((to, from, next) => {
       } else {
         next()
       }*/
-    } else {
+/*    } else {
       Message({ message: '您已经登录', type: 'info' })
       next('/')
-    }
+    }*/
   } else {
     if (whiteList.indexOf(to.path) !== -1) {
       // 免登陆白名单 直接进入
@@ -79,11 +79,13 @@ function gotoRouter(to, next) {
             }]
           }
           jsondata.push(data);
-          //lunbo
-          let list = {title:undefined,url:undefined,checked:true};
-          list.title = result[n].tempname;
-          list.url = result[n].tempurl+"?pageId="+result[n].tempid+"&stat="+result[n].tempstat;
-          roulunbo.push(list);
+          //lunbo 如果是已发布的,1系统模板，5编辑中，9已发布
+          if(result[n].tempstat != 5){
+            let list = {title:undefined,url:undefined,checked:true};
+            list.title = result[n].tempname;
+            list.url = result[n].tempurl+"?pageId="+result[n].tempid+"&stat="+result[n].tempstat;
+            roulunbo.push(list);
+          }
         }
       }
       store.dispatch('setRouterData', result) // 存储到路由数据到vuex

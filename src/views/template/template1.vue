@@ -31,28 +31,28 @@
                 <p class="boxTitle">{{domConfig[1].boxTitle}}</p>
                 <div class="boxContent">
                   <div class="boxContent-div">
-                    <div class="Tb-box">
+                    <table class="temtable" style="width: 100%;">
+                      <thead>
+                          <th v-for="item in domConfig[1].data.name">{{item}}</th>
+                      </thead>
+                      <tbody>
+                        <tr class="colflex" v-for="item in domConfig[1].data.value">
+                          <td  v-for="it in item" :title="it">{{it}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                   <!-- <div class="Tb-box">
                       <div class="Tb-title">
                         <el-row>
-                          <el-col :span="14">
-                            商品名称
-                          </el-col>
-                          <el-col :span="4">
-                            单数
-                          </el-col>
-                          <el-col :span="6">
-                            件数
-                          </el-col>
+                          <el-col :span="8"  v-for="item in domConfig[1].data.name">{{item}}</el-col>
                         </el-row>
                       </div>
                       <div class="Tb-content">
-                        <el-row v-for="item in domConfig[1].data">
-                          <el-col :span="14" :title="item.name">{{item.name}}</el-col>
-                          <el-col :span="4">{{item.num}}</el-col>
-                          <el-col :span="6">{{item.qty}}</el-col>
+                        <el-row v-for="item in domConfig[1].data.value">
+                          <el-col :span="8" v-for="it in item" :title="it">{{it}}</el-col>
                         </el-row>
                       </div>
-                    </div>
+                    </div>-->
                   </div>
                   <div class="icoTL"></div>
                   <div class="icoTR"></div>
@@ -65,30 +65,26 @@
                 <div class="boxContent">
                   <div class="boxContent-div">
                     <div class="Tb-box">
-                      <div class="Tb-title">
-                        <el-row>
-                          <el-col :span="10">
-                            快递公司
-                          </el-col>
-                          <el-col :span="5">
-                            总单量
-                          </el-col>
-                          <el-col :span="5">
-                            完成量
-                          </el-col>
-                          <el-col :span="4">
-                            占比
-                          </el-col>
-                        </el-row>
+                      <table class="temtable" style="width: 100%;">
+                        <thead>
+                             <th v-for="item in domConfig[2].data.name">{{item}}</th>
+                        </thead>
+                        <tbody>
+                            <tr class="colflex" v-for="item in domConfig[2].data.value">
+                              <td  v-for="it in item" :title="it">{{it}}</td>
+                            </tr>
+                        </tbody>
+                      </table>
+                     <!-- <div class="Tb-title">
+                        <div class="colflex">
+                          <div  v-for="item in domConfig[2].data.name">{{item}}</div>
+                        </div>
                       </div>
                       <div class="Tb-content">
-                        <el-row v-for="item in domConfig[2].data">
-                          <el-col :span="10" :title="item.name">{{item.name}}</el-col>
-                          <el-col :span="5">{{item.num}}</el-col>
-                          <el-col :span="5">{{item.qty}}</el-col>
-                          <el-col :span="4">{{item.scale}}</el-col>
-                        </el-row>
-                      </div>
+                        <div class="colflex" v-for="item in domConfig[2].data.value">
+                          <div  v-for="it in item" :title="it">{{it}}</div>
+                        </div>
+                      </div>-->
                     </div>
                   </div>
                   <div class="icoTL"></div>
@@ -191,21 +187,28 @@
             boxTitle:"到货预约信息",
             key:null,
             dataKey:null,
-            data:[
-                {name:"百草味-每日坚果每日",num:"35",qty:"34352"},
-                {name:"百草味-每日坚果每日",num:"35",qty:"34352"},
-                {name:"百草味-每日坚果每日",num:"35",qty:"34352"},
-              ]
+            data:{
+                name:['商品名称','单数','件数'],
+                value:[
+                  ["百草味-每日坚果每日","35","34352"],
+                  ["百草味-每日坚果每日","35","34352"],
+                  ["百草味-每日坚果每日","35","34352"]
+                ]
+            }
           },{
             id:"firstLeftBot2",
             boxTitle:"快递订单完成情况",
             key:null,
             dataKey:null,
-            data:[
-                {name:"百草味-每日坚果每日",num:"35",qty:"34352",scale:"30%"},
-                {name:"百草味-每日坚果每日",num:"35",qty:"34352",scale:"30%"},
-                {name:"百草味-每日坚果每日",num:"35",qty:"34352",scale:"30%"},
+            data:{
+              name:['快递公司','总单量','完成量','占比'],
+              value:[
+                ["百草味-每日坚果每日","35","34352","30%"],
+                ["百草味-每日坚果每日","35","34352","30%"],
+                ["百草味-每日坚果每日","35","34352","30%"]
               ]
+            }
+
           },{
             id:"firstRight",
             boxTitle:"订单进展情况",
@@ -672,7 +675,7 @@
 
   /*列表样式##########################starrt*/
   .Tb-box{
-    width: 100%;  height: 100%;  padding-left: 1.3rem;  overflow: hidden;
+    width: 100%;  height: 100%;  padding:0 .3rem;  overflow: hidden;
   }
   .Tb-box .el-row .el-col{
     white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;  line-height: 1.8rem;
@@ -680,9 +683,15 @@
   .Tb-title{
     height: 20%;  color: #3caff2;
   }
+
   .Tb-title div{
     height: 100%;
 
+  }
+  .Tb-title .colflex, .Tb-content .colflex{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
   }
   .Tb-box .el-row .el-col:nth-child(1){
     text-align: left;
@@ -693,4 +702,8 @@
   ::-webkit-scrollbar{
     display: none;
   }
+
+  .temtable thead th{text-align: center;color:#3caff2}
+  .temtable tbody tr td{text-align: center}
+  .temtable tbody tr{height: 1.5rem;}
 </style>
