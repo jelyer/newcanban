@@ -9,11 +9,11 @@
         <li class="releasePanel" id="pullKanban" @click="publistTems()" title="发布看板">
           <span></span>
         </li>
-        <li class="editPanel" id="editKanban" title="编辑看板" @click="toggleSideBar()">
+        <li :class="[{selected: isActive},'editPanel']"  id="editKanban" title="编辑看板" @click="toggleSideBar()">
           <span></span>
         </li>
         <li class="fullScreen" id="fullChart" title="全屏" @click="largeScreen()">
-          <span></span>
+          <span class="selected"></span>
         </li>
         <li class="elpGuide" @click.prevent.stop="guide" title="帮助指导">
           <span></span>
@@ -71,7 +71,8 @@ import steps from './steps'
 export default {
   data() {
     return {
-      driver: null
+      driver: null,
+      isActive:false
     }
   },
   mounted() {
@@ -108,6 +109,7 @@ export default {
       this.driver.start()
     },
     toggleSideBar() {
+      this.isActive = true;
       this.$store.dispatch('ToggleSideBar')
       let theSideBar=document.getElementsByClassName('app-wrapper')[0];
       if(theSideBar.getAttribute("class").indexOf('openSidebar')==-1){
@@ -137,6 +139,7 @@ export default {
       })
     },
     largeScreen:function(){
+      this.isActive = 2;
       if(document.getElementsByClassName('main-container')[0].getElementsByClassName('active').length>0){
         document.getElementsByClassName('main-container')[0].getElementsByClassName('active') [0].classList.remove('active');
       }
