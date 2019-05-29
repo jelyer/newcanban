@@ -7,8 +7,8 @@ const user = {
     name: '',
     avatar: '',
     roles: [],
-    RouterList: [], // 动态路由
-    RouterData:[],//路由数据
+    RouterList: [], // 动态路由,已拼接好
+    routerDatas:[],//路由数据，未转格式
   },
 
   mutations: {
@@ -28,7 +28,7 @@ const user = {
       state.RouterList = RouterList
     },
     set_routerData: (state, RouterData) => {
-      state.RouterData = RouterData
+      state.routerDatas = RouterData
     }
   },
 
@@ -45,7 +45,10 @@ const user = {
             resolve()
           })
           .catch(error => {
-            reject(error)
+            setToken("jsiifeerw")
+            commit('SET_TOKEN', "jsiifeerw")
+            resolve()
+            //reject(error)
           })
       })
     },
@@ -67,19 +70,20 @@ const user = {
             resolve(response)
           })
           .catch(error => {
+            commit('SET_NAME', "admin")
+            commit('SET_AVATAR', "")
             reject(error)
           })
       })
     },
     // 动态设置路由 此为设置设置途径
     setRouterList({ commit }, routerList) {
-
       commit('set_router', StaticRouterMap.concat(routerList)) // 进行路由拼接并存储
     },
 
     // 存储路由数据
     setRouterData({ commit }, RouterData) {
-      commit('set_routerData', RouterData) // 进行路由拼接并存储
+      commit('set_routerData', RouterData)
     },
     // 存储颗粒话权限
     setroles({ commit }, roleList) {

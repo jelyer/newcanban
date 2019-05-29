@@ -6,19 +6,19 @@
     </div>
     <div class="navbar-right">
       <ul>
-        <li class="releasePanel" title="发布看板">
+        <li class="releasePanel" id="pullKanban" @click="publistTems()" title="发布看板">
           <span></span>
         </li>
-        <li class="editPanel" title="编辑看板" @click="toggleSideBar()">
+        <li class="editPanel" id="editKanban" title="编辑看板" @click="toggleSideBar()">
           <span></span>
         </li>
-        <li class="fullScreen" title="全屏" @click="largeScreen()">
+        <li class="fullScreen" id="fullChart" title="全屏" @click="largeScreen()">
           <span></span>
         </li>
-        <li class="elpGuide" title="帮助指导">
+        <li class="elpGuide" @click.prevent.stop="guide" title="帮助指导">
           <span></span>
         </li>
-        <li class="Logout" @click="logout" title="退出登录">
+        <li class="Logout" id="outLogin" @click="logout" title="退出登录">
           <span></span>
         </li>
       </ul>
@@ -62,8 +62,36 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import {publistTem} from '@/api/chartSetting'
+
+import Driver from 'driver.js' // import driver.js
+import 'driver.js/dist/driver.min.css' // import driver.js css
+import steps from './steps'
 
 export default {
+  data() {
+    return {
+      driver: null
+    }
+  },
+  mounted() {
+    //this.driver = new Driver();
+    this.driver = new Driver({
+      className: 'scoped-class', // className to wrap driver.js popover
+      animate: true,  // Animate while changing highlighted element
+      opacity: 0.75,  // Background opacity (0 means only popovers and without overlay)
+      padding: 10,    // Distance of element from around the edges
+      allowClose: true, // Whether clicking on overlay should close or not
+      overlayClickNext: false, // Should it move to next step on overlay click
+      doneBtnText: 'Done', // Text on the final button
+      closeBtnText: '关闭', // Text on the close button for this step
+      nextBtnText: '下一步', // Next button text for this step
+      prevBtnText: '上一步', // Previous button text for this step
+      showButtons: true, // Do not show control buttons in footer
+      keyboardControl: true, // Allow controlling through keyboard (escape to close, arrow keys to move)
+      //onNext: (Element) => {console.log(Element)},
+    });
+  },
   components: {
     Breadcrumb,
     Hamburger
@@ -75,6 +103,10 @@ export default {
     ])
   },
   methods: {
+    guide() {
+      this.driver.defineSteps(steps)
+      this.driver.start()
+    },
     toggleSideBar() {
       this.$store.dispatch('ToggleSideBar')
       let theSideBar=document.getElementsByClassName('app-wrapper')[0];
@@ -118,6 +150,63 @@ export default {
           document.onkeydown = undefined;
         }
       }
+    },
+    //发布看板
+    publistTems(){
+      this.$confirm('您确定要发布此模板吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let url = window.location.href;
+        let bb = url.indexOf("pageId=");
+        let pageId = url.substring(bb+7,url.indexOf("&"))
+
+
+        var routerDatas = this.$store.state.user.routerDatas;
+        for(var j in routerDatas){
+           if(routerDatas[j].tempid == pageId){
+               if(routerDatas[j].tempstat == "1"){
+                 this.$message({
+                   type: 'error',
+                   message: '系统模板不需要发布!'
+                 });
+                 return;
+               }else if(routerDatas[j].tempstat == "9"){
+                 this.$message({
+                   type: 'error',
+                   message: '此模板已发布!'
+                 });
+                 return;
+               }else{
+                 break;
+               }
+           }
+        }
+        var params = {
+          tempid : pageId,
+          tempstat : 9
+        }
+        publistTem(this.$qs.stringify(params)).then(response => {
+          if(response.data.errno == 0){
+            this.$notify({
+              title: '提示',
+              message: '发布成功！',
+              type: 'success',
+              duration: 2000
+            })
+            this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
+          }else{
+            this.$notify({
+              title: '提示',
+              message: response.data.errmsg,
+              type: 'error',
+              duration: 3000
+            })
+          }
+        })
+      })
+
     }
   }
 }

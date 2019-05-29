@@ -33,10 +33,10 @@
                   <div class="boxContent-div">
                     <table class="temtable" style="width: 100%;">
                       <thead>
-                          <th v-for="item in domConfig[1].data.name">{{item}}</th>
+                          <th v-for="item in domConfig[1].data.legend">{{item}}</th>
                       </thead>
                       <tbody>
-                        <tr class="colflex" v-for="item in domConfig[1].data.value">
+                        <tr class="colflex" v-for="item in domConfig[1].data.data">
                           <td  v-for="it in item" :title="it">{{it}}</td>
                         </tr>
                       </tbody>
@@ -67,10 +67,10 @@
                     <div class="Tb-box">
                       <table class="temtable" style="width: 100%;">
                         <thead>
-                             <th v-for="item in domConfig[2].data.name">{{item}}</th>
+                             <th v-for="item in domConfig[2].data.legend">{{item}}</th>
                         </thead>
                         <tbody>
-                            <tr class="colflex" v-for="item in domConfig[2].data.value">
+                            <tr class="colflex" v-for="item in domConfig[2].data.data">
                               <td  v-for="it in item" :title="it">{{it}}</td>
                             </tr>
                         </tbody>
@@ -188,8 +188,8 @@
             key:null,
             dataKey:null,
             data:{
-                name:['商品名称','单数','件数'],
-                value:[
+                legend:['商品名称','单数','件数'],
+                data:[
                   ["百草味-每日坚果每日","35","34352"],
                   ["百草味-每日坚果每日","35","34352"],
                   ["百草味-每日坚果每日","35","34352"]
@@ -201,8 +201,8 @@
             key:null,
             dataKey:null,
             data:{
-              name:['快递公司','总单量','完成量','占比'],
-              value:[
+              legend:['快递公司','总单量','完成量','占比'],
+              data:[
                 ["百草味-每日坚果每日","35","34352","30%"],
                 ["百草味-每日坚果每日","35","34352","30%"],
                 ["百草味-每日坚果每日","35","34352","30%"]
@@ -452,7 +452,7 @@
                       var key = temconfig[i].key;
                       if(key != null){
                          //如果是数据表
-                         if(key == -1){
+                         if(key == 'list'){
                              let dk = {
                                dataKey:temconfig[i].dataKey,
                                boxTitle:temconfig[i].boxTitle
@@ -463,16 +463,21 @@
                              var parafun = function(para,$qs){
                                getDataByDataKey($qs.stringify(dk)).then(response => {
                                  if(response.data.errno == 0) {
+                                   console.log("获取的数据")
+                                   console.log(parseData)
                                    //temconfig[para.index].data = response.data.data
                                    if(response.data.data != ""){
-                                     _this.domConfig[para.index].data = JSON.parse(response.data.data);
+                                     var data = _this.COMMONFUN.formatDataToEchart(JSON.parse(response.data.data));
+                                     if(data.legend != undefined){
+                                       _this.domConfig[para.index].data_this.COMMONFUN.formatTables(data);
+                                     }else{
+                                       _this.domConfig[para.index].data = data;
+                                     }
                                    }
-
                                  }
                                })
                              }
                               parafun(para,this.$qs);
-
                          }else{
                              //如果是图表
                              let dk = {
@@ -486,40 +491,22 @@
                              var parafun = function(para,$qs){
                                  getDataByDataKey($qs.stringify(dk)).then(response => {
                                    if(response.data.errno == 0) {
+                                     var key = para.model.key;
                                      _this.ec = _this.$echarts.init(document.getElementById(para.model.id));
-                                     _this.ecObj = _this.GLOBAL.allChartObj[para.model.key];
+                                     _this.ecObj = _this.GLOBAL.allChartObj[key];
+                                     if(response.data.data ==undefined){
+                                        return;
+                                     }
                                      var parseData =  JSON.parse(response.data.data);
+                                     console.log("获取的数据")
+                                     console.log(parseData)
                                      //缓存id及对应数据
                                      _this.echartArr.push(para.model.id);
                                      _this.echartObjArr.push(parseData);
                                       //饼状图和环状图
-                                     if(para.model.key == 0 || para.model.key == 5){
-                                       _this.ecObj.series[0].data=_this.COMMONFUN.getChartDataPie(parseData);
-                                       _this.ec.setOption(_this.ecObj);
-                                     }else{
-                                       switch(key){
-                                         case "3": //如果是纵向柱状图
-                                           _this.ecObj.yAxis.data = _this.COMMONFUN.getChartData(parseData)[0];
-                                           _this.ecObj.series.data = _this.COMMONFUN.getChartData(parseData)[1];
-                                           break;
-                                         case "6": //如果是多条折线图
-                                           let datad = _this.COMMONFUN.getChartsData(parseData,"line");
-                                           _this.ecObj.legend.data = datad.legend;
-                                           _this.ecObj.xAxis.data = datad.xdata;
-                                           _this.ecObj.series = datad.series;
-                                           break;
-                                         case "7"://条形柱状图
-                                           let datads = _this.COMMONFUN.getChartsData(parseData,"bar");
-                                           _this.ecObj.legend.data = datads.legend;
-                                           _this.ecObj.xAxis.data = datads.xdata;
-                                           _this.ecObj.series = datads.series;
-                                           break;
-                                         default:
-                                           _this.ecObj.xAxis.data=_this.COMMONFUN.getChartData(parseData)[0];
-                                           _this.ecObj.series.data=_this.COMMONFUN.getChartData(parseData)[1];
-                                       }
-                                       _this.ec.setOption(_this.ecObj);
-                                     }
+                                     //根据图表类型key配置option
+                                     _this.COMMONFUN.setOptionByKey(_this.ecObj,key,parseData);
+                                     _this.ec.setOption(_this.ecObj);
                                    }
                                  })
                              }
@@ -642,7 +629,7 @@
 
   /*数据样式##########################starrt*/
   .firstLeftTop .el-row{
-    height: 100%;  padding-top: 1.3rem;
+    height: 100%;  padding-top: 1.3rem;overflow: hidden;
   }
   .el-row>div{
     height: 100%;  text-align: center;

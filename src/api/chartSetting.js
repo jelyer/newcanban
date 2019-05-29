@@ -19,6 +19,15 @@ export function getSourDataAll() {
   })
 }
 
+//发布模板
+export function publistTem(data){
+  return request({
+    url: '/adminTemplete/update',
+    method: 'post',
+    data
+  })
+}
+
 //修改数据源
 export function editSourData(data) {
   return request({

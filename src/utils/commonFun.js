@@ -14,6 +14,118 @@ export default{
     }
     return theRequest;
   },
+
+  /**
+   * 根据图表类型key配置option
+   * @param ecObj  当前ecObj对象
+   * @param key  图表类型
+   * @param data  图表数据
+   */
+  setOptionByKey:function(ecObj,key,data){
+    var data = this.formatDataToEchart(data);
+    if(key == 'pie' || key == 'ring'){
+      ecObj.series[0].data= data;
+    }else{
+      switch(key){
+        case "ybar": //如果是纵向柱状图
+          ecObj.yAxis.data = this.toFormatZhu(data).name;
+          ecObj.series.data = this.toFormatZhu(data).value;
+          break;
+        case "nline": //如果是多条折线图
+          let datad = this.getChartsData(data,"line");
+          ecObj.legend.data = datad.legend;
+          ecObj.xAxis.data = datad.xdata;
+          ecObj.series = datad.series;
+          break;
+        case "nbar"://条形柱状图
+          let datads = this.getChartsData(data,"bar");
+          ecObj.legend.data = datads.legend;
+          ecObj.xAxis.data = datads.xdata;
+          ecObj.series = datads.series;
+          break;
+        default:
+          ecObj.xAxis.data=this.toFormatZhu(data).name;
+          ecObj.series.data=this.toFormatZhu(data).value;
+      }
+    }
+  },
+  //数据格式转换
+  formatDataToEchart:function(data,type){
+      if(data.length > 0){
+        var list = [];
+        var isN = data[0].xkey != undefined;
+        if(isN){
+          //[{"xkey":"2019","B":2,"C":3},{"xkey":"2018","B":4,"C":5}]
+          //转换为
+          //{legend:["2019","2018"],data:[ [{"name":"B","value":2},{"name":"C","value":3}], [{"name":"B","value":4},{"name":"C","value":5}]  ]}
+          var oo = null;
+          var legend = [];
+          var dt = [];
+          for(var i in data){
+            oo = data[i];
+            dt = [];
+            for(var k in oo){
+              if(k == "xkey"){
+                legend.push(oo[k]);
+              }else{
+                dt.push({name:k,value:oo[k]});
+              }
+            }
+            list.push(dt);
+          }
+          return {"legend" : legend, "data" : list};
+        }else{
+          //[{"A":1,"B":2,"C":3}]
+          // 转换为
+          //[{"name":"A","value":1},{"name":"B","value":2},{"name":"C","value":3}]
+          var oo = null;
+          for(var i in data){
+            oo = data[i];
+            for(var k in oo){
+              list.push({name:k,value:oo[k]});
+            }
+          }
+          return list;
+        }
+      }
+      return [];
+  },
+  /**
+   * 将数组的{"name":"A","value":1}转化为x/y轴对应值
+   * @param data  要转的数据
+   */
+  toFormatZhu:function(data){
+    var rdata = {
+      name:[],
+      value:[]
+    }
+    for(var i in data){
+      rdata.name.push(data[i].name);
+      rdata.value.push(data[i].value)
+    }
+    return rdata;
+  },
+
+  /**
+   * 将柱状图数据//{legend:["2019","2018"],data:[ [{"name"...转化为表格数据
+   * @param data
+   */
+  formatTables:function(data){
+     var nd = {
+       legend:undefined,
+       data:[]
+     }
+     nd.legend = data.legend;
+     for(var i in data.data){
+       let arr = [];
+       for(var j in data.data[i]){
+         arr.push(data.data[i][j].value);
+       }
+       nd.data.push(arr);
+     }
+     return nd;
+  },
+
   //环形、条形、折线图数据转换
   getChartData:function (data,type) {
     let newData1=[];

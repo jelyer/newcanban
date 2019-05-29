@@ -7,7 +7,7 @@ const getters = {
   routerList: state => state.user.RouterList,
   roles: state => state.user.roles,
   routerstat: state => state.app.routerstat,
-  RouterData: state => state.user.RouterData,
+  routerDatas: state => state.user.routerDatas,
   routerlb: state => state.app.routerlb
 }
 export default getters

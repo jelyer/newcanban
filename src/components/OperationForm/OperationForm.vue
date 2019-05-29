@@ -27,7 +27,7 @@
               <div class="componentsContent">
                 <el-row>
                   <el-col :span="8" v-for="(item,i) in ableChartsData" :key="i">
-                    <div class="imgBox" v-if="dataTypes.indexOf(item.key.toString()) > -1"  v-on:click="selectionChart(item.key)">
+                    <div class="imgBox" v-if="dataTypes.indexOf(item.key) > -1"  v-on:click="selectionChart(item.key)">
                       <img v-if="item.key == currKey" class="checked" :src="'/static/image/'+(item.url)+'.png'" alt="">
                       <img v-else :src="'/static/image/'+(item.url)+'.png'" alt="">
                     </div>
@@ -125,7 +125,7 @@
         currDataKey:undefined,//当前数据源类型--回显
         currId:undefined,//当前模块id
         ableChartsData: this.GLOBAL.fixedChart,//所有可用图表
-        dataTypes:[1,2,3,4],//根据所选数据可支持的图表范围
+        dataTypes:[],//根据所选数据可支持的图表范围
         sourSetting:false,//切换
         reloadTime:undefined,
         dialogStatus: 'create',
@@ -257,8 +257,8 @@
         }
         var index = this.COMMONFUN.contains(this.$parent.echartArr,this.currId);//获取下标
         var domId;
-        if(index == -1){
-          if(key == "-1"){
+        if(index == -1){ //如果没找到
+          if(key == "list"){
              return;//数据表
           }
           //空图，给个例子
@@ -274,17 +274,17 @@
             if (key != 0) {
               //如果是纵向柱状图
               switch(key){
-                case "3": //如果是纵向柱状图
+                case "ybar": //如果是纵向柱状图
                   this.$parent.ecObj.yAxis.data = this.COMMONFUN.getChartData(parseData)[0];
                   this.$parent.ecObj.series.data = this.COMMONFUN.getChartData(parseData)[1];
                   break;
-                case "6": //如果是多条折线图
+                case "nline": //如果是多条折线图
                   let datad = this.COMMONFUN.getChartsData(parseData,"line");
                   this.$parent.ecObj.legend.data = datad.legend;
                   this.$parent.ecObj.xAxis.data = datad.xdata;
                   this.$parent.ecObj.series = datad.series;
                   break;
-                case "7"://条形柱状图
+                case "nbar"://多条形柱状图
                   let datads = this.COMMONFUN.getChartsData(parseData,"bar");
                   this.$parent.ecObj.legend.data = datads.legend;
                   this.$parent.ecObj.xAxis.data = datads.xdata;
