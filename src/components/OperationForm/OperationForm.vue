@@ -7,7 +7,7 @@
     <div class="content">
 
         <div v-if="!sourSetting" class="form">
-          <el-form class="operaform" ref="form" :model="form" label-width="80px">
+          <el-form class="operaform" ref="form" :model="form" label-width="5.5rem">
             <el-form-item label="主标题">
               <el-input v-model="mainTitle" id="mainTitle"  v-on:input="changMainTitle()"></el-input>
             </el-form-item>
@@ -103,10 +103,10 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button size="mini" round  type="info" @click="dialogFormVisible = false">取消</el-button>
-          <el-button size="mini" v-if="dialogStatus=='create'" round type="info"  @click="resetForm('dataForm')">重置</el-button>
-          <el-button size="mini" v-if="dialogStatus=='create'" round type="primary" @click="submitSourData">保存</el-button>
-          <el-button size="mini" v-if="dialogStatus=='update'" round type="primary" @click="editSourData">保存</el-button>
+          <el-button size="mini"   type="info" @click="dialogFormVisible = false">取消</el-button>
+          <el-button size="mini" v-if="dialogStatus=='create'"  type="info"  @click="resetForm('dataForm')">重置</el-button>
+          <el-button size="mini" v-if="dialogStatus=='create'"  type="primary" @click="submitSourData">保存</el-button>
+          <el-button size="mini" v-if="dialogStatus=='update'"  type="primary" @click="editSourData">保存</el-button>
         </div>
       </el-dialog>
 
@@ -211,6 +211,7 @@
             break;
           }
         }
+        debugger
         this.dataTypes = JSON.parse(datatype);
       },
       rutrnDatas(){
@@ -759,8 +760,18 @@
   .el-table__row .cell{color:#999 !important;}
 
   .rightSetting{background:rgb(10, 17, 50)}
-  .rightSetting .title{width:100%;height:2.7rem;line-height: 2.7rem;text-align: center;font-size: 1.1rem;color: #3caff2;background: #27343e;display: flex}
+  .rightSetting .title{width:100%;height:2.7rem;line-height: 2.7rem;text-align: center;font-size: 1.1rem;color: #999;background: #27343e;display: flex}
   .rightSetting .content{height: 100%; background: #1c1f25;  margin: 0;overflow: hidden;padding-bottom: 2.7rem;  /*border: 1px solid #0db3fd;*/}
   .rightSetting .title .til{width:50%;cursor: pointer;}
-  .rightSetting .title .active{background: #1c1f25;border-top:2px solid #0db3fd;cursor: default;}
+  .rightSetting .title .active{background: #1c1f25;border-top:2px solid #0db3fd;cursor: default;color: #3caff2;}
+
+  /*表单按钮样式*/
+  .dialog-footer .el-button.el-button--mini{
+    background: url(/static/image/choicBtn.png) no-repeat center;
+    background-size: 100% 100%;
+    color: #3caff2;
+    font-size: .95rem;
+    cursor: pointer;
+    border: none;
+  }
 </style>
