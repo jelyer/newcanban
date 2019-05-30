@@ -36,6 +36,12 @@
                           <th v-for="item in domConfig[1].data.legend">{{item}}</th>
                       </thead>
                       <tbody>
+                       <!-- <tr v-for="item in domConfig[1].data.data" :class="[{marquee_top:animate},'colflex']" v-if="domConfig[1].data.data.length>3">
+                          <td  v-for="it in item" :title="it">{{it}}</td>
+                        </tr>
+                        <tr class="colflex" v-for="item in domConfig[1].data.data" v-if>
+                          <td  v-for="it in item" :title="it">{{it}}</td>
+                        </tr>-->
                         <tr class="colflex" v-for="item in domConfig[1].data.data">
                           <td  v-for="it in item" :title="it">{{it}}</td>
                         </tr>
@@ -70,7 +76,13 @@
                              <th v-for="item in domConfig[2].data.legend">{{item}}</th>
                         </thead>
                         <tbody>
-                            <tr class="colflex" v-for="item in domConfig[2].data.data">
+                           <!-- <tr v-for="item in domConfig[2].data.data" :class="[{marquee_top:animate},'colflex']" v-if="domConfig[2].data.data.length>3">
+                              <td  v-for="it in item" :title="it">{{it}}</td>
+                            </tr>
+                            <tr v-for="item in domConfig[2].data.data" class="colflex" v-else>
+                              <td  v-for="it in item" :title="it">{{it}}</td>
+                            </tr>-->
+                            <tr v-for="item in domConfig[2].data.data" class="colflex">
                               <td  v-for="it in item" :title="it">{{it}}</td>
                             </tr>
                         </tbody>
@@ -152,6 +164,7 @@
     },
     data(){
       return{
+        animate: false,//是否滚动
         pageId:undefined,
         isModle:true,//是否是模板页面
         tempurl:'/template1',
@@ -255,6 +268,7 @@
       if(pageId != undefined){
         this.pageId = pageId
       }
+      //setInterval (this.showMarquee, 2000)
     },
     mounted(){
 /*
@@ -462,14 +476,15 @@
                              }
                              var parafun = function(para,$qs){
                                getDataByDataKey($qs.stringify(dk)).then(response => {
-                                 if(response.data.errno == 0) {
+                                 if(response.data.errno == 0 && response.data.data != undefined && response.data.data != '[]') {
                                    console.log("获取的数据")
-                                   console.log(parseData)
+                                   console.log(response)
                                    //temconfig[para.index].data = response.data.data
                                    if(response.data.data != ""){
                                      var data = _this.COMMONFUN.formatDataToEchart(JSON.parse(response.data.data));
-                                     if(data.legend != undefined){
-                                       _this.domConfig[para.index].data_this.COMMONFUN.formatTables(data);
+                                     if(data.legend != undefined){ //如果是典型列表
+                                       //_this.domConfig[para.index].data = data;
+                                       _this.domConfig[para.index].data = _this.COMMONFUN.formatTables(data);
                                      }else{
                                        _this.domConfig[para.index].data = data;
                                      }
@@ -490,7 +505,7 @@
                              }
                              var parafun = function(para,$qs){
                                  getDataByDataKey($qs.stringify(dk)).then(response => {
-                                   if(response.data.errno == 0) {
+                                   if(response.data.errno == 0 && response.data.data != undefined && response.data.data != '[]') {
                                      var key = para.model.key;
                                      _this.ec = _this.$echarts.init(document.getElementById(para.model.id));
                                      _this.ecObj = _this.GLOBAL.allChartObj[key];
@@ -505,7 +520,7 @@
                                      _this.echartObjArr.push(parseData);
                                       //饼状图和环状图
                                      //根据图表类型key配置option
-                                     _this.COMMONFUN.setOptionByKey(_this.ecObj,key,parseData);
+                                     _this.COMMONFUN.setOptionByKey(_this.ecObj,key,parseData);//根据数据和图表类型设置option
                                      _this.ec.setOption(_this.ecObj);
                                    }
                                  })
@@ -519,8 +534,25 @@
              }
            }
         })
-      }
+      },
+      //文字滚动方法
+     /* showMarquee: function () {
+        this.animate = true;
+        var _this = this;
+        setTimeout (() => {
+          if(_this.domConfig[1].data.data.length>3){
+            _this.domConfig[1].data.data.push (_this.domConfig[1].data.data[0]);
+            _this.domConfig[1].data.data.shift ();
+            _this.animate = false;
+          }
+          if(_this.domConfig[2].data.data.length>3){
+            _this.domConfig[2].data.data.push (_this.domConfig[2].data.data[0]);
+            _this.domConfig[2].data.data.shift ();
+            _this.animate = false;
+          }
 
+        }, 500);
+      }*/
     },
     //销毁
     beforeDestroy() {

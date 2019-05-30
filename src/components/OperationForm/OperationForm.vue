@@ -211,7 +211,7 @@
             break;
           }
         }
-        debugger
+        //debugger
         this.dataTypes = JSON.parse(datatype);
       },
       rutrnDatas(){
@@ -272,40 +272,13 @@
             var parseData = this.$parent.echartObjArr[index];
             this.$parent.ec = this.$echarts.init(document.getElementById(domId));
             this.$parent.ecObj = this.GLOBAL.allChartObj[key];
-            if (key != 0) {
-              //如果是纵向柱状图
-              switch(key){
-                case "ybar": //如果是纵向柱状图
-                  this.$parent.ecObj.yAxis.data = this.COMMONFUN.getChartData(parseData)[0];
-                  this.$parent.ecObj.series.data = this.COMMONFUN.getChartData(parseData)[1];
-                  break;
-                case "nline": //如果是多条折线图
-                  let datad = this.COMMONFUN.getChartsData(parseData,"line");
-                  this.$parent.ecObj.legend.data = datad.legend;
-                  this.$parent.ecObj.xAxis.data = datad.xdata;
-                  this.$parent.ecObj.series = datad.series;
-                  break;
-                case "nbar"://多条形柱状图
-                  let datads = this.COMMONFUN.getChartsData(parseData,"bar");
-                  this.$parent.ecObj.legend.data = datads.legend;
-                  this.$parent.ecObj.xAxis.data = datads.xdata;
-                  this.$parent.ecObj.series = datads.series;
-                  break;
-                default:
-                  this.$parent.ecObj.xAxis.data=this.COMMONFUN.getChartData(parseData)[0];
-                  this.$parent.ecObj.series.data=this.COMMONFUN.getChartData(parseData)[1];
-              }
-             /* if(key == 3){
-                this.$parent.ecObj.yAxis.data = this.COMMONFUN.getChartData(parseData)[0];
-                this.$parent.ecObj.series.data = this.COMMONFUN.getChartData(parseData)[1];
-              }else{
-                this.$parent.ecObj.xAxis.data = this.COMMONFUN.getChartData(parseData)[0];
-                this.$parent.ecObj.series.data = this.COMMONFUN.getChartData(parseData)[1];
-              }*/
+            if (key != 'list') {
+              this.COMMONFUN.setOptionByKey(this.$parent.ecObj,key,parseData);
             }else{
-              //饼状图
-              this.$parent.ecObj.series[0].data = this.COMMONFUN.getChartDataPie(parseData);
+              //列表
+              return;
             }
+
         }
         this.$parent.$echarts.init(document.getElementById(domId)).clear();
         this.$parent.ec.setOption(this.$parent.ecObj);

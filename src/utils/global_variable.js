@@ -1,6 +1,6 @@
 const data1 = [1, 2, 3, 4, 5, 6, 7];
-const data2 =[500, 480, 200, 250, 350, 186, 440,130];
-const data3 =[100, 280, 300, 350, 550, 126, 470,335];
+const data2 =[500, 480, 200, 250, 350, 186, 440];
+const data3 =[100, 280, 300, 350, 550, 126, 470];
 /**
  * @type {[null,null,null,null,null]}
  */
@@ -140,21 +140,17 @@ const allChartObj ={
         tooltip: {
           show:false,
         },
-        grid: {
-          left: '10',
+       grid: {
+            left: '10',
             bottom: '10',
             top: '35',
             right: '10',
             containLabel: true
         },
         xAxis: {
-          name: '',
-            min: 0,
-            type: 'category', //纵向柱状图，若需要为横向，则此处值为'value'， 下面 yAxis 的type值为'category'
-            data: data1,
-            nameTextStyle:{
-            color:'#cbcbcb'
-          },
+          name: '单位',
+          min: 0,
+          type: 'category', //纵向柱状图，若需要为横向，则此处值为'value'， 下面 yAxis 的type值为'category'
           axisLine: {
             lineStyle: {
               color: '#363e43'
@@ -168,16 +164,13 @@ const allChartObj ={
               color: '#cbcbcb'
             }
           },
+          data: data1,
         },
         yAxis: [{
           name: '单位',
-          min: 0,
           type: 'value',
-          data:'',
           splitArea: { show: false },
-          splitLine: {
-            show: false ,
-          },//去除网格线
+          splitLine: {show: false ,},//去除网格线
           nameTextStyle:{
             color:'#cbcbcb',
           },
@@ -197,45 +190,32 @@ const allChartObj ={
           }
         }],
       series: {
-        name: '销量',
+          name: '销量',
           type: 'bar',
           barWidth: 15,
           itemStyle: {
-          normal: {
-            show: false,//鼠标悬停时显示label数据
+            normal: {
+              show: false,//鼠标悬停时显示label数据
               color:'',
-            /*color: new this.$echarts.graphic.LinearGradient(
-              0, 0, 0, 1,
-              [
-                {offset: 0, color: '#44cbf5'},
-                {offset: 1, color:'#2669c5'}
-              ]
-            )*/
+            },
           },
-          data: data2
-        },
+        data: data2
       }
     },
 //3、纵向柱状图
 ybar : {
           /*title:'',*/
-          tooltip: {
-            show:false,
-          },
+          tooltip: {show:false,},
           grid: {
-            left: '10',
-              bottom: '10',
-              top: '35',
-              right: '10',
-              containLabel: true
+            left: '10', bottom: '10', top: '35', right: '10', containLabel: true
           },
           yAxis: {
-            name: '',
-              min: 0,
-              type: 'category', //纵向柱状图，若需要为横向，则此处值为'value'， 下面 yAxis 的type值为'category'
-              data: data1,
-              nameTextStyle:{
-              color:'#cbcbcb'
+            name: '单位',
+            min: 0,
+            type: 'category', //纵向柱状图，若需要为横向，则此处值为'value'， 下面 yAxis 的type值为'category'
+            data: data1,
+            nameTextStyle:{
+               color:'#cbcbcb'
             },
             axisLine: {
               lineStyle: {
@@ -252,10 +232,9 @@ ybar : {
             },
           },
           xAxis: [{
-            name: '单位',
+            name: '',
             min: 0,
             type: 'value',
-            data:data1,
             splitArea: { show: false },
             splitLine: {
               show: false ,
@@ -276,26 +255,28 @@ ybar : {
               textStyle: {
                 color: '#cbcbcb'
               }
-            }
+            },
+            data:data1,
           }],
-            series: {
-          name: '销量',
+       series: {
+            name: '销量',
             type: 'bar',
-            data: data2,
             barWidth: 15,
             itemStyle: {
-            normal: {
-              show: false,//鼠标悬停时显示label数据
-                color:'',
-              /*color: new this.$echarts.graphic.LinearGradient(
-                0, 0, 0, 1,
-                [
-                  {offset: 0, color: '#44cbf5'},
-                  {offset: 1, color:'#2669c5'}
-                ]
-              )*/
-            }
-          },
+              normal: {
+                show: false,//鼠标悬停时显示label数据
+                  color:'',
+                /*color: new this.$echarts.graphic.LinearGradient(
+                  0, 0, 0, 1,
+                  [
+                    {offset: 0, color: '#44cbf5'},
+                    {offset: 1, color:'#2669c5'}
+                  ]
+                )*/
+              },
+
+            },
+            data: data2,
         }
       },
 
