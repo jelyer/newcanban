@@ -21,6 +21,8 @@ import './directives'
 
 import  axios from 'axios'
 import qs from 'qs';
+import vueSeamlessScroll from 'vue-seamless-scroll'
+Vue.use(vueSeamlessScroll);
 Vue.prototype.$qs = qs;
 Vue.prototype.$axios=axios;
 Vue.prototype.$echarts=echarts;
