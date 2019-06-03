@@ -22,6 +22,7 @@ const allChartObj ={
 
   //0-环形图
   ring : {
+        color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],
         tooltip: {
           trigger: 'item',
             formatter: "{a} <br/>{b}: {c} ({d}%)"
@@ -36,7 +37,7 @@ const allChartObj ={
             label: {
               normal: {
                 textStyle: {
-                  color: "rgba(255, 255, 255, 0.3)"
+                  color: "rgba(255, 255, 255, 0.8)"
                 },
                 formatter:"{b} \n  {d}%",
               },
@@ -72,7 +73,8 @@ const allChartObj ={
 
 //1-折线图
   line:{
-        tooltip: {
+    color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],
+    tooltip: {
           show: false,
         },
         grid: {
@@ -136,7 +138,8 @@ const allChartObj ={
 
 // 2-柱状图
   bar:{
-        /*title:'',*/
+    color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],
+    /*title:'',*/
         tooltip: {
           show:false,
         },
@@ -204,6 +207,7 @@ const allChartObj ={
     },
 //3、纵向柱状图
 ybar : {
+          color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],
           /*title:'',*/
           tooltip: {show:false,},
           grid: {
@@ -282,7 +286,8 @@ ybar : {
 
 //4、无y有网格线折线图
   netline : {
-        tooltip: {
+    color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],
+    tooltip: {
           show: false,
         },
         grid: {
@@ -350,6 +355,7 @@ ybar : {
 
 //5、饼图
   pie:{
+          color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],
           /*title : {
             text: '同名数量统计',
             subtext: '纯属虚构',
@@ -357,7 +363,7 @@ ybar : {
           },*/
           tooltip : {
             trigger: 'item',
-              formatter: "{a} <br/>{b} : {c} ({d}%)"
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
           },
           series : [
             {
@@ -374,7 +380,7 @@ ybar : {
               label: {
                 normal: {
                   textStyle: {
-                    color: "rgba(255, 255, 255, 0.3)"
+                    color: "rgba(255, 255, 255, 0.8)"
                   },
                   formatter:"{b} \n  {d}%",
                 },
@@ -391,6 +397,7 @@ ybar : {
         },
 //6、多条折线图
   nline:{
+        color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],
         tooltip: {
           show: false,
         },
@@ -470,11 +477,11 @@ ybar : {
       },
 //7、多个柱状图
   nbar : {
-        color: ['#117dd1', '#f56c6c', '#4cabce', '#e5323e'],
-          tooltip: {
+        color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],
+        tooltip: {
         trigger: 'axis',
           axisPointer: {type: 'shadow'}
-      },
+         },
         legend: {
           data:[
             {
@@ -589,6 +596,7 @@ ybar : {
       },
 //嵌套环形图
   nring:{
+          color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],
           tooltip: {
             trigger: 'item',
               formatter: "{a} <br/>{b}: {c} ({d}%)"
@@ -639,11 +647,12 @@ ybar : {
 
 //层级饼图
   npie : {
-          /*title : {
-            text: '南丁格尔玫瑰图',
-            subtext: '纯属虚构',
-            x:'center'
-          },*/
+        color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],
+        /*title : {
+          text: '南丁格尔玫瑰图',
+          subtext: '纯属虚构',
+          x:'center'
+        },*/
           tooltip : {
             trigger: 'item',
               formatter: "{a} <br/>{b} : {c} ({d}%)"

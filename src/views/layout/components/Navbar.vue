@@ -198,6 +198,11 @@ export default {
               type: 'success',
               duration: 2000
             })
+            //如果处于编辑模式，则关闭编辑
+            let theSideBar=document.getElementsByClassName('app-wrapper')[0];
+            if(theSideBar.getAttribute("class").indexOf('openSidebar')==-1){
+              this.$store.dispatch('ToggleSideBar');
+            }
             this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
           }else{
             this.$notify({

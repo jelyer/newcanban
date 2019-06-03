@@ -18,7 +18,7 @@ import echarts from 'echarts'
 import commonFun from './utils/commonFun'
 import globalVariable from './utils/global_variable'
 import './directives'
-
+Cookies.set('sidebarStatus', 1);
 import  axios from 'axios'
 import qs from 'qs';
 import vueSeamlessScroll from 'vue-seamless-scroll'

@@ -58,7 +58,7 @@
           </el-table>
         </div>
 
-      <el-dialog  v-dialogDrag :title="textMap[dialogStatus]" width="500px" :visible.sync="dialogFormVisible">
+      <el-dialog v-dialogDrag :title="textMap[dialogStatus]" :modal="false" :close-on-click-modal="false" width="500px" :visible.sync="dialogFormVisible">
         <el-form :rules="rules" ref="dataForm" :model="dataForm" status-icon label-position="left" label-width="100px" style='margin:0 30px;'>
           <el-form-item label="数据编码" prop="datakey">
             <el-input v-if="this.dialogStatus == 'update'" disabled size="mini" v-model="dataForm.datakey"></el-input>
@@ -370,7 +370,7 @@
           if(response.data.errno == 0) {
             this.$notify({
               title: '成功',
-              message: '添加成功!',
+              message: '添加成功,正在刷新页面!',
               type: 'success',
               duration: 2000
             })
@@ -379,6 +379,10 @@
             this.$store.dispatch('ToggleSideBar')
             setTimeout(function(){
               _this.$routers.replace('/');//刷新页面
+              _this.$message({
+                type: 'success',
+                message: '刷新成功！'
+              });
             },1000)
 
           }else{
@@ -457,9 +461,9 @@
             this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
             var _this = this;
             this.$store.dispatch('ToggleSideBar')
-            setTimeout(function(){
+            /*setTimeout(function(){
               _this.$routers.replace('/');//刷新页面
-            },1000)
+            },1000)*/
           }else{
             this.$notify({
               title: '提示',

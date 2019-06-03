@@ -19,7 +19,7 @@
     <!--<div id="topleftb" style="position: absolute;bottom: 20px;left: 10px;background: #fff;z-index: 1001;">
       <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opened" class="hamburger-container"/>
     </div>-->
-    <el-dialog  v-dialogDrag title="轮播设置" width="500px" :visible.sync="dialogFormVisible">
+    <el-dialog :modal="false" v-dialogDrag title="轮播设置" width="600px" :visible.sync="dialogFormVisible">
       <el-form  status-icon label-position="left" label-width="100px" style='margin:0 30px;'>
         <el-form-item class="layoutcheck" label="轮播页面">
           <el-checkbox class="lpcheckbox" v-for="(item,i) in dataForm.routerData" v-model="item.checked">{{item.title}}</el-checkbox>

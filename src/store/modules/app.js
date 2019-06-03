@@ -3,7 +3,8 @@ import Cookies from 'js-cookie'
 const app = {
   state: {
     sidebar: {
-      opened: !+Cookies.get('sidebarStatus'),//0 true / 1 false
+     // opened: !+Cookies.get('sidebarStatus'),//0 true / 1 false
+      opened:true,
       withoutAnimation: false
     },
     device: 'desktop',
@@ -12,11 +13,11 @@ const app = {
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {
-      if (state.sidebar.opened) {
+/*      if (state.sidebar.opened) {   //取消缓存
         Cookies.set('sidebarStatus', 1)
       } else {
         Cookies.set('sidebarStatus', 0)
-      }
+      }*/
       state.sidebar.opened = !state.sidebar.opened
       state.sidebar.withoutAnimation = false
     },

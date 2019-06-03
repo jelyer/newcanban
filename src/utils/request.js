@@ -7,7 +7,7 @@ axios.default = IPCONFIG;//设置默认ip
 const service = axios.create({
   //baseURL: process.env.BASE_API, // api 的 base_url
   baseURL:IPCONFIG,
-  timeout: 50000 // 请求超时时间
+  timeout: 30000 // 请求超时时间
 })
 
 // request拦截器
