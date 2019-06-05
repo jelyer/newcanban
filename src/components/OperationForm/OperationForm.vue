@@ -1,8 +1,8 @@
 <template>
   <div class="rightSetting">
     <div class="title">
-       <div :class="[{active: !sourSetting },'til']" @click="chooseBase()">基本设置</div>
-       <div :class="[{active: sourSetting },'til']" @click="chooseSource()">数据源</div>
+       <div :class="[{actives: !sourSetting },'til']" @click="chooseBase()">基本设置</div>
+       <div :class="[{actives: sourSetting },'til']" @click="chooseSource()">数据源</div>
     </div>
     <div class="content">
 
@@ -740,7 +740,7 @@
   .rightSetting .title{width:100%;height:2.7rem;line-height: 2.7rem;text-align: center;font-size: 1.1rem;color: #999;background: #27343e;display: flex}
   .rightSetting .content{height: 100%; background: #1c1f25;  margin: 0;overflow: hidden;padding-bottom: 2.7rem;  /*border: 1px solid #0db3fd;*/}
   .rightSetting .title .til{width:50%;cursor: pointer;}
-  .rightSetting .title .active{background: #1c1f25;border-top:2px solid #0db3fd;cursor: default;color: #3caff2;}
+  .rightSetting .title .actives{background: #1c1f25;border-top:2px solid #0db3fd;cursor: default;color: #3caff2;}
 
   /*表单按钮样式*/
   .dialog-footer .el-button.el-button--mini{
