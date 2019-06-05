@@ -28,6 +28,15 @@ export function publistTem(data){
   })
 }
 
+//删除模板
+export function delTemById(data){
+  return request({
+    url: '/adminTemplete/delete',
+    method: 'post',
+    data
+  })
+}
+
 //修改数据源
 export function editSourData(data) {
   return request({

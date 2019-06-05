@@ -15,14 +15,10 @@
     >
       <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path"/>
     </el-menu>
-    <div style="position: absolute;bottom:50px;left:30px">
-      <!--<hamburger
-        :toggle-click="toggleSideBar"
-        :is-active="sidebar.opened"
-        class="hamburger-container"
-      />-->
-    </div>
 
+    <div id="kanbmanage">
+      <el-button size="mini" round type="primary" @click="kanbanManage()">看板管理</el-button>
+    </div>
   </el-scrollbar>
 </template>
 
@@ -33,6 +29,11 @@ import SidebarItem from './SidebarItem'
 import Hamburger from '@/components/Hamburger'
 
 export default {
+  data(){
+    return {
+      dialogFormVisible:false
+    }
+  },
   components: { SidebarItem },
   computed: {
     ...mapGetters([
@@ -47,6 +48,11 @@ export default {
     },
     isCollapse() {
       return !this.sidebar.opened
+    }
+  },
+  methods: {
+    kanbanManage(){
+      this.$parent.dialogKanbanVisible = true;
     }
   }
 }

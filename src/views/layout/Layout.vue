@@ -8,17 +8,17 @@
       <app-main/>
     </div>
 
-    <!--<div class="rightSetting">
+<!--    <div class="rightSetting">
       <div class="title">属性设置</div>
       <div class="content">
         <operation-form/>
       </div>
-
     </div>-->
     <!--收缩按钮-->
     <!--<div id="topleftb" style="position: absolute;bottom: 20px;left: 10px;background: #fff;z-index: 1001;">
       <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opened" class="hamburger-container"/>
     </div>-->
+    <!--轮播设置-->
     <el-dialog :modal="false" v-dialogDrag title="轮播设置" width="600px" :visible.sync="dialogFormVisible">
       <el-form  status-icon label-position="left" label-width="100px" style='margin:0 30px;'>
         <el-form-item class="layoutcheck" label="轮播页面">
@@ -34,12 +34,63 @@
         <el-button size="mini" round type="primary" @click="saveRouterSet">设定轮播</el-button>
       </div>
     </el-dialog>
+
+    <!--看板管理-->
+    <el-dialog :modal="false" v-dialogDrag title="看板管理" width="700px" :visible.sync="dialogKanbanVisible">
+      <el-table
+        key="tableKey"
+        v-loading="listLoading"
+        :data="list"
+        fit
+        style="width: 100%;">
+        <el-table-column label="模版ID" prop="tempid"  align="center" width="150">
+          <template slot-scope="scope">
+            <span>{{ scope.row.tempid }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="看板名称" prop="tempname"  align="center" width="150">
+          <template slot-scope="scope">
+            <span>{{ scope.row.tempname }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="应用模板" prop="tempurl"  align="center" width="150">
+          <template slot-scope="scope">
+            <span>{{ scope.row.tempurl }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="是否发布" prop="tempstat" align="center">
+          <template slot-scope="scope">
+            <el-switch
+              v-model="scope.row.tempstat"
+              active-color="#13ce66"
+              active-value="9"
+              inactive-value="5"
+              @change="active_text($event, scope.row)"
+            >
+            </el-switch>
+          </template>
+        </el-table-column>
+        <el-table-column fixed="right" label="操作" align="center" width="100" class-name="small-padding fixed-width">
+          <template slot-scope="{row}">
+            <el-button  size="mini" type="warning" plain @click="handleDeleteK(row)">
+              删除
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button size="mini" round type="info"  @click="dialogKanbanVisible = false">关闭管理</el-button>
+      </div>
+    </el-dialog>
   </div>
 
 </template>
 
 <script>
+
 import { Navbar, Sidebar, AppMain} from './components'
+import {delTemById,publistTem} from '@/api/chartSetting'
 import ResizeMixin from './mixin/ResizeHandler'
 import Hamburger from '@/components/Hamburger'
 import operationForm from "./components/OperationForm";
@@ -47,9 +98,14 @@ export default {
   name: 'Layout',
   data(){
     return {
+      tableKey: 0,
+      list: [],
+      total: 0,
+      listLoading: false,
       pageData:[],
       allData:[],
       dialogFormVisible:false,
+      dialogKanbanVisible:false,
       dataForm:{
         routerData:[],
         time:undefined
@@ -88,6 +144,7 @@ export default {
     }
   },
   mounted(){
+    this.getList();
     let router = this.$store.state.app.routerlb;
     if(router.length > 0){
        var routerSet = localStorage.routerSet;
@@ -130,6 +187,74 @@ export default {
     };
   },
   methods: {
+    getList() {
+      console.log()
+      var allrouter = this.$store.state.user.routerDatas;
+      for(let n in allrouter){
+        if(allrouter[n].tempstat != '1'){
+          this.list.push(allrouter[n]);
+        }
+      }
+    },
+    //删除模板
+    handleDeleteK(row){
+      this.$confirm('您确定要删除此模板吗，请谨慎操作！', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        delTemById(this.$qs.stringify(row)).then(response => {
+          if(response.data.errno == 0){
+            this.$notify({
+              title: '提示',
+              message: '删除成功！',
+              type: 'success',
+              duration: 2000
+            })
+            const index = this.list.indexOf(row)
+            this.list.splice(index, 1);
+            //重新加载一次
+            this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
+          }else{
+            this.$notify({
+              title: '提示',
+              message: response.data.errmsg,
+              type: 'error',
+              duration: 3000
+            })
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });
+      });
+    },
+    //切换看板状态
+    active_text(even,row){
+      publistTem(this.$qs.stringify(row)).then(response => {
+        if(response.data.errno == 0){
+          if(row.tempstat == '9'){
+            this.$message({
+              message: "发布成功！",
+              type: 'success'
+            });
+          }else{
+            this.$message({
+              message: "取消发布成功！",
+              type: 'success'
+            });
+          }
+          this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
+        }else{
+          this.$notify({
+            type: 'error',
+            message: response.data.errmsg
+          })
+        }
+      })
+    },
     handleClickOutside() {
       this.$store.dispatch('CloseSideBar', { withoutAnimation: false })
     },

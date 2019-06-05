@@ -476,8 +476,8 @@
                              var parafun = function(para,$qs){
                                getDataByDataKey($qs.stringify(dk)).then(response => {
                                  if(response.data.errno == 0 && response.data.data != undefined && response.data.data != '[]') {
-                                   console.log("获取的数据")
-                                   console.log(response)
+                                   //console.log("获取的数据")
+                                   //console.log(response)
                                    //temconfig[para.index].data = response.data.data
                                    if(response.data.data != ""){
                                      var data = _this.COMMONFUN.formatDataToEchart(JSON.parse(response.data.data));

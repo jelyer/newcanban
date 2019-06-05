@@ -132,6 +132,12 @@ const allChartObj ={
         series: [{
           name: '深圳仓',
           type: 'line',
+          itemStyle: {
+            normal: {
+              show: false,//鼠标悬停时显示label数据
+              color: {"x":0,"y":0,"x2":0,"y2":1,"type":"linear","global":false,"colorStops":[{"offset":0,"color":"#3caff2"},{"offset":1,"color":"#3caff2"}]}
+            }
+          },
           data: data2
         }]
       },
@@ -199,8 +205,11 @@ const allChartObj ={
           itemStyle: {
             normal: {
               show: false,//鼠标悬停时显示label数据
-              color:'',
+              color: {"x":0,"y":0,"x2":0,"y2":1,"type":"linear","global":false,"colorStops":[{"offset":0,"color":"#44cbf5"},{"offset":0.5,"color":"#3caff2"},{"offset":0.75,"color":"#318bd8"},{"offset":1,"color":"#2669c5"}]}
             },
+            emphasis: {
+              color: {"x":0,"y":0,"x2":0,"y2":1,"type":"linear","global":false,"colorStops":[{"offset":0,"color":"#2378f7"},{"offset":0.7,"color":"#2378f7"},{"offset":1,"color":"#83bff6"}]}
+            }
           },
         data: data2
       }
@@ -266,20 +275,15 @@ ybar : {
             name: '销量',
             type: 'bar',
             barWidth: 15,
-            itemStyle: {
-              normal: {
-                show: false,//鼠标悬停时显示label数据
-                  color:'',
-                /*color: new this.$echarts.graphic.LinearGradient(
-                  0, 0, 0, 1,
-                  [
-                    {offset: 0, color: '#44cbf5'},
-                    {offset: 1, color:'#2669c5'}
-                  ]
-                )*/
-              },
-
-            },
+           itemStyle: {
+             normal: {
+               show: false,//鼠标悬停时显示label数据
+               color: {"x":0,"y":0,"x2":0,"y2":1,"type":"linear","global":false,"colorStops":[{"offset":0,"color":"#44cbf5"},{"offset":0.5,"color":"#3caff2"},{"offset":0.75,"color":"#318bd8"},{"offset":1,"color":"#2669c5"}]}
+             },
+             emphasis: {
+               color: {"x":0,"y":0,"x2":0,"y2":1,"type":"linear","global":false,"colorStops":[{"offset":0,"color":"#2378f7"},{"offset":0.7,"color":"#2378f7"},{"offset":1,"color":"#83bff6"}]}
+             }
+           },
             data: data2,
         }
       },
