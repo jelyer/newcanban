@@ -153,7 +153,7 @@ export default{
       }
       legs.name = data.legend[i];
       alldata.legend.push(legs);
-      let ser = {name: '', type: type, data: []};
+      let ser = {name: '', type: type, data: [],barMaxWidth:'15'};
       ser.name = data.legend[i];
       for(let c in data.data[i]){
         ser.data.push(data.data[i][c].value);

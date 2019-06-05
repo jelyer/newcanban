@@ -22,22 +22,22 @@ const allChartObj ={
 
   //0-环形图
   ring : {
-    color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],
+    /*color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],*/
     tooltip: {
       trigger: 'item',
       formatter: "{a} <br/>{b}: {c} ({d}%)"
     },
     series: [
       {
-        name:'访问来源',
+        /*name:'统计',*/
         type:'pie',
         radius: ['40%', '55%'],
         avoidLabelOverlap: false,
-        silent:true,
+        /*silent:true,*/
         label: {
           normal: {
             textStyle: {
-              color: "rgba(255, 255, 255, 0.8)"
+              color: "#fff"
             },
             formatter:"{b} \n  {d}%",
           },
@@ -51,17 +51,17 @@ const allChartObj ={
         },
         labelLine: {
           normal: {
-            show: false
+            show: true
           }
         },
-        hoverAnimation :false,
-        itemStyle:{
+        hoverAnimation :true,
+       /* itemStyle:{
           normal:{
             color: function (value){
               return "#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6);
             }
           }
-        },
+        },*/
         data:[
           {name:'item1',value:10},
           {name:'item2',value:10},
@@ -110,7 +110,7 @@ const allChartObj ={
       axisLabel: {
         color: "#fff",
       },
-      name: '单位',
+      /*name: '单位',*/
       type: 'value',
       nameTextStyle:{
         color:'#fff',
@@ -147,46 +147,24 @@ const allChartObj ={
     color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],
     /*title:'',*/
     tooltip: {
-      show:false,
+      trigger: 'axis',
+      axisPointer: {type: 'shadow'}
+      /*show:false,*/
     },
     grid: {
       left: '10',
       bottom: '10',
-      top: '35',
+      top: '20',
       right: '10',
       containLabel: true
     },
     xAxis: {
-      name: '单位',
+      /*name: '单位',*/
       min: 0,
       type: 'category', //纵向柱状图，若需要为横向，则此处值为'value'， 下面 yAxis 的type值为'category'
       axisLine: {
         lineStyle: {
-          color: '#363e43'
-        }
-      },
-      axisTick: {
-        show: false
-      },
-      axisLabel: {
-        textStyle: {
-          color: '#cbcbcb'
-        }
-      },
-      data: data1,
-    },
-    yAxis: [{
-      name: '单位',
-      type: 'value',
-      splitArea: { show: false },
-      splitLine: {show: false ,},//去除网格线
-      nameTextStyle:{
-        color:'#cbcbcb',
-      },
-      axisLine: {
-        show: true,
-        lineStyle: {
-          color: '#cbcbcb'
+          color: '#999'
         }
       },
       axisTick: {
@@ -194,19 +172,43 @@ const allChartObj ={
       },
       axisLabel: {
         textStyle: {
-          color: '#cbcbcb'
+          color: '#999'
+        }
+      },
+      data: data1,
+    },
+    yAxis: [{
+      /*name: '单位',*/
+      type: 'value',
+      splitArea: { show: false },
+      splitLine: {show: false ,},//去除网格线
+      nameTextStyle:{
+        color:'#999',
+      },
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: '#999'
+        }
+      },
+      axisTick: {
+        show: true
+      },
+      axisLabel: {
+        textStyle: {
+          color: '#999'
         }
       }
     }],
     series: {
       name: '销量',
       type: 'bar',
-      barWidth: 15,
+      barMaxWidth: 15,
       itemStyle: {
         normal: {
           show: false,//鼠标悬停时显示label数据
           color:'',
-          color: {"x":0,"y":0,"x2":0,"y2":1,"type":"linear","global":false,"colorStops":[{"offset":0,"color":"#44cbf5"},{"offset":0.5,"color":"#3caff2"},{"offset":0.75,"color":"#318bd8"},{"offset":1,"color":"#2669c5"}]}
+          color: {"x":0,"y":0,"x2":0,"y2":1,"type":"linear","global":false,"colorStops":[{"offset":0,"color":"#44cbf5"},{"offset":0.25,"color":"#44cbf5"},{"offset":0.251,"color":"#3caff2"},{"offset":0.5,"color":"#3caff2"},{"offset":0.501,"color":"#318bd8  "},{"offset":0.75,"color":"#318bd8 "},{"offset":0.751,"color":"#2669c5"},{"offset":1,"color":"#2669c5"}]}
         },
         emphasis: {
           color: {"x":0,"y":0,"x2":0,"y2":1,"type":"linear","global":false,"colorStops":[{"offset":0,"color":"#2378f7"},{"offset":0.7,"color":"#2378f7"},{"offset":1,"color":"#83bff6"}]}
@@ -224,7 +226,7 @@ const allChartObj ={
       left: '10', bottom: '10', top: '35', right: '10', containLabel: true
     },
     yAxis: {
-      name: '单位',
+      /*name: '单位',*/
       min: 0,
       type: 'category', //纵向柱状图，若需要为横向，则此处值为'value'， 下面 yAxis 的type值为'category'
       data: data1,
@@ -469,7 +471,7 @@ const allChartObj ={
       axisLabel: {
         color: "#fff",
       },
-      name: '单位',
+      /*name: '单位',*/
       type: 'value',
       nameTextStyle:{
         color:'#fff',
@@ -502,6 +504,8 @@ const allChartObj ={
       axisPointer: {type: 'shadow'}
     },
     legend: {
+      itemWidth:10,
+      /*left:'5%',*/
       data:[
         {
           name:'Forest',
@@ -534,12 +538,12 @@ const allChartObj ={
     grid: {
       left: '5%',
       bottom: '5%',
-      top: '20%',
+      top: 30,
       right: '5%',
       containLabel: true
     },
 
-    toolbox: {
+  /*  toolbox: {
       show: true,
       orient: 'vertical',
       left: 'right',
@@ -551,23 +555,23 @@ const allChartObj ={
         restore: {show: true},
         saveAsImage: {show: true}
       }
-    },
+    },*/
     calculable: true,
     xAxis: {
       axisLabel: {
         interval: 0,
         margin: 7,
-        color: "#fff",
+        color: "#999",
       },
       name: '',
       type: 'category',
       boundaryGap: true,
       nameTextStyle: {
-        color: '#fff'
+        color: '#999'
       },
       axisLine: {
         lineStyle: {
-          color: '#cccccc',
+          color: '#999',
         },
       },
       axisTick: {
@@ -577,13 +581,26 @@ const allChartObj ={
     },
     yAxis: {
       axisLabel: {
-        color: "#fff",
+        color: "#999",
       },
-      name: '单位',
+      /*name: '单位',*/
       type: 'value',
       nameTextStyle:{
-        color:'#fff',
-      }
+        color:'#999',
+      },
+      splitLine:{
+        show:false
+      },
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: '#999'
+        }
+      },
+      axisTick: {
+        show: true
+      },
+
     },
     series: [
       {
