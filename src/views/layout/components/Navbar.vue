@@ -6,20 +6,31 @@
     </div>
     <div class="navbar-right">
       <ul>
-        <li class="releasePanel" id="pullKanban" @click="publistTems()" title="发布看板">
-          <span></span>
+        <li class="releasePanel" id="pullKanban" @click="publistTems()">
+          <el-tooltip content="发布看板" effect="dark" placement="bottom">
+             <span></span>
+          </el-tooltip>
         </li>
-        <li :class="[{selected: isActive},'editPanel']"  id="editKanban" title="编辑看板" @click="toggleSideBar()">
-          <span></span>
+        <li :class="[{selected: isActive},'editPanel']"  id="editKanban" @click="toggleSideBar()">
+          <el-tooltip content="编辑看板" effect="dark" placement="bottom">
+            <span></span>
+          </el-tooltip>
         </li>
-        <li class="fullScreen" id="fullChart" title="全屏" @click="largeScreen()">
-          <span class="selected"></span>
+        <li class="fullScreen" id="fullChart" @click="largeScreen()">
+          <el-tooltip content="全屏" effect="dark" placement="bottom">
+            <span class="selected"></span>
+          </el-tooltip>
         </li>
-        <li class="elpGuide" @click.prevent.stop="guide" title="帮助指导">
-          <span></span>
+        <li class="elpGuide" @click.prevent.stop="guide">
+          <el-tooltip effect="dark" placement="bottom">
+            <div style="text-align: center;line-height: 20px" slot="content">我是平台帮助系统<br/>需要我向您做个简短的操作介绍吗？</div>
+             <span></span>
+          </el-tooltip>
         </li>
-        <li class="Logout" id="outLogin" @click="logout" title="退出登录">
-          <span></span>
+        <li class="Logout" id="outLogin" @click="logout">
+          <el-tooltip content="退出登录" effect="dark" placement="bottom">
+            <span></span>
+          </el-tooltip>
         </li>
       </ul>
     <!--  <div class="user-inform">
@@ -202,6 +213,9 @@ export default {
             let theSideBar=document.getElementsByClassName('app-wrapper')[0];
             if(theSideBar.getAttribute("class").indexOf('openSidebar')==-1){
               this.$store.dispatch('ToggleSideBar');
+              if(document.getElementsByClassName('editPanel')[0].getAttribute("class").indexOf('selected')!=-1){
+                document.getElementsByClassName('editPanel')[0].classList.remove('selected');
+              }
             }
             this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
           }else{

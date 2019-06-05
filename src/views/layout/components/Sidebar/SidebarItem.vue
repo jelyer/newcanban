@@ -17,6 +17,7 @@
         </el-menu-item>
 
       </app-link>
+
     </template>
 
     <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
@@ -31,7 +32,6 @@
         :base-path="resolvePath(child.path)"
         class="nest-menu" />
     </el-submenu>
-
   </div>
 </template>
 

@@ -32,7 +32,7 @@
 
     .scrollbar-wrapper {
       overflow-x: hidden !important;
-
+      height: calc(100% - 40px);
       .el-scrollbar__view {
         height: 100%;
         overflow: hidden;
@@ -59,7 +59,8 @@
 
     .el-menu {
       border: none;
-      height: calc(100vh - 60px);
+      height:100%;
+      /*height: calc(100vh - 60px);*/
       width: 100% !important;
       overflow-y: auto;
     }
@@ -191,4 +192,17 @@
       margin-right: 16px;
     }
   }
+}
+#kanbmanage{height:40px; width: $sideBarWidth;position: absolute;z-index: 100;color:#fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#kanbmanage .el-button{
+  background: url(/static/image/choicBtn.png) no-repeat center;
+  background-size: 100% 100%;
+  color: #3caff2;
+  font-size: .95rem;
+  cursor: pointer;
+  border: none;
 }
