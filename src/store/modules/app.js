@@ -10,6 +10,7 @@ const app = {
     device: 'desktop',
     routerstat:false, //控制是否重新加载路由，false：加载；true：不加载
     routerlb:[],//用于路由轮播
+    isScreen:false,//用于页面是否需要重新渲染数据
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {
@@ -35,6 +36,9 @@ const app = {
     set_routerlb: (state, routerlb) => {
       state.routerlb = routerlb
     },
+    set_isScreen:(state,isScreen) => {
+      state.isScreen = isScreen
+    }
   },
   actions: {
     ToggleSideBar: ({ commit }) => {
@@ -51,6 +55,9 @@ const app = {
     },
     SetRouterLb({commit},routerlb){
       commit('set_routerlb', routerlb)
+    },
+    SetIsScreen({commit},isScreen){
+      commit('set_isScreen', isScreen)
     }
   }
 }

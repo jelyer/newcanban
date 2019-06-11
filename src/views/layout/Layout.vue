@@ -72,7 +72,7 @@
         </el-table-column>
         <el-table-column fixed="right" label="操作" align="center" width="100" class-name="small-padding fixed-width">
           <template slot-scope="{row}">
-            <el-button  size="mini" type="warning" plain @click="handleDeleteK(row)">
+            <el-button  size="mini" type="danger" plain @click="handleDeleteK(row)">
               删除
             </el-button>
           </template>

@@ -270,8 +270,7 @@
       //setInterval (this.showMarquee, 2000)
     },
     mounted(){
-/*
-      测试数据
+      /* 测试数据
       this.$axios.get('static/json/box1-'+this.thePageId+'.json').then((response) => {
 
         this.pageData=response.data;
@@ -298,12 +297,21 @@
           }, reloadt * 1000)
         }
       }
-
     },
     watch:{
-      "$route":"getData"    //监听路由变化
+      "$route":"getData",    //监听路由变化
+      "$store.state.app.isScreen":"screenGetData"
+
     },
     methods:{
+      screenGetData(){
+        if(this.$store.state.app.isScreen){
+          var _this = this;
+          setTimeout(function () {
+            _this.getData();
+          },1000)
+        }
+      },
       getData(){
         //清空页面初始值
         for(let i = 0;i<this.echartArr.length;i++){
@@ -406,27 +414,6 @@
         if(theStatus.getAttribute("class").indexOf('openSidebar')==-1){
           this.isActive = index;
         }
-
-        //this.getAllDatas();//加载对应数据源
-      /*
-       let theStatus=document.getElementsByClassName('app-wrapper')[0];
-        if(theStatus.getAttribute("class").indexOf('openSidebar')==-1){
-          this.isActive = index;
-          let nowDivBox=document.getElementById(eleId);
-          if(nowDivBox.getAttribute("class").indexOf('active')==-1){
-            this.allData=null;
-            this.nowDivIndex=nowDivBox.getAttribute('index')*1;
-            this.nowDivKey=this.pageData.data[this.nowDivIndex].key;
-            if(document.getElementById('mainBox').getElementsByClassName("active").length>0)
-              document.getElementById('mainBox').getElementsByClassName("active")[0].classList.remove('active');
-            nowDivBox.classList.add('active');
-            this.nowEditDivId=eleId;
-            this.nowEditChartId=nowDivBox.getElementsByClassName('boxContent-div')[0].id;
-          }
-        }
-
-        */
-
       },
       //获取数据源下拉列表
       getAllDatas:function () {

@@ -36,7 +36,7 @@ export const StaticRouterMap = [
     redirect: '/template1',
     name: 'template1',
     meta: { icon: '/static/image/box3.png' },
-    stat:'已发布',
+    stat:'系统模板',
     children: [
       {
         path: 'template1',
@@ -44,7 +44,7 @@ export const StaticRouterMap = [
       }
     ]
   },
-  {
+/*  {
     path: '',
     component: Layout,
     name: 'template2',
@@ -56,7 +56,7 @@ export const StaticRouterMap = [
         component: () => import('@/views/template/template2')
       }
     ]
-  }
+  }*/
 ]
 
 export const AsyncRouterMap = [

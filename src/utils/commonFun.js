@@ -107,7 +107,7 @@ export default{
   },
 
   /**
-   * 将柱状图数据//{legend:["2019","2018"],data:[ [{"name"...转化为表格数据
+   * 将多维数据表数据//{legend:["2019","2018"],data:[ [{"name"...转化为表格数据
    * @param data
    */
   formatTables:function(data){
@@ -116,13 +116,31 @@ export default{
        data:[]
      }
      nd.legend = data.legend;
-     for(var i in data.data){
+    /* for(var i in data.data){
        let arr = [];
        for(var j in data.data[i]){
          arr.push(data.data[i][j].value);
        }
        nd.data.push(arr);
-     }
+     }*/
+    var col = data.data[0].length;//算出有行
+    for(var j = 0;j < col;j++){
+      var cols = [];//每列数组
+      for(var i = 0; i < data.data.length;i++){
+        cols.push(data.data[i][j].value);
+      }
+      nd.data.push(cols);
+    }
+
+
+/*    for(var i in data.data){
+      var cols = [];//每列数组
+      for(var j = 0;j<col;j++){
+        cols.push(data.data[j].value)
+      }
+      nd.data.push(arr);
+    }*/
+
      return nd;
   },
 
