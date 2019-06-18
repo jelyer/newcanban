@@ -30,7 +30,7 @@ service.interceptors.response.use(
   response => {
     const res = response.data
 
-    if (res.errno === 501) {
+    if (res.code === 501) {
       MessageBox.alert('系统未登录，请重新登录', '未登录', {
         confirmButtonText: '确定',
         type: 'error'
@@ -40,13 +40,13 @@ service.interceptors.response.use(
         })
       })
       return Promise.reject('error')
-    } else if (res.errno === 502) {
+    } else if (res.code === 502) {
       MessageBox.alert('系统内部错误，请联系管理员维护', '错误', {
         confirmButtonText: '确定',
         type: 'error'
       })
       return Promise.reject('error')
-    } else if (res.errno === 503) {
+    } else if (res.code === 503) {
       MessageBox.alert('请求业务目前未支持', '警告', {
         confirmButtonText: '确定',
         type: 'error'

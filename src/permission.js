@@ -66,13 +66,27 @@ function gotoRouter(to, next) {
       var result = res.data.data;
       var jsondata = [];
       var roulunbo = [];
+      var icon;
       if(result.length > 0){
         for(let n in result){
+          switch (result[n].tempurl){
+            case "/template1":
+              icon = "box1.png";
+              break;
+            case "/template2":
+              icon = "box2.png";
+              break
+            case "/template3":
+              icon = "box3.png";
+              break;
+            default:
+              icon = "box1.png";
+          }
           var data = {
             "name": result[n].tempname,
             "stat": result[n].tempstat,
             "url":'',
-            "icon":"/static/image/box2.png",
+            "icon":"/static/image/"+icon,
             "children":[{
                 "name":result[n].tempid,
                 "url":result[n].tempurl+"?pageId="+result[n].tempid+"&stat="+result[n].tempstat

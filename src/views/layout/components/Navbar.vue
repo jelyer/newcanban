@@ -144,9 +144,17 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$store.dispatch('LogOut').then(() => {
+        var port = location.port;
+        var hostUrl = "http://";
+        if(port == 80){
+          hostUrl += location.hostname;
+        }else{
+          hostUrl += location.host;
+        }
+        window.location.href = hostUrl
+        /*this.$store.dispatch('LogOut').then(() => {
           location.reload() // 为了重新实例化vue-router对象 避免bug
-        })
+        })*/
       })
     },
     largeScreen:function(){
@@ -204,14 +212,17 @@ export default {
           tempid : pageId,
           tempstat : 9
         }
+        var _this = this;
         publistTem(this.$qs.stringify(params)).then(response => {
-          if(response.data.errno == 0){
+          if(response.data.code == 200){
             this.$notify({
               title: '提示',
               message: '发布成功！',
               type: 'success',
               duration: 2000
             })
+            //刷新左侧路由状态显示
+            document.getElementById(pageId).innerHTML = "已发布";
             //如果处于编辑模式，则关闭编辑
             let theSideBar=document.getElementsByClassName('app-wrapper')[0];
             if(theSideBar.getAttribute("class").indexOf('openSidebar')==-1){

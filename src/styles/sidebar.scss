@@ -64,7 +64,7 @@
       width: 100% !important;
       overflow-y: auto;
     }
-
+    .el-menu::-webkit-scrollbar{width:0}
     .is-active>.el-submenu__title {
       color: #f4f4f5 !important;
     }

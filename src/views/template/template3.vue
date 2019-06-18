@@ -7,130 +7,11 @@
       </div>
       <!--firstLeftTop-->
       <div class="mainContent">
-        <div class="firstBox">
-          <div class="firstLeft">
-            <div :class="[{active: isActive == 0 },'firstLeftTop']" @click="toEditDiv(domConfig[0])">
-              <p class="boxTitle">{{domConfig[0].boxTitle}}</p>
-              <div class="boxContent">
-                <div class="boxContent-div">
-                  <el-row>
-                    <el-col v-for="item in domConfig[0].data" :span="6">
-                      <p><span></span>{{item.name}}</p>
-                      <div><span>{{item.value}}</span>个</div>
-                    </el-col>
-                  </el-row>
-                </div>
-                <div class="icoTL"></div>
-                <div class="icoTR"></div>
-                <div class="icoBL"></div>
-                <div class="icoBR"></div>
-              </div>
-            </div>
-            <div class="firstLeftBot">
-              <div :class="[{active: isActive == 1 },'firstLeftBot1']"  @click="toEditDiv(domConfig[1])">
-                <p class="boxTitle">{{domConfig[1].boxTitle}}</p>
-                <div class="boxContent">
-                  <div class="boxContent-div">
-                    <!--<table class="temtable" style="width: 100%;">
-                      <thead>
-                          <th v-for="item in domConfig[1].data.legend">{{item}}</th>
-                      </thead>
-                      <tbody>
-                        <tr class="colflex" v-for="item in domConfig[1].data.data">
-                          <td  v-for="it in item" :title="it">{{it}}</td>
-                        </tr>
-                      </tbody>
-                    </table>-->
-                   <div class="Tb-box">
-                      <div class="Tb-title">
-                        <el-row>
-                          <el-col :span="(24/domConfig[1].data.legend.length)"  v-for="item in domConfig[1].data.legend">{{item}}</el-col>
-                        </el-row>
-                      </div>
-                      <div class="Tb-content">
-                        <vue-seamless-scroll :data="domConfig[1].data.data" :class-option="optionSingleHeight" class="seamless-warp">
-                          <el-row v-for="item in domConfig[1].data.data">
-                            <el-col :span="(24/item.length)" v-for="it in item" :title="it">{{it}}</el-col>
-                          </el-row>
-                        </vue-seamless-scroll>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="icoTL"></div>
-                  <div class="icoTR"></div>
-                  <div class="icoBL"></div>
-                  <div class="icoBR"></div>
-                </div>
-              </div>
-              <div :class="[{active: isActive == 2 },'firstLeftBot2']" @click="toEditDiv(domConfig[2])">
-                <p class="boxTitle">{{domConfig[2].boxTitle}}</p>
-                <div class="boxContent">
-                  <div class="boxContent-div">
-                    <div class="Tb-box">
-                      <!--<table class="temtable" style="width: 100%;">
-                        <thead>
-                             <th v-for="item in domConfig[2].data.legend">{{item}}</th>
-                        </thead>
-                        <tbody>
-                            <tr v-for="item in domConfig[2].data.data" class="colflex">
-                              <td  v-for="it in item" :title="it">{{it}}</td>
-                            </tr>
-                        </tbody>
-                      </table>-->
-                      <div class="Tb-box">
-                        <div class="Tb-title">
-                          <el-row>
-                            <el-col :span="(24/domConfig[2].data.legend.length)"  v-for="item in domConfig[2].data.legend">{{item}}</el-col>
-                          </el-row>
-                        </div>
-                        <div class="Tb-content">
-                          <vue-seamless-scroll :data="domConfig[2].data.data" :class-option="optionSingleHeight" class="seamless-warp">
-                            <el-row v-for="item in domConfig[2].data.data">
-                              <el-col :span="(24/item.length)" v-for="it in item" :title="it">{{it}}</el-col>
-                            </el-row>
-                          </vue-seamless-scroll>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="icoTL"></div>
-                  <div class="icoTR"></div>
-                  <div class="icoBL"></div>
-                  <div class="icoBR"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div :class="[{active: isActive == 3 },'firstRight']"  @click="toEditDiv(domConfig[3])">
-            <p class="boxTitle">{{domConfig[3].boxTitle}}</p>
-            <div class="boxContent" >
-              <div class="boxContent-div"  :id="domConfig[3].id">
-
-              </div>
-              <div class="icoTL"></div>
-              <div class="icoTR"></div>
-              <div class="icoBL"></div>
-              <div class="icoBR"></div>
-            </div>
-          </div>
-        </div>
         <div class="secondBox">
-          <div :class="[{active: isActive == 4 },'secondLeft']"  @click="toEditDiv(domConfig[4])">
-            <p class="boxTitle">{{domConfig[4].boxTitle}}</p>
+          <div :class="[{active: isActive == 0 },'secondRight']"  @click="toEditDiv(domConfig[0])">
+            <p class="boxTitle">{{domConfig[0].boxTitle}}</p>
             <div class="boxContent">
-              <div class="boxContent-div"  :id="domConfig[4].id">
-
-              </div>
-              <div class="icoTL"></div>
-              <div class="icoTR"></div>
-              <div class="icoBL"></div>
-              <div class="icoBR"></div>
-            </div>
-          </div>
-          <div :class="[{active: isActive == 5 },'secondRight']"  @click="toEditDiv(domConfig[5])">
-            <p class="boxTitle">{{domConfig[5].boxTitle}}</p>
-            <div class="boxContent">
-              <div class="boxContent-div"  :id="domConfig[5].id">
+              <div class="boxContent-div"  :id="domConfig[0].id">
 
               </div>
               <div class="icoTL"></div>
@@ -161,7 +42,7 @@
         animate: false,//是否滚动
         pageId:undefined,
         isModle:true,//是否是模板页面
-        tempurl:'/template1',
+        tempurl:'/template3',//模板
         echartArr:[],//ec Dom id
         echartObjArr:[],//缓存ec数据
         eclist:[],//换成ec对象
@@ -179,57 +60,7 @@
         timer:undefined,//标题下面的时间定时器
         timereload:undefined,//页面定时刷新数据
         domConfig:[
-          {
-            id:"firstLeftTop",
-            boxTitle:"仓库预警报表2",
-            key:null, //图表类型
-            dataKey:null,//
-            data:[
-              {name:"商品过期数量",value:"35"},
-              {name:"订单超时数量",value:"35"},
-              {name:"禁售库存数量",value:"35"},
-              {name:"安全库存预警数量",value:"35"}
-            ]
-          },{
-            id:"firstLeftBot1",
-            boxTitle:"到货预约信息",
-            key:null,
-            dataKey:null,
-            data:{
-                legend:['商品名称','单数','件数'],
-                data:[
-                  ["百草味-每日坚果每日","35","34352"],
-                  ["百草味-每日坚果每日","35","34352"],
-                  ["百草味-每日坚果每日","35","34352"]
-                ]
-            }
-          },{
-            id:"firstLeftBot2",
-            boxTitle:"快递订单完成情况",
-            key:null,
-            dataKey:null,
-            data:{
-              legend:['快递公司','总单量','完成量','占比'],
-              data:[
-                ["百草味-每日坚果每日","35","34352","30%"],
-                ["百草味-每日坚果每日","35","34352","30%"],
-                ["百草味-每日坚果每日","35","34352","30%"]
-              ]
-            }
-
-          },{
-            id:"firstRight",
-            boxTitle:"订单进展情况",
-            key:null,
-            dataKey:null,
-            data:null
-          },{
-            id:"secondLeft",
-            boxTitle:"到货预约信息1",
-            key:null,
-            dataKey:null,
-            data:null
-          },{
+        {
             id:"secondRight",
             boxTitle:"快递订单完成情况",
             key:null,
@@ -243,11 +74,9 @@
           dataKey:'',//图表数据
         },
         nowEditDivId:'',
-        nowEditChartId:'',
-
+        nowEditChartId:''
       }
     },
-
     computed: {
       sidebar() {
         return this.$store.state.app.sidebar
@@ -268,15 +97,8 @@
       if(pageId != undefined){
         this.pageId = pageId
       }
-      //setInterval (this.showMarquee, 2000)
     },
     mounted(){
-      /* 测试数据
-      this.$axios.get('static/json/box1-'+this.thePageId+'.json').then((response) => {
-
-        this.pageData=response.data;
-        this.drawLine(response);
-      });*/
       if(this.pageId != undefined){
         this.getTempDataById(this.pageId);
       }
@@ -306,9 +128,9 @@
     },
     methods:{
       screenGetData(){
-        for(let c in this.eclist){
-          this.eclist[c].resize();//从新加载图表，自适应宽高
-        }
+          for(let c in this.eclist){
+            this.eclist[c].resize();//从新加载图表，自适应宽高
+          }
       },
       getData(){
         //清空页面初始值
@@ -330,74 +152,6 @@
       drawLine:function(response){
         this.mainTitle=response.data.pageTitle;
         this.$refs.operation_form.mainTitle=this.mainTitle;
-       /* this.echartObjArr[0]= this.GLOBAL.allChartObj[response.data.data[0].key];
-        this.echartObjArr[1]= this.GLOBAL.allChartObj[response.data.data[1].key];
-        this.echartObjArr[2]= this.GLOBAL.allChartObj[response.data.data[2].key];*/
-        /*document.getElementById('firstRight').getElementsByTagName('p')[0].innerHTML=response.data.data[0].boxTitle;
-        document.getElementById('secondRight').getElementsByTagName('p')[0].innerHTML=response.data.data[1].boxTitle;
-        document.getElementById('secondLeft').getElementsByTagName('p')[0].innerHTML=response.data.data[2].boxTitle;*/
-
-/*        for(let i = 0;i<3;i++){
-          var resd = response.data.data[i];
-          this.$axios.get('static/json/'+resd.dataKey+'.json').then((res) => {
-            if(resd.key!=0){
-              this.echartObjArr[0].xAxis.data=this.COMMONFUN.getChartData(res.data.dataKey)[0];
-              this.echartObjArr[0].series.data=this.COMMONFUN.getChartData(res.data.dataKey)[1];
-              if(resd.key==2){
-                this.echartObjArr[0].series.itemStyle.normal.color=new this.$echarts.graphic.LinearGradient(
-                  0, 0, 0, 1,
-                  [
-                    {offset: 0, color: '#44cbf5'},
-                    {offset: 1, color:'#2669c5'}
-                  ]
-                )
-              }
-            }else{
-              this.echartObjArr[0].series[0].data=this.COMMONFUN.getChartDataPie(res.data.dataKey);
-            }
-            this.echartArr[0].setOption(this.echartObjArr[0]);
-          });
-        }
-
-        this.$axios.get('static/json/'+response.data.data[1].dataKey+'.json').then((res) => {
-
-          if(response.data.data[1].key!=0){
-            this.echartObjArr[1].xAxis.data=this.COMMONFUN.getChartData(res.data.dataKey)[0];
-            this.echartObjArr[1].series.data=this.COMMONFUN.getChartData(res.data.dataKey)[1];
-            if(response.data.data[1].key==2){
-              this.echartObjArr[1].series.itemStyle.normal.color=new this.$echarts.graphic.LinearGradient(
-                0, 0, 0, 1,
-                [
-                  {offset: 0, color: '#44cbf5'},
-                  {offset: 1, color:'#2669c5'}
-                ]
-              )
-            }
-          }else{
-            this.echartObjArr[1].series[0].data=this.COMMONFUN.getChartDataPie(res.data.dataKey);
-          }
-          this.echartArr[1].setOption(this.echartObjArr[1]);
-        });
-        this.$axios.get('static/json/'+response.data.data[2].dataKey+'.json').then((res) => {
-
-          if(response.data.data[2].key!=0){
-            this.echartObjArr[2].xAxis.data=this.COMMONFUN.getChartData(res.data.dataKey)[0];
-            this.echartObjArr[2].series.data=this.COMMONFUN.getChartData(res.data.dataKey)[1];
-            if(response.data.data[2].key==2){
-              this.echartObjArr[2].series.itemStyle.normal.color=new this.$echarts.graphic.LinearGradient(
-                0, 0, 0, 1,
-                [
-                  {offset: 0, color: '#44cbf5'},
-                  {offset: 1, color:'#2669c5'}
-                ]
-              )
-            }
-          }else{
-            this.echartObjArr[2].series[0].data=this.COMMONFUN.getChartDataPie(res.data.dataKey);
-          }
-          this.echartArr[2].setOption(this.echartObjArr[2]);
-        });*/
-
       },
       //点击需要编辑的div后  param: 元素id
       toEditDiv:function (ele) {
@@ -438,7 +192,6 @@
              }else{
                this.isModle =false;
              }
-
              //渲染数据
              this.mainTitle= response.data.data.tempname;
              var temconfig = response.data.data.tempconfig;
@@ -462,8 +215,6 @@
                              var parafun = function(para,$qs){
                                getDataByDataKey($qs.stringify(dk)).then(response => {
                                  if(response.data.code == 200 && response.data.data != undefined && response.data.data != '[]') {
-                                   //console.log("获取的数据")
-                                   //console.log(response)
                                    //temconfig[para.index].data = response.data.data
                                    if(response.data.data != ""){
                                      var data = _this.COMMONFUN.formatDataToEchart(JSON.parse(response.data.data));
@@ -498,8 +249,6 @@
                                         return;
                                      }
                                      var parseData =  JSON.parse(response.data.data);
-                                     //console.log("获取的数据")
-                                     //console.log(parseData)
                                      //缓存id及对应数据
                                      _this.echartArr.push(para.model.id);
                                      _this.echartObjArr.push(parseData);
@@ -514,31 +263,12 @@
                              parafun(para,this.$qs);
                              index++;
                          }
-
                       }
                   }
              }
            }
         })
-      },
-      //文字滚动方法
-     /* showMarquee: function () {
-        this.animate = true;
-        var _this = this;
-        setTimeout (() => {
-          if(_this.domConfig[1].data.data.length>3){
-            _this.domConfig[1].data.data.push (_this.domConfig[1].data.data[0]);
-            _this.domConfig[1].data.data.shift ();
-            _this.animate = false;
-          }
-          if(_this.domConfig[2].data.data.length>3){
-            _this.domConfig[2].data.data.push (_this.domConfig[2].data.data[0]);
-            _this.domConfig[2].data.data.shift ();
-            _this.animate = false;
-          }
-
-        }, 500);
-      }*/
+      }
     },
     //销毁
     beforeDestroy() {
@@ -552,7 +282,6 @@
   }
 
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
   .box1{
@@ -581,12 +310,7 @@
   .mainContent{
     height: 87.5%;margin-top: -2%;
   }
-  .firstBox{
-    height: 56%;width: 100%;
-  }
-  .firstBox>div{float:left;}
-  .firstLeft{width: 66%;margin-right: 1.5%;height: 100%;}
-  .firstLeftTop{  height: 44%;  width: 100%;  text-align: left;}
+
   .boxTitle{height: 25%;color: #3190cb;font-size: 1.1rem;  text-align: left;  line-height: 2.4rem;  }
   .boxContent{  height: 75%;  width: 100%;  border: 1px solid #0d1743;  display: block;  position: relative;}
   .boxContent-div{  width: 100%;  height: 100%;  cursor: pointer;}
@@ -630,13 +354,13 @@
     height:89.2% ;
   }
   .secondBox{
-    height:44% ;
+    height:100% ;
   }
   .secondLeft{
     width: 26.4%;  height: 100%;  float: left;  margin-right: 1.5%;
   }
   .secondRight{
-    width: 72.1%;  height: 100%;  float: left;
+    width: 100%;  height: 100%;  float: left;
   }
   .secondBox .boxTitle{
     height:14% ;

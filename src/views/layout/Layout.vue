@@ -188,7 +188,6 @@ export default {
   },
   methods: {
     getList() {
-      console.log()
       var allrouter = this.$store.state.user.routerDatas;
       for(let n in allrouter){
         if(allrouter[n].tempstat != '1'){
@@ -204,7 +203,7 @@ export default {
         type: 'warning'
       }).then(() => {
         delTemById(this.$qs.stringify(row)).then(response => {
-          if(response.data.errno == 0){
+          if(response.data.code == 200){
             this.$notify({
               title: '提示',
               message: '删除成功！',
@@ -234,17 +233,21 @@ export default {
     //切换看板状态
     active_text(even,row){
       publistTem(this.$qs.stringify(row)).then(response => {
-        if(response.data.errno == 0){
+        if(response.data.code == 200){
           if(row.tempstat == '9'){
             this.$message({
               message: "发布成功！",
               type: 'success'
             });
+            //刷新左侧路由状态显示
+            document.getElementById(row.tempid).innerHTML = "已发布";
           }else{
             this.$message({
               message: "取消发布成功！",
               type: 'success'
             });
+            //刷新左侧路由状态显示
+            document.getElementById(row.tempid).innerHTML = "编辑中";
           }
           this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
         }else{

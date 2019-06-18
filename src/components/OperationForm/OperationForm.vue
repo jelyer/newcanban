@@ -27,7 +27,7 @@
               <div class="componentsContent">
                 <el-row>
                   <el-col :span="8" v-for="(item,i) in ableChartsData" :key="i">
-                    <div class="imgBox" v-if="dataTypes.indexOf(item.key) > -1"  v-on:click="selectionChart(item.key)">
+                    <div class="imgBox" v-if="dataTypes.indexOf(item.key) > -1 && form.dataKey != null"  v-on:click="selectionChart(item.key)">
                       <img v-if="item.key == currKey" class="checked" :src="'/static/image/'+(item.url)+'.png'" alt="">
                       <img v-else :src="'/static/image/'+(item.url)+'.png'" alt="">
                     </div>
@@ -46,7 +46,7 @@
         </div>
 
         <!--数据源-->
-        <div v-else>
+        <div style="height:100%;overflow: scroll" v-else>
           <el-table :data="this.$parent.allData" style="width: 100%;margin-top:15px">
             <el-table-column prop="dataname" label="数据源"></el-table-column>
             <el-table-column label="操作" width="100">
@@ -367,7 +367,7 @@
           setTimeout(() => {
             loading.close();
           }, 1000)
-          if(response.data.errno == 0) {
+          if(response.data.code == 200) {
             this.$notify({
               title: '成功',
               message: '添加成功,正在刷新页面!',
@@ -451,7 +451,7 @@
           setTimeout(() => {
             loading.close();
           }, 1000)
-          if(response.data.errno == 0) {
+          if(response.data.code == 200) {
             this.$notify({
               title: '成功',
               message: '修改成功!',
@@ -485,14 +485,14 @@
             }
             addSourseData(this.$qs.stringify(this.dataForm)).then((response) => {
               this.dialogFormVisible = false
-              if(response.data.errno == 0) {
+              if(response.data.code == 200) {
                 this.$notify({
                   title: '成功',
                   message: '添加成功',
                   type: 'success',
                   duration: 2000
                 })
-                this.$parent.allData.push(this.dataForm);
+                this.$parent.allData.unshift(this.dataForm);
                 //刷新数据源列表 TODO
 
               }else{
@@ -518,7 +518,7 @@
             this.dataForm.crdt = undefined,
             editSourData(this.$qs.stringify(this.dataForm)).then((response) => {
               this.dialogFormVisible = false
-              if(response.data.errno == 0) {
+              if(response.data.code == 200) {
                 this.$notify({
                   title: '成功',
                   message: '修改成功',
@@ -545,7 +545,7 @@
       },
       getTempleteAll(){
         getSourDataAll().then((response) => {
-          if(response.data.errno == 0) {
+          if(response.data.code == 200) {
             var options = [];
             for(var i=0;i<response.data.data.length;i++){
               var tree = {};
@@ -568,7 +568,7 @@
             type: 'warning'
           }).then(() => {
             delSourData(this.$qs.stringify(params)).then(response => {
-              if(response.data.errno == 0) {
+              if(response.data.code == 200) {
                 this.$notify({
                   title: '提示',
                   message: '删除成功！',
@@ -738,7 +738,7 @@
 
   .rightSetting{background:rgb(10, 17, 50)}
   .rightSetting .title{width:100%;height:2.7rem;line-height: 2.7rem;text-align: center;font-size: 1.1rem;color: #999;background: #27343e;display: flex}
-  .rightSetting .content{height: 100%; background: #1c1f25;  margin: 0;overflow: hidden;padding-bottom: 2.7rem;  /*border: 1px solid #0db3fd;*/}
+  .rightSetting .content{height: 100%; background: #1c1f25;  margin: 0;padding-bottom: 2.7rem;  /*border: 1px solid #0db3fd;*/}
   .rightSetting .title .til{width:50%;cursor: pointer;}
   .rightSetting .title .actives{background: #1c1f25;border-top:2px solid #0db3fd;cursor: default;color: #3caff2;}
 
