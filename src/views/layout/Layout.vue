@@ -94,6 +94,7 @@ import {delTemById,publistTem} from '@/api/chartSetting'
 import ResizeMixin from './mixin/ResizeHandler'
 import Hamburger from '@/components/Hamburger'
 import operationForm from "./components/OperationForm";
+var that;
 export default {
   name: 'Layout',
   data(){
@@ -144,6 +145,7 @@ export default {
     }
   },
   mounted(){
+    that = this;
     this.getList();
     let router = this.$store.state.app.routerlb;
     if(router.length > 0){
@@ -177,14 +179,14 @@ export default {
          this.dataForm.routerData = router
        }
     }
-    var _this = this;
+ /*   var _this = this;
     document.onkeydown = function(event) {
       var e = event || window.event || arguments.callee.caller.arguments[0];
       if (e && e.keyCode == 13) {                // 按 Enter
-        _this.dialogFormVisible = true;
+        //_this.dialogFormVisible = true;
         //_this.$routers.replace('/list') // 列表页面的路由
       }
-    };
+    };*/
   },
   methods: {
     getList() {
@@ -282,12 +284,30 @@ export default {
               localStorage.routerSet = JSON.stringify(this.dataForm);
               this.$notify({
                 title: '成功',
-                message: '设置成功!',
+                message: '设置成功，开始轮播！',
                 type: 'success',
                 duration: 2000
               })
               this.dialogFormVisible = false;
-              this.$routers.replace('/');
+              //this.$routers.replace('/');
+               //开始全屏轮播
+               if(document.getElementsByClassName('main-container')[0].getElementsByClassName('active').length>0){
+                 document.getElementsByClassName('main-container')[0].getElementsByClassName('active') [0].classList.remove('active');
+               }
+               this.$store.dispatch('SetIsScreen', true);
+               document.getElementsByClassName('app-wrapper')[0].classList.add('largeScreen');
+               this.$message('esc键 退出大屏展示');
+
+               var _this = this;
+               document.onkeydown=function () {
+                 let oEvent = window.event;
+                 if(oEvent.keyCode==27 ){
+                   document.getElementsByClassName('app-wrapper')[0].classList.remove('largeScreen');
+                   document.onkeydown = undefined;
+                   _this.$store.dispatch('SetIsScreen', false);
+                 }
+               }
+
           } catch (e) {
               this.$message({
                 type: 'error',
@@ -326,6 +346,12 @@ export default {
     }
   }
 }
+$(document).keydown(function(event){
+　　　if(event.keyCode == 13){
+          that.dialogFormVisible = true;
+         //that.$routers.replace('/list') // 列表页面的路由
+  　　}
+});
 </script>
 <style>
   .layoutcheck .el-checkbox{margin-left:10px !important;}
