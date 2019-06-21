@@ -5,6 +5,7 @@ const data3 =[100, 280, 300, 350, 550, 126, 470];
  * @type {[null,null,null,null,null]}
  */
 const fixedChart=[
+  {url: "cd", name:"直观数据", key: 'data'},
   {url: "c0", name:"数据表", key: 'list'},
   {url: "c1", name:"环装图", key: 'ring'},
   {url: "c2", name:"折线图", key: 'line'},

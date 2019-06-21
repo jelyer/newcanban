@@ -13,12 +13,9 @@
               <p class="boxTitle">{{domConfig[0].boxTitle}}</p>
               <div class="boxContent">
                 <div class="boxContent-div">
-                  <el-row>
-                    <el-col v-for="item in domConfig[0].data" :span="6">
-                      <p><span></span>{{item.name}}</p>
-                      <div><span>{{item.value}}</span>个</div>
-                    </el-col>
-                  </el-row>
+                  <table-one v-if="domConfig[0].key == 'data'" :domConfig="domConfig[0].data"></table-one>
+                  <table-two v-if="domConfig[0].key == 'list'" :domConfig="domConfig[1].data"></table-two>
+                  <div class="chart" :id="domConfig[0].id"></div>
                 </div>
                 <div class="icoTL"></div>
                 <div class="icoTR"></div>
@@ -31,30 +28,9 @@
                 <p class="boxTitle">{{domConfig[1].boxTitle}}</p>
                 <div class="boxContent">
                   <div class="boxContent-div">
-                    <!--<table class="temtable" style="width: 100%;">
-                      <thead>
-                          <th v-for="item in domConfig[1].data.legend">{{item}}</th>
-                      </thead>
-                      <tbody>
-                        <tr class="colflex" v-for="item in domConfig[1].data.data">
-                          <td  v-for="it in item" :title="it">{{it}}</td>
-                        </tr>
-                      </tbody>
-                    </table>-->
-                   <div class="Tb-box">
-                      <div class="Tb-title">
-                        <el-row>
-                          <el-col :span="(24/domConfig[1].data.legend.length)"  v-for="item in domConfig[1].data.legend">{{item}}</el-col>
-                        </el-row>
-                      </div>
-                      <div class="Tb-content">
-                        <vue-seamless-scroll :data="domConfig[1].data.data" :class-option="optionSingleHeight" class="seamless-warp">
-                          <el-row v-for="item in domConfig[1].data.data">
-                            <el-col :span="(24/item.length)" v-for="it in item" :title="it">{{it}}</el-col>
-                          </el-row>
-                        </vue-seamless-scroll>
-                      </div>
-                    </div>
+                    <table-one v-if="domConfig[1].key == 'data'" :domConfig="domConfig[1].data"></table-one>
+                    <table-two v-if="domConfig[1].key == 'list'" :domConfig="domConfig[1].data"></table-two>
+                    <div class="chart" :id="domConfig[1].id"></div>
                   </div>
                   <div class="icoTL"></div>
                   <div class="icoTR"></div>
@@ -66,32 +42,9 @@
                 <p class="boxTitle">{{domConfig[2].boxTitle}}</p>
                 <div class="boxContent">
                   <div class="boxContent-div">
-                    <div class="Tb-box">
-                      <!--<table class="temtable" style="width: 100%;">
-                        <thead>
-                             <th v-for="item in domConfig[2].data.legend">{{item}}</th>
-                        </thead>
-                        <tbody>
-                            <tr v-for="item in domConfig[2].data.data" class="colflex">
-                              <td  v-for="it in item" :title="it">{{it}}</td>
-                            </tr>
-                        </tbody>
-                      </table>-->
-                      <div class="Tb-box">
-                        <div class="Tb-title">
-                          <el-row>
-                            <el-col :span="(24/domConfig[2].data.legend.length)"  v-for="item in domConfig[2].data.legend">{{item}}</el-col>
-                          </el-row>
-                        </div>
-                        <div class="Tb-content">
-                          <vue-seamless-scroll :data="domConfig[2].data.data" :class-option="optionSingleHeight" class="seamless-warp">
-                            <el-row v-for="item in domConfig[2].data.data">
-                              <el-col :span="(24/item.length)" v-for="it in item" :title="it">{{it}}</el-col>
-                            </el-row>
-                          </vue-seamless-scroll>
-                        </div>
-                      </div>
-                    </div>
+                    <table-one v-if="domConfig[2].key == 'data'" :domConfig="domConfig[2].data"></table-one>
+                    <table-two v-if="domConfig[2].key == 'list'" :domConfig="domConfig[2].data"></table-two>
+                    <div class="chart" :id="domConfig[2].id"></div>
                   </div>
                   <div class="icoTL"></div>
                   <div class="icoTR"></div>
@@ -104,8 +57,10 @@
           <div :class="[{active: isActive == 3 },'firstRight']"  @click="toEditDiv(domConfig[3])">
             <p class="boxTitle">{{domConfig[3].boxTitle}}</p>
             <div class="boxContent" >
-              <div class="boxContent-div"  :id="domConfig[3].id">
-
+              <div class="boxContent-div">
+                <table-one v-if="domConfig[3].key == 'data'" :domConfig="domConfig[3].data"></table-one>
+                <table-two v-if="domConfig[3].key == 'list'" :domConfig="domConfig[3].data"></table-two>
+                <div class="chart" :id="domConfig[3].id"></div>
               </div>
               <div class="icoTL"></div>
               <div class="icoTR"></div>
@@ -118,8 +73,10 @@
           <div :class="[{active: isActive == 4 },'secondLeft']"  @click="toEditDiv(domConfig[4])">
             <p class="boxTitle">{{domConfig[4].boxTitle}}</p>
             <div class="boxContent">
-              <div class="boxContent-div"  :id="domConfig[4].id">
-
+              <div class="boxContent-div">
+                <table-one v-if="domConfig[4].key == 'data'" :domConfig="domConfig[4].data"></table-one>
+                <table-two v-if="domConfig[4].key == 'list'" :domConfig="domConfig[4].data"></table-two>
+                <div class="chart" :id="domConfig[4].id"></div>
               </div>
               <div class="icoTL"></div>
               <div class="icoTR"></div>
@@ -130,8 +87,10 @@
           <div :class="[{active: isActive == 5 },'secondRight']"  @click="toEditDiv(domConfig[5])">
             <p class="boxTitle">{{domConfig[5].boxTitle}}</p>
             <div class="boxContent">
-              <div class="boxContent-div"  :id="domConfig[5].id">
-
+              <div class="boxContent-div">
+                <table-one v-if="domConfig[5].key == 'data'" :domConfig="domConfig[5].data"></table-one>
+                <table-two v-if="domConfig[5].key == 'list'" :domConfig="domConfig[5].data"></table-two>
+                <div class="chart" :id="domConfig[5].id"></div>
               </div>
               <div class="icoTL"></div>
               <div class="icoTR"></div>
@@ -151,10 +110,14 @@
 <script>
   import operationForm from "@/components/operationForm/operationForm";
   import {getSourDataAll,getTempById,getDataByDataKey} from '@/api/chartSetting'
+  import tableOne from "@/components/Kanban/table1";
+  import tableTwo from "@/components/Kanban/table2";
   export default {
     name: 'box1',
     components: {
-      operationForm
+      operationForm,
+      tableOne,
+      tableTwo
     },
     data(){
       return{
@@ -182,18 +145,18 @@
           {
             id:"firstLeftTop",
             boxTitle:"仓库预警报表2",
-            key:null, //图表类型
+            key:'data', //图表类型
             dataKey:null,//
-            data:[
-              {name:"商品过期数量",value:"35"},
-              {name:"订单超时数量",value:"35"},
-              {name:"禁售库存数量",value:"35"},
-              {name:"安全库存预警数量",value:"35"}
-            ]
+            data:{
+                legend:['商品过期数量','订单超时数量','禁售库存数量','安全库存预警数量'],
+                data:[
+                  ["35","35","343","234"]
+                ]
+              }
           },{
             id:"firstLeftBot1",
             boxTitle:"到货预约信息",
-            key:null,
+            key:'list',
             dataKey:null,
             data:{
                 legend:['商品名称','单数','件数'],
@@ -247,7 +210,6 @@
 
       }
     },
-
     computed: {
       sidebar() {
         return this.$store.state.app.sidebar
@@ -289,13 +251,13 @@
         _this.date = this.COMMONFUN.parseTime(null,new Date());
       }, 1000)
       //设定刷新时间
-      let reloadt = localStorage.reloadTime;
+      let reloadt = localStorage.reloadTime;//单位分钟
       if(reloadt != undefined){
         reloadt = parseInt(reloadt);
         if(reloadt > 19){
           this.timereload = setInterval(() => {
              _this.getData();//刷新数据
-          }, reloadt * 1000)
+          }, reloadt * 1000 * 60)
         }
       }
     },
@@ -401,6 +363,10 @@
       },
       //点击需要编辑的div后  param: 元素id
       toEditDiv:function (ele) {
+        let theStatus=document.getElementsByClassName('app-wrapper')[0];
+        if(theStatus.getAttribute("class").indexOf('openSidebar') != -1){
+           return;
+        }
         var index = this.COMMONFUN.contains(this.domConfig,ele);//当前模块下标
         let eleId = ele.id;
         this.$refs.operation_form.currModelIndex = index
@@ -408,10 +374,7 @@
         this.$refs.operation_form.currId = ele.id;//当前选择的Id
         this.$refs.operation_form.currDataKey = ele.dataKey//当前图表数据源编码
         this.$refs.operation_form.form.boxTitle= ele.boxTitle;//模块标题
-        let theStatus=document.getElementsByClassName('app-wrapper')[0];
-        if(theStatus.getAttribute("class").indexOf('openSidebar')==-1){
-          this.isActive = index;
-        }
+        this.isActive = index;
       },
       //获取数据源下拉列表
       getAllDatas:function () {
@@ -462,16 +425,13 @@
                              var parafun = function(para,$qs){
                                getDataByDataKey($qs.stringify(dk)).then(response => {
                                  if(response.data.code == 200 && response.data.data != undefined && response.data.data != '[]') {
-                                   //console.log("获取的数据")
-                                   //console.log(response)
-                                   //temconfig[para.index].data = response.data.data
                                    if(response.data.data != ""){
-                                     var data = _this.COMMONFUN.formatDataToEchart(JSON.parse(response.data.data));
-                                     if(data.legend != undefined){ //如果是典型列表
-                                       //_this.domConfig[para.index].data = data;
-                                       _this.domConfig[para.index].data = _this.COMMONFUN.formatTables(data);
+                                     if(response.data.data.indexOf("xkey") != -1){ //如果是典型列表
+                                       /*var data = _this.COMMONFUN.formatDataToEchart(JSON.parse(response.data.data));
+                                       _this.domConfig[para.index].data = _this.COMMONFUN.formatTables(data);*/
+                                       _this.domConfig[para.index].data = _this.COMMONFUN.formatTotable(JSON.parse(response.data.data),true);//带xkey的
                                      }else{
-                                       _this.domConfig[para.index].data = data;
+                                       _this.domConfig[para.index].data = _this.COMMONFUN.formatTotable(JSON.parse(response.data.data),false);
                                      }
                                    }
                                  }
@@ -555,165 +515,4 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-  .box1{
-    /*min-height: calc(100vh - 84px);*/
-    position: relative;  border: 2px solid #0db3fd;  color: white;  height: 100%;
-    /*overflow: hidden;*/
-  }
-  .mainBox{
-    width: 100%;
-    /*height: calc(100vh - 84px);*/
-    transition: all 0.5s;  padding: 0 2%;  overflow: hidden;
-    background: url("/static/image/pageBg.png" ) no-repeat center;
-    background-size: 100% 100%;  height: 100%;
-  }
-  .bigTitle{
-    height: 12.5%;  color: #fff;
-    background: url("/static/image/titleBg.png" ) no-repeat center;
-    background-size: 100% 100%;  overflow: hidden;  text-align: center;
-  }
-  .bigTitle h1{
-    font-size: 1.7rem;  font-weight: normal;  margin-top: 1.2%; margin-bottom: 0.5%;
-  }
-  .bigTitle p{
-    font-size: 0.7rem;  margin: 0;
-  }
-  .mainContent{
-    height: 87.5%;margin-top: -2%;
-  }
-  .firstBox{
-    height: 56%;width: 100%;
-  }
-  .firstBox>div{float:left;}
-  .firstLeft{width: 66%;margin-right: 1.5%;height: 100%;}
-  .firstLeftTop{  height: 44%;  width: 100%;  text-align: left;}
-  .boxTitle{height: 25%;color: #3190cb;font-size: 1.1rem;  text-align: left;  line-height: 2.4rem;  }
-  .boxContent{  height: 75%;  width: 100%;  border: 1px solid #0d1743;  display: block;  position: relative;}
-  .boxContent-div{  width: 100%;  height: 100%;  cursor: pointer;}
-  .active .boxContent{  border:2px solid #0db3fd;  background: rgba(13,179,253,0.2);}
-  .active .boxContent>div{  border:none;  }
-  .icoTL{position: absolute;  left:-1px;  top:-1px;  width: 1rem;  height: 1rem; border-left:2px solid #0db3fd ;
-    border-top:2px solid #0db3fd ;
-  }
-  .icoTR{position: absolute;  right:-1px;  top:-1px;  width: 1rem;  height: 1rem;
-    border-right:2px solid #0db3fd ;  border-top:2px solid #0db3fd ;
-  }
-  .icoBL{
-    position: absolute;
-    left:-1px;  bottom:-1px;  width: 1rem;  height: 1rem;  border-left:2px solid #0db3fd ;  border-bottom:2px solid #0db3fd ;
-  }
-  .icoBR{
-    position: absolute;  right:-1px;  bottom:-1px;  width: 1rem;  height: 1rem;
-    border-right:2px solid #0db3fd ;  border-bottom:2px solid #0db3fd ;
-  }
-  .firstLeftBot{  height: 56%;  }
-  .firstLeftBot1{
-    width: 40%;  height: 100%;
-    float: left;  margin-right: 2%;
-  }
-  .firstLeftBot2{
-    width: 58%;  height: 100%;  float: left;
-  }
-  .firstLeftBot .boxTitle{
-    height:24% ;
-  }
-  .firstLeftBot .boxContent{
-    height:75% ;
-  }
-  .firstRight{
-    width: 32.5%;height: 100%;
-  }
-  .firstRight .boxTitle{
-    height:10.7% ;
-  }
-  .firstRight .boxContent{
-    height:89.2% ;
-  }
-  .secondBox{
-    height:44% ;
-  }
-  .secondLeft{
-    width: 26.4%;  height: 100%;  float: left;  margin-right: 1.5%;
-  }
-  .secondRight{
-    width: 72.1%;  height: 100%;  float: left;
-  }
-  .secondBox .boxTitle{
-    height:14% ;
-  }
-  .secondBox .boxContent{
-    height:85% ;
-  }
-
-  /*数据样式##########################starrt*/
-  .firstLeftTop .el-row{
-    height: 100%;  padding-top: 1.3rem;overflow: hidden;
-  }
-  .el-row>div{
-    height: 100%;  text-align: center;
-  }
-  .el-row .el-col p{
-    font-size: 1.2rem;
-  }
-  .el-row .el-col p span{
-    width: 0.7rem;  height: 0.7rem;  border-radius: 50%;
-    display: inline-block;  margin:0 0.5rem;  vertical-align: middle;
-  }
-  .el-row .el-col:nth-child(1) p span{
-    background-color: #ffb522;
-  }
-  .el-row .el-col:nth-child(2) p span{
-    background-color: #44b9ef;
-  }
-  .el-row .el-col:nth-child(3) p span{
-    background-color: #61e263;
-  }
-  .el-row .el-col:nth-child(4) p span{
-    background-color: #fd3126;
-  }
-  .el-row .el-col div{
-    margin-top: 0.5rem;
-  }
-  .el-row .el-col div span{
-    font-size: 2rem;  margin:0 0.5rem;
-  }
-
-  /*列表样式##########################starrt*/
-  .Tb-box{
-    width: 100%;  height: 100%;  padding:0 .3rem;  overflow: hidden;
-  }
-  .Tb-box .el-row .el-col{
-    white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;  line-height: 1.8rem;
-  }
-  .Tb-title{
-    height: 20%;  color: #3caff2;
-  }
-
-  .Tb-title div{
-    height: 100%;
-
-  }
-  .Tb-title .colflex, .Tb-content .colflex{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-  }
-  .Tb-box .el-row .el-col:nth-child(1){
-    /*text-align: left;*/
-  }
-  .Tb-content{
-    height: 75%;  overflow-y: scroll;
-  }
-  ::-webkit-scrollbar{
-    display: none;
-  }
-
-  .temtable thead th{text-align: center;color:#3caff2;height: 1.6rem;}
-  .temtable tbody tr td{text-align: center}
-  .temtable tbody tr{height: 1.5rem;}
-  .seamless-warp {
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-  }
 </style>
