@@ -15,10 +15,19 @@
               <el-input v-model="form.boxTitle" id="chartTitle"  v-on:input="changTitle()"></el-input>
             </el-form-item>
             <el-form-item label="刷新时间">
-              <el-input v-model="reloadTime" @input.native="changeCode" id="reloadTime"></el-input>
+              <!--<el-input v-model="reloadTime" @input.native="changeCode" id="reloadTime"></el-input>-->
+              <el-select filterable v-model="reloadTime" placeholder="请选择页面刷新时间" >
+                <el-option value="0"  label="清除刷新" ></el-option>
+                <el-option value="1"  label="1分钟" ></el-option>
+                <el-option value="2"  label="2分钟" ></el-option>
+                <el-option value="3"  label="3分钟" ></el-option>
+                <el-option value="5"  label="5分钟" ></el-option>
+                <el-option value="8"  label="8分钟" ></el-option>
+                <el-option value="15"  label="15分钟" ></el-option>
+              </el-select>
             </el-form-item>
             <el-form-item label="选择数据">
-              <el-select  v-model="form.dataKey" placeholder="请选择要绑定的数据"  @change="selected()" id="dataKey">
+              <el-select filterable v-model="form.dataKey" placeholder="请选择要绑定的数据"  @change="selected($event)" id="dataKey">
                 <el-option :value="item.datakey" v-for="(item,i) in this.$parent.allData" :label="item.dataname" :key="i" :datatype="item.datatype"></el-option>
               </el-select>
             </el-form-item>
@@ -27,7 +36,7 @@
               <div class="componentsContent">
                 <el-row>
                   <el-col :span="8" v-for="(item,i) in ableChartsData" :key="i">
-                    <div class="imgBox" v-if="dataTypes.indexOf(item.key) > -1 && form.dataKey != null"  v-on:click="selectionChart(item.key)">
+                    <div class="imgBox" v-if="dataTypes.indexOf(item.key) > -1 && form.dataKey != null" :title="item.name"  v-on:click="selectionChart(item.key)">
                       <img v-if="item.key == currKey" class="checked" :src="'/static/image/'+(item.url)+'.png'" alt="">
                       <img v-else :src="'/static/image/'+(item.url)+'.png'" alt="">
                     </div>
@@ -58,7 +67,7 @@
           </el-table>
         </div>
 
-      <el-dialog v-dialogDrag :title="textMap[dialogStatus]" :modal="false" :close-on-click-modal="false" width="500px" :visible.sync="dialogFormVisible">
+      <el-dialog v-dialogDrag :title="textMap[dialogStatus]" :modal="false" :close-on-click-modal="false" width="50%" :visible.sync="dialogFormVisible">
         <el-form :rules="rules" ref="dataForm" :model="dataForm" status-icon label-position="left" label-width="100px" style='margin:0 30px;'>
           <el-form-item label="数据编码" prop="datakey">
             <el-input v-if="this.dialogStatus == 'update'" disabled size="mini" v-model="dataForm.datakey"></el-input>
@@ -80,22 +89,6 @@
                   :value="item.value">
                 </el-option>
               </el-option-group>
-             <!-- <el-option-group  label="数据列表">
-                <el-option label="数据列表" value="-1"></el-option>
-              </el-option-group>
-              <el-option-group  label="单维图表">
-                <el-option label="折线统计图" value="1"></el-option>
-                <el-option label="柱状统计图" value="2"></el-option>
-                <el-option label="饼状图" value="5"></el-option>
-                <el-option label="环形图" value="0"></el-option>
-              </el-option-group>
-              <el-option-group  label="多维图表">
-                <el-option label="多条折线统计图" value="6"></el-option>
-                <el-option label="多条柱状统计图" value="7"></el-option>
-              </el-option-group>
-              <el-option-group  label="其它">
-                <el-option label="纵向柱状图" value="3"></el-option>
-              </el-option-group>-->
             </el-select>
           </el-form-item>
           <el-form-item label="数据配置" prop="dataconfig">
@@ -131,16 +124,19 @@
         dialogStatus: 'create',
         textMap: {update: '编辑数据源', create: '添加数据源'},
         form: {
-          modelId:'',//模块id
-          boxTitle: '',//表标题
-          key: '',//图表类型
-          dataKey: '',//图表数据
+          modelId:undefined,//模块id
+          boxTitle: undefined,//表标题
+          key: undefined,//图表类型
+          dataKey: undefined,//图表数据
         },
         chartOption: [
           {
             label: '数据列表',
             options: [{
               value: this.GLOBAL.fixedChart[0].key,
+              label: '直观数据'
+            },{
+              value: this.GLOBAL.fixedChart[1].key,
               label: '数据列表'
             }]
           }, {
@@ -194,6 +190,10 @@
     props:['mainTitle'],//标题
     mounted(){
       this.getTempleteAll();
+      var retime = localStorage.reloadTime;
+      if(retime != undefined){
+         this.reloadTime = retime;
+      }
     },
     watch:{
       "$route":"rutrnDatas",    //监听路由变化
@@ -237,16 +237,21 @@
       },
       //选择一条后台数据之后发送请求，获取数据，渲染数据
       //选择数据类型下面图表响应
-      selected(){
+      selected($event){
         this.$parent.domConfig[this.currModelIndex].dataKey = this.form.dataKey;//赋值
+        var dataname;
         var datatype;
         for(let i in this.$parent.allData){
            if(this.$parent.allData[i].datakey == this.form.dataKey){
              datatype = this.$parent.allData[i].datatype;
+             dataname = this.$parent.allData[i].dataname;
              break;
            }
         }
         this.dataTypes = JSON.parse(datatype);
+        //如果标题为空，就用这个标题
+        this.form.boxTitle = dataname;
+
       },
       //选中某一图表后及时反映到页面
       selectionChart: function (key) {
@@ -259,7 +264,14 @@
         var index = this.COMMONFUN.contains(this.$parent.echartArr,this.currId);//获取下标
         var domId;
         if(index == -1){ //如果没找到
-          if(key == "list"){
+          if(key == "list" || key == "data"){
+             this.$parent.domConfig[this.currModelIndex].data = {
+               legend:['展示数据','展示数据','展示数据','展示数据'],
+               data:[
+                 ["35","35","343","234"],
+                 ["35","35","343","234"]
+               ]
+             }
              return;//数据表
           }
           //空图，给个例子
@@ -297,14 +309,20 @@
         if(this.reloadTime != undefined){
           try{
             var time = parseInt(this.reloadTime);
-            if(time < 30){
+            if(time == 0){
+              //清除刷新
+              localStorage.removeItem('reloadTime');
+            }else{
+              localStorage.reloadTime = time;
+            }
+            /*if(time < 30){
               this.$message({
                 type: 'error',
                 message: '刷新时间不能低于30秒！'
               });
               return;
-            }
-            localStorage.reloadTime = time;
+            }*/
+
           }catch(e){
             this.$message({
               type: 'error',
@@ -316,28 +334,28 @@
 
         let tempid,tempname,tempconfig,tempstat,tempurl;
         //this.$parent.pageData.pageTitle = this.mainTitle;
-        if (this.form.dataKey == '') {
+        if (this.form.dataKey == undefined) {
           this.$message({
             type: 'error',
             message: '请选择数据'
           });
           return
         }
-        if (this.form.boxTitle == '') {
+        if (this.form.boxTitle == undefined || this.form.boxTitle.trim().length < 1) {
           this.$message({
             type: 'error',
             message: '请填写图表标题'
           });
           return
         }
-        if (this.mainTitle == '') {
+        if (this.mainTitle == undefined || this.form.mainTitle.trim().length < 1) {
           this.$message({
             type: 'error',
             message: '填写页面标题'
           });
           return
         }
-        if (this.form.key == '') {
+        if (this.form.key == undefined || this.form.key.trim().length < 1) {
           this.$message({
             type: 'error',
             message: '请选择图表类型'
@@ -399,17 +417,23 @@
       updataChangesData(){
         //设定刷新时间
         if(this.reloadTime != undefined){
-            try{
-              var time = parseInt(this.reloadTime);
-              if(time < 30){
-                this.$message({
-                  type: 'error',
-                  message: '刷新时间不能低于30秒！'
-                });
-                return;
-              }
+          try{
+            var time = parseInt(this.reloadTime);
+            if(time == 0){
+              //清除刷新
+              localStorage.removeItem('reloadTime');
+            }else{
               localStorage.reloadTime = time;
-            }catch(e){
+            }
+            /*if(time < 30){
+              this.$message({
+                type: 'error',
+                message: '刷新时间不能低于30秒！'
+              });
+              return;
+            }*/
+
+          }catch(e){
               this.$message({
                 type: 'error',
                 message: '刷新时间输入有误！'
@@ -417,7 +441,6 @@
               return;
             }
         }
-
 
         let tempid = this.$parent.$data.pageId;
         let tempname= this.mainTitle;
@@ -461,6 +484,7 @@
             this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
             var _this = this;
             this.$store.dispatch('ToggleSideBar')
+            window.location.reload();
             /*setTimeout(function(){
               _this.$routers.replace('/');//刷新页面
             },1000)*/
