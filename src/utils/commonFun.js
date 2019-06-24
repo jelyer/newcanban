@@ -91,6 +91,54 @@ export default{
       return [];
   },
   /**
+   * 将数据转化为原始
+   * @param data
+   */
+  formatTotable:function(data,key){
+      var nd = {
+        legend:[],
+        data:[]
+      }
+      //数据不带xkey的,取第一个为列表的name
+      if(!key){
+          for(let i in data[0]){
+            nd.legend.push(i);
+          }
+          var item;
+          var legendc;
+          for(let i in data){
+            item = []
+            for(let j in nd.legend){
+              legendc = nd.legend[j];
+              item.push(data[i][legendc]);
+            }
+            nd.data.push(item)
+          }
+          return nd;
+      }else{
+        //带xkey的，就用xkey做name
+        nd.legend.push("xkey");//排第一位
+        for(let i in data[0]){
+          if(i != "xkey"){
+            nd.legend.push(i);
+          }
+        }
+        var item;
+        var legendc;
+        for(let i in data){
+          item = []
+          for(let j in nd.legend){
+            legendc = nd.legend[j];
+            item.push(data[i][legendc]);
+          }
+          nd.data.push(item)
+        }
+        nd.legend[0] = "名称"
+        return nd;
+      }
+
+  },
+  /**
    * 将数组的{"name":"A","value":1}转化为x/y轴对应值
    * @param data  要转的数据
    */
@@ -108,6 +156,7 @@ export default{
 
   /**
    * 将多维数据表数据//{legend:["2019","2018"],data:[ [{"name"...转化为表格数据
+   * 将单维的也转化为数据表格式
    * @param data
    */
   formatTables:function(data){
@@ -116,31 +165,14 @@ export default{
        data:[]
      }
      nd.legend = data.legend;
-    /* for(var i in data.data){
-       let arr = [];
-       for(var j in data.data[i]){
-         arr.push(data.data[i][j].value);
+     var col = data.data[0].length;//算出有行
+     for(var j = 0;j < col;j++){
+       var cols = [];//每列数组
+       for(var i = 0; i < data.data.length;i++){
+         cols.push(data.data[i][j].value);
        }
-       nd.data.push(arr);
-     }*/
-    var col = data.data[0].length;//算出有行
-    for(var j = 0;j < col;j++){
-      var cols = [];//每列数组
-      for(var i = 0; i < data.data.length;i++){
-        cols.push(data.data[i][j].value);
-      }
-      nd.data.push(cols);
-    }
-
-
-/*    for(var i in data.data){
-      var cols = [];//每列数组
-      for(var j = 0;j<col;j++){
-        cols.push(data.data[j].value)
-      }
-      nd.data.push(arr);
-    }*/
-
+       nd.data.push(cols);
+     }
      return nd;
   },
 

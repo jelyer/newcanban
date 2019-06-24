@@ -19,13 +19,13 @@
       <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opened" class="hamburger-container"/>
     </div>-->
     <!--轮播设置-->
-    <el-dialog :modal="false" v-dialogDrag title="轮播设置" width="600px" :visible.sync="dialogFormVisible">
+    <el-dialog :modal="false" v-dialogDrag title="轮播设置" width="50%" :visible.sync="dialogFormVisible">
       <el-form  status-icon label-position="left" label-width="100px" style='margin:0 30px;'>
         <el-form-item class="layoutcheck" label="轮播页面">
           <el-checkbox class="lpcheckbox" v-for="(item,i) in dataForm.routerData" v-model="item.checked">{{item.title}}</el-checkbox>
         </el-form-item>
         <el-form-item label="刷新时间" >
-          <el-input size="mini" @input.native="changeCode" v-model="dataForm.time" placeholder="单位（S）"></el-input>
+          <el-input style="width:200px" size="mini" @input.native="changeCode" v-model="dataForm.time" placeholder="单位（S）"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -36,7 +36,7 @@
     </el-dialog>
 
     <!--看板管理-->
-    <el-dialog :modal="false" v-dialogDrag title="看板管理" width="700px" :visible.sync="dialogKanbanVisible">
+    <el-dialog :modal="false" v-dialogDrag title="看板管理" width="60%" :visible.sync="dialogKanbanVisible">
       <el-table
         key="tableKey"
         v-loading="listLoading"
