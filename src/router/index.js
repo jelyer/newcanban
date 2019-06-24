@@ -58,6 +58,20 @@ export const StaticRouterMap = [
       }
     ]
   },
+  {
+    path: '',
+    component: Layout,
+    redirect: '/template',
+    name: 'template',
+    meta: { icon: '/static/image/box3.png' },
+    stat:'系统模板',
+    children: [
+      {
+        path: 'template',
+        component: () => import('@/views/template/template')
+      }
+    ]
+  },
 /*  {
     path: '',
     component: Layout,
