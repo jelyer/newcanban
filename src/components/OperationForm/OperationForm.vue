@@ -36,9 +36,9 @@
               <div class="componentsContent">
                 <el-row>
                   <el-col :span="8" v-for="(item,i) in ableChartsData" :key="i">
-                    <div class="imgBox" v-if="dataTypes.indexOf(item.key) > -1 && form.dataKey != null" :title="item.name"  v-on:click="selectionChart(item.key)">
-                      <img v-if="item.key == currKey" class="checked" :src="'/static/image/'+(item.url)+'.png'" alt="">
-                      <img v-else :src="'/static/image/'+(item.url)+'.png'" alt="">
+                    <div class="imgBox" v-if="dataTypes.indexOf(item.key) > -1 && form.dataKey != null"  v-on:click="selectionChart(item.key)">
+                      <img v-if="item.key == currKey" class="checked" :src="'/static/image/'+(item.url)+'.png'" alt="" d raggable="true">
+                      <img v-else :src="'/static/image/'+(item.url)+'.png'" alt="" draggable="true">
                     </div>
                   </el-col>
                 </el-row>
