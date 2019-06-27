@@ -23,6 +23,9 @@ import  axios from 'axios'
 import qs from 'qs';
 import vueSeamlessScroll from 'vue-seamless-scroll'
 Vue.use(vueSeamlessScroll);
+import contentmenu from 'v-contextmenu'
+import 'v-contextmenu/dist/index.css'
+Vue.use(contentmenu)
 Vue.prototype.$qs = qs;
 Vue.prototype.$axios=axios;
 Vue.prototype.$echarts=echarts;

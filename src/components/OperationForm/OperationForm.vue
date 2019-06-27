@@ -36,7 +36,7 @@
               <div class="componentsContent">
                 <el-row>
                   <el-col :span="8" v-for="(item,i) in ableChartsData" :key="i">
-                    <div class="imgBox" v-if="dataTypes.indexOf(item.key) > -1 && form.dataKey != null"  v-on:click="selectionChart(item.key)">
+                    <div class="imgBox" v-if="dataTypes.indexOf(item.key) > -1 && form.dataKey != null" :title="item.name" @mousedown="chartmouseDown(item.key)" v-on:click="selectionChart(item)">
                       <img v-if="item.key == currKey" class="checked" :src="'/static/image/'+(item.url)+'.png'" alt="" d raggable="true">
                       <img v-else :src="'/static/image/'+(item.url)+'.png'" alt="" draggable="true">
                     </div>
@@ -238,7 +238,9 @@
       //选择一条后台数据之后发送请求，获取数据，渲染数据
       //选择数据类型下面图表响应
       selected($event){
-        this.$parent.domConfig[this.currModelIndex].dataKey = this.form.dataKey;//赋值
+        try{
+          this.$parent.domConfig[this.currModelIndex].dataKey = this.form.dataKey;//赋值
+        }catch(e){}
         var dataname;
         var datatype;
         for(let i in this.$parent.allData){
@@ -253,10 +255,17 @@
         this.form.boxTitle = dataname;
 
       },
-      //选中某一图表后及时反映到页面
-      selectionChart: function (key) {
-        this.$parent.domConfig[this.currModelIndex].key = key;//赋值
+      //鼠标按下就赋值
+      chartmouseDown(key){
         this.form.key = key;
+      },
+      //选中某一图表后及时反映到页面
+      selectionChart: function (item) {
+        var key = item.key;
+        try{
+          this.$parent.domConfig[this.currModelIndex].key = key;//赋值
+        }catch(e){}
+        //this.form.key = key;
         this.currKey = key;//当前选择
         if(this.nowEditData.length<0){
           return;
@@ -341,21 +350,21 @@
           });
           return
         }
-        if (this.form.boxTitle == undefined || this.form.boxTitle.trim().length < 1) {
+        if (this.form.boxTitle == undefined) {
           this.$message({
             type: 'error',
             message: '请填写图表标题'
           });
           return
         }
-        if (this.mainTitle == undefined || this.form.mainTitle.trim().length < 1) {
+        if (this.mainTitle == undefined) {
           this.$message({
             type: 'error',
             message: '填写页面标题'
           });
           return
         }
-        if (this.form.key == undefined || this.form.key.trim().length < 1) {
+        if (this.form.key == undefined) {
           this.$message({
             type: 'error',
             message: '请选择图表类型'

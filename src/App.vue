@@ -1,17 +1,35 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view v-if="isRouterAlive" />
   </div>
 </template>
 
 <script>
 export default {
   name: 'App',
+  provide(){
+     return {
+       reload:this.reload
+     }
+  },
+  data(){
+    return {
+      isRouterAlive:true
+    }
+  },
   created(){
     document.documentElement.style.fontSize = document.documentElement.clientWidth/96+'px';
     window.addEventListener('resize',function(){
       document.documentElement.style.fontSize = document.documentElement.clientWidth/96+'px';
     })
   },
+  methods:{
+    reload(){
+      this.isRouterAlive = false;
+      this.$nextTick(function(){
+        this.isRouterAlive = true
+      })
+    }
+  }
 }
 </script>

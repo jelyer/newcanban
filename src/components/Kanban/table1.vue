@@ -1,6 +1,7 @@
 <template>
   <div>
-    <vue-seamless-scroll :data="domConfig" :class-option="optionSingleHeight" class="seamless-warps">
+   <!-- <vue-seamless-scroll :data="domConfig" :class-option="optionSingleHeight" class="seamless-warps">-->
+    <div class="seamless-warps" v-if="domConfig != []">
       <el-row>
         <el-col v-for="item in domConfig.legend" :span="(24/domConfig.legend.length)">
           <p><span></span>{{item}}</p>
@@ -10,8 +11,9 @@
           <el-col v-for="item in domConfig.data[0]" :span="(24/domConfig.legend.length)">
             <div><span>{{item}}</span></div>
           </el-col>
-       </el-row>
-    </vue-seamless-scroll>
+      </el-row>
+    </div>
+    <!--</vue-seamless-scroll>-->
   </div>
 </template>
 
@@ -20,7 +22,7 @@
     name: 'table1',
     props: {
       domConfig: {
-        type: Array,
+        type: Object,
         default: []
       }
     },
@@ -35,5 +37,9 @@
 </script>
 
 <style scoped>
-
+  .firstLeftTop .el-row{
+    height: auto;
+    margin-top:.5rem;
+    padding-top: 0;
+  }
 </style>

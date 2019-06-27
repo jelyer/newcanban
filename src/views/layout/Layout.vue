@@ -93,7 +93,6 @@ import { Navbar, Sidebar, AppMain} from './components'
 import {delTemById,publistTem} from '@/api/chartSetting'
 import ResizeMixin from './mixin/ResizeHandler'
 import Hamburger from '@/components/Hamburger'
-import operationForm from "./components/OperationForm";
 var that;
 export default {
   name: 'Layout',
@@ -116,8 +115,7 @@ export default {
   components: {
     Navbar,
     Sidebar,
-    AppMain,
-    operationForm
+    AppMain
   },
   mixins: [ResizeMixin],
   computed: {

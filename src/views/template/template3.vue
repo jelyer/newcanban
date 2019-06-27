@@ -33,7 +33,8 @@
   import operationForm from "@/components/operationForm/operationForm";
   import {getSourDataAll,getTempById,getDataByDataKey} from '@/api/chartSetting'
   export default {
-    name: 'box1',
+    name: 'template3',
+    inject:['reload'],//注入reload方法
     components: {
       operationForm
     },
@@ -59,6 +60,7 @@
         date: undefined,
         timer:undefined,//标题下面的时间定时器
         timereload:undefined,//页面定时刷新数据
+        reloadbl:true,//是否可以刷新页面，编辑时不可以
         domConfig:[
         {
             id:"secondRight",
@@ -114,30 +116,41 @@
       let reloadt = localStorage.reloadTime;
       if(reloadt != undefined){
         reloadt = parseInt(reloadt);
-        if(reloadt > 19){
+        if(reloadt > 0){
           this.timereload = setInterval(() => {
-             _this.getData();//刷新数据
+            if(_this.reloadbl){
+              _this.reloadPage();//刷新数据
+            }
           }, reloadt * 1000)
         }
       }
     },
     watch:{
-      "$route":"getData",    //监听路由变化
-      "$store.state.app.isScreen":"screenGetData"
-
+      "$route":"reloadPage",    //监听路由变化
+      "$store.state.app.isScreen":"screenGetData",
+      "$store.state.app.sidebar.opened":"isEdit",//监听是否可编辑
     },
     methods:{
+      //编辑时，禁止刷新页面
+      isEdit(){
+        this.reloadbl = !this.reloadbl;
+        this.isActive = undefined;
+      },
       screenGetData(){
           for(let c in this.eclist){
             this.eclist[c].resize();//从新加载图表，自适应宽高
           }
       },
+      //刷新页面数据
+      reloadPage(){
+        this.reload();
+      },
       getData(){
         //清空页面初始值
-        for(let i = 0;i<this.echartArr.length;i++){
+        /*for(let i = 0;i<this.echartArr.length;i++){
           this.$echarts.init(document.getElementById(this.echartArr[i])).clear();
-        }
-        Object.assign(this.$data, this.$options.data());//清空页面数据
+        }*/
+        //Object.assign(this.$data, this.$options.data());//清空页面数据
         var pageId = this.$route.query.pageId;//页面Id
         if(pageId != undefined){
           this.pageId = pageId

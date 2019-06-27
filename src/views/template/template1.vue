@@ -113,7 +113,8 @@
   import tableOne from "@/components/Kanban/table1";
   import tableTwo from "@/components/Kanban/table2";
   export default {
-    name: 'box1',
+    name: 'template1',
+    inject:['reload'],//注入reload方法
     components: {
       operationForm,
       tableOne,
@@ -254,30 +255,41 @@
       let reloadt = localStorage.reloadTime;//单位分钟
       if(reloadt != undefined){
         reloadt = parseInt(reloadt);
-        if(reloadt > 19){
+        if(reloadt > 0){
           this.timereload = setInterval(() => {
-             _this.getData();//刷新数据
+            if(_this.reloadbl){
+              _this.reloadPage();//刷新数据
+            }
           }, reloadt * 1000 * 60)
         }
       }
     },
     watch:{
-      "$route":"getData",    //监听路由变化
-      "$store.state.app.isScreen":"screenGetData"
-
+      "$route":"reloadPage",    //监听路由变化
+      "$store.state.app.isScreen":"screenGetData",//监听是否全屏
+      "$store.state.app.sidebar.opened":"isEdit",//监听是否可编辑
     },
     methods:{
+      //编辑时，禁止刷新页面
+      isEdit(){
+        this.reloadbl = !this.reloadbl;
+        this.isActive = undefined;
+      },
       screenGetData(){
         for(let c in this.eclist){
           this.eclist[c].resize();//从新加载图表，自适应宽高
         }
       },
+      //刷新页面数据
+      reloadPage(){
+        this.reload();
+      },
       getData(){
         //清空页面初始值
-        for(let i = 0;i<this.echartArr.length;i++){
+       /* for(let i = 0;i<this.echartArr.length;i++){
           this.$echarts.init(document.getElementById(this.echartArr[i])).clear();
-        }
-        Object.assign(this.$data, this.$options.data());//清空页面数据
+        }*/
+        //Object.assign(this.$data, this.$options.data());//清空页面数据
         var pageId = this.$route.query.pageId;//页面Id
         if(pageId != undefined){
           this.pageId = pageId
