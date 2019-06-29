@@ -133,6 +133,7 @@
         ecObj:undefined,//ec配置属性
         //isFirst:true,
         isActive:undefined,
+        reloadbl:true,//是否可以刷新本页
         thePageId:'',//页面传参的id
         mainTitle: '',
         allData:[],
@@ -258,7 +259,7 @@
         if(reloadt > 0){
           this.timereload = setInterval(() => {
             if(_this.reloadbl){
-              _this.reloadPage();//刷新数据
+              _this.getData();//刷新数据
             }
           }, reloadt * 1000 * 60)
         }
@@ -286,9 +287,9 @@
       },
       getData(){
         //清空页面初始值
-       /* for(let i = 0;i<this.echartArr.length;i++){
+        for(let i = 0;i<this.echartArr.length;i++){
           this.$echarts.init(document.getElementById(this.echartArr[i])).clear();
-        }*/
+        }
         //Object.assign(this.$data, this.$options.data());//清空页面数据
         var pageId = this.$route.query.pageId;//页面Id
         if(pageId != undefined){

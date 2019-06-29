@@ -6,9 +6,10 @@
         <p>{{date}}</p>
       </div>
       <!--firstLeftTop-->
-      <div class="mainContent" @drop="drop"
+      <div :class="[{onScreen},'mainContent mixin-components-container']"  @drop="drop"
            @dragover="dragover">
         <grid-layout
+          :width="1000"
           :layout.sync="domConfig"
           :col-num="parseInt(colNum)"
           :row-height="rowHeight"
@@ -106,6 +107,8 @@
         date: undefined,
         timer:undefined,//标题下面的时间定时器
         timereload:undefined,//页面定时刷新数据
+        reloadbl:true,//是否可以刷新本页
+        onScreen:false,
         form: {
           boxTitle: '',//表标题
           key:'',//图表类型
@@ -164,7 +167,7 @@
         if(reloadt > 0){
           this.timereload = setInterval(() => {
             if(_this.reloadbl){
-              _this.reloadPage();//刷新数据
+              _this.getData();//刷新数据
             }
           }, reloadt * 1000 * 60)
         }
@@ -212,27 +215,28 @@
         }
       },
       screenGetData(){
-          for(let c in this.eclist){
-            this.eclist[c].resize();//从新加载图表，自适应宽高
+        var _this = this;
+        //拖拽模块通过vue-grid-layout重新渲染宽高
+        if(this.$store.state.app.isScreen){
+          let width = document.body.clientWidth + (document.body.clientWidth/6-20)
+          let height = document.body.clientHeight + (document.body.clientHeight/6+50);
+          $(".vue-grid-layout").css({"width":width,"height":height})
+        }else{
+          $(".vue-grid-layout").css({"width":"100%","height":"100%"})
+        }
+        this.onScreen = !this.onScreen;
+        setTimeout(function(){
+          for(let c in _this.eclist){
+            _this.eclist[c].resize();//从新加载图表，自适应宽高
           }
-         /* var tt = this.domConfig;
-          this.domConfig = [];
-          var _this = this;
-          setTimeout(function(){
-            _this.domConfig = tt;
-          },500)*/
-         var _this = this;
-         setTimeout(function(){
-           //_this.reload();
-         },500)
-
+        },300)
       },
       getData(){
         //清空页面初始值
-       /* for(let i = 0;i<this.echartArr.length;i++){
+        for(let i = 0;i<this.echartArr.length;i++){
           this.$echarts.init(document.getElementById(this.echartArr[i])).clear();
-        }*/
-        //Object.assign(this.$data, this.$options.data());//清空页面数据
+        }
+        Object.assign(this.$data, this.$options.data());//清空页面数据
         var pageId = this.$route.query.pageId;//页面Id
         if(pageId != undefined){
           this.pageId = pageId
@@ -386,16 +390,17 @@
         this.moserovers();
       },
       move: function(i, newX, newY){
-        console.log("MOVE i=" + i + ", X=" + newX + ", Y=" + newY);
+        //console.log("MOVE i=" + i + ", X=" + newX + ", Y=" + newY);
       },
       resize: function(i, newH, newW, newHPx, newWPx){
-        console.log("RESIZE i=" + i + ", H=" + newH + ", W=" + newW + ", H(px)=" + newHPx + ", W(px)=" + newWPx);
+       // console.log("RESIZE i=" + i + ", H=" + newH + ", W=" + newW + ", H(px)=" + newHPx + ", W(px)=" + newWPx);
+
       },
       moved: function(i, newX, newY){
-        console.log("### MOVED i=" + i + ", X=" + newX + ", Y=" + newY);
+       // console.log("### MOVED i=" + i + ", X=" + newX + ", Y=" + newY);
       },
       resized: function(i, newH, newW, newHPx, newWPx){
-        console.log("### RESIZED i=" + i + ", H=" + newH + ", W=" + newW + ", H(px)=" + newHPx + ", W(px)=" + newWPx);
+       // console.log("### RESIZED i=" + i + ", H=" + newH + ", W=" + newW + ", H(px)=" + newHPx + ", W(px)=" + newWPx);
       },
       /**
        * Add change direction button
@@ -413,21 +418,20 @@
       },
 
       layoutCreatedEvent: function(newLayout){
-        console.log("Created layout: ", newLayout)
+        //console.log("Created layout: ", newLayout)
       },
       layoutBeforeMountEvent: function(newLayout){
-        console.log("beforeMount layout: ", newLayout)
+        //console.log("beforeMount layout: ", newLayout)
       },
       layoutMountedEvent: function(newLayout){
-        console.log("Mounted layout: ", newLayout)
+        //console.log("Mounted layout: ", newLayout)
       },
       layoutReadyEvent: function(newLayout){
-        console.log("Ready layout: ", newLayout)
+        //console.log("Ready layout: ", newLayout)
       },
       layoutUpdatedEvent: function(newLayout){
         //修改之后
         this.domConfig = newLayout;
-        //console.log("Updated layout: ", newLayout)
       },
 
       drop (event) {
@@ -493,3 +497,15 @@
   }
 
 </script>
+<style scoped>
+  .vue-grid-layout {
+    position: relative;
+    width:100%;
+    height:100%;
+    /*overflow: hidden;*/
+  }
+  .vue-grid-layout>div {
+    position: absolute;
+  }
+  .mainContent{width:100%}
+</style>

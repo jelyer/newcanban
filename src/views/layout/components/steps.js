@@ -5,7 +5,7 @@ const steps = [
       title: '发布看板',
       description: '可将编辑中的看板发布',
       position: 'bottom',
-      onNext: (Element) => {alert(1)},
+      onNext: (Element) => {console.log(1)},
     }
   },
   {
@@ -38,6 +38,23 @@ const steps = [
       title: '这里是看板区域',
       description: '可自定义您要显示的图表类型和数据源',
       position: 'bottom',
+    }
+  },
+  {
+    element: '#scrowrapper',
+    popover: {
+      title: '模板页面',
+      description: '点击系统模板，再点击编辑模板，通过配置数据源和页面需要展示的模块，即可保存新增一个看板页面',
+      position: 'right',
+    }
+  },
+  {
+    element: '#kbmbtn',
+    popover: {
+      title: '看板管理',
+      description: '可管理看板的状态，发布已编辑好的看板，删除多余看板',
+      position: 'top',
+      onNext: (Element) => {alert(1);$("#editKanban").click()},
     }
   },
   {

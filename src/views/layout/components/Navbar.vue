@@ -101,7 +101,12 @@ export default {
       prevBtnText: '上一步', // Previous button text for this step
       showButtons: true, // Do not show control buttons in footer
       keyboardControl: true, // Allow controlling through keyboard (escape to close, arrow keys to move)
-      //onNext: (Element) => {console.log(Element)},
+      onNext: (Element) => {
+        console.log(Element)
+       /* if(Element.node.className = "el-menu"){
+           this.toggleSideBar();
+        }*/
+      },
     });
   },
   components: {

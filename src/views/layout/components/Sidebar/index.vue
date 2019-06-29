@@ -1,10 +1,10 @@
 <template>
-  <el-scrollbar wrap-class="scrollbar-wrapper">
+  <el-scrollbar  wrap-class="scrollbar-wrapper">
     <!--<div class="sidebtn">
       <div class="sidb">设置</div>
     </div>-->
-
     <el-menu
+      id="scrowrapper"
       :default-active="$route.path"
       :collapse="isCollapse"
       :background-color="variables.menuBg"
@@ -17,7 +17,7 @@
     </el-menu>
 
     <div id="kanbmanage">
-      <el-button size="mini" round type="primary" @click="kanbanManage()">看板管理</el-button>
+      <el-button id="kbmbtn" size="mini" round type="primary" @click="kanbanManage()">看板管理</el-button>
     </div>
   </el-scrollbar>
 </template>
