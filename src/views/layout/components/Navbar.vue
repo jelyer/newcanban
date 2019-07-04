@@ -83,7 +83,8 @@ export default {
   data() {
     return {
       driver: null,
-      isActive:false
+      isActive:false,
+      index:0 //当前步骤
     }
   },
   mounted() {
@@ -102,10 +103,11 @@ export default {
       showButtons: true, // Do not show control buttons in footer
       keyboardControl: true, // Allow controlling through keyboard (escape to close, arrow keys to move)
       onNext: (Element) => {
-        console.log(Element)
-       /* if(Element.node.className = "el-menu"){
-           this.toggleSideBar();
-        }*/
+        this.index++;
+        //当到第六步时，打开编辑
+        if(this.index == 6){
+           this.$store.dispatch('ToggleSideBar');
+        }
       },
     });
   },
@@ -121,8 +123,17 @@ export default {
   },
   methods: {
     guide() {
-      this.driver.defineSteps(steps)
-      this.driver.start()
+      this.index = 0;//重置记录
+      var istoggle =  this.$store.state.app.sidebar.opened;
+      //如果是编辑状态，先关闭编辑
+      if(!istoggle){
+        this.$store.dispatch('ToggleSideBar');
+      }
+      var _this = this;
+      setTimeout(function(){
+        _this.driver.defineSteps(steps)
+        _this.driver.start()
+      },150)
     },
     toggleSideBar() {
       this.isActive = true;

@@ -6,8 +6,8 @@
     </div>
     <div class="content">
 
-        <div v-if="!sourSetting" class="form">
-          <el-form class="operaform" ref="form" :model="form" label-width="5.5rem">
+        <div v-if="!sourSetting" class="form" >
+          <el-form id="operationForm" class="operaform" ref="form" :model="form" label-width="5.5rem">
             <el-form-item label="主标题">
               <el-input v-model="mainTitle" id="mainTitle"  v-on:input="changMainTitle()"></el-input>
             </el-form-item>
@@ -293,11 +293,11 @@
             var parseData = this.$parent.echartObjArr[index];
             this.$parent.ec = this.$echarts.init(document.getElementById(domId));
             this.$parent.ecObj = this.GLOBAL.allChartObj[key];
-            if (key != 'list') {
-              this.COMMONFUN.setOptionByKey(this.$parent.ecObj,key,parseData);
-            }else{
+            if(key == "list" || key == "data"){
               //列表
               return;
+            }else{
+              this.COMMONFUN.setOptionByKey(this.$parent.ecObj,key,parseData);
             }
 
         }
@@ -312,7 +312,7 @@
         })
         //this.$refs[formName].resetFields();//清空
       },
-      //保存这个小的div的修改
+      //保存模板
       saveChanges: function () {
         //设定刷新时间
         if(this.reloadTime != undefined){
@@ -324,14 +324,6 @@
             }else{
               localStorage.reloadTime = time;
             }
-            /*if(time < 30){
-              this.$message({
-                type: 'error',
-                message: '刷新时间不能低于30秒！'
-              });
-              return;
-            }*/
-
           }catch(e){
             this.$message({
               type: 'error',
@@ -374,7 +366,11 @@
         //this.$parent.pageData.data[this.$parent.nowDivIndex] = this.form;
         tempid = Date.parse(new Date());
         tempname=this.mainTitle;
-        tempconfig=JSON.stringify(this.$parent.domConfig);
+        tempconfig=this.$parent.domConfig;
+        for(let c in tempconfig){
+          tempconfig[c].data = null;//去掉杂乱数据
+        }
+        tempconfig = JSON.stringify(tempconfig);
         tempurl=this.$parent.$data.tempurl;
         tempstat=5;//新增编辑中页面
         let datas={
@@ -434,14 +430,6 @@
             }else{
               localStorage.reloadTime = time;
             }
-            /*if(time < 30){
-              this.$message({
-                type: 'error',
-                message: '刷新时间不能低于30秒！'
-              });
-              return;
-            }*/
-
           }catch(e){
               this.$message({
                 type: 'error',
@@ -450,10 +438,13 @@
               return;
             }
         }
-
         let tempid = this.$parent.$data.pageId;
         let tempname= this.mainTitle;
-        let tempconfig=JSON.stringify(this.$parent.domConfig);
+        let tempconfig=this.$parent.domConfig;
+        for(let c in tempconfig){
+          tempconfig[c].data = null;//去掉杂乱数据
+        }
+        tempconfig = JSON.stringify(tempconfig);
         if (this.form.boxTitle == '') {
           this.$message({
             type: 'error',

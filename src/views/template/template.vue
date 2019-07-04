@@ -308,7 +308,7 @@
                 var key = temconfig[i].key;
                 if(key != null){
                   //如果是数据表
-                  if(key == 'list'){
+                  if(key == 'list' || key == 'data'){
                     let dk = {
                       dataKey:temconfig[i].dataKey,
                       boxTitle:temconfig[i].boxTitle
