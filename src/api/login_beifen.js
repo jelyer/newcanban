@@ -40,7 +40,6 @@ export function getRouter(roule) {
     )
   }*/
   return request({
-    //url: '/adminTemplete?operate=find',
     url: '/adminTemplete/findAll',
     method: 'get'
   })

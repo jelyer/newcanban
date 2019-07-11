@@ -72,7 +72,8 @@ const user = {
           .catch(error => {
             commit('SET_NAME', "admin")
             commit('SET_AVATAR', "")
-            reject(error)
+            resolve()
+           // reject(error)
           })
       })
     },

@@ -35,7 +35,7 @@ export const StaticRouterMap = [
     component: Layout,
     redirect: '/template1',
     name: 'template1',
-    meta: { icon: '/static/image/box1.png' },
+    meta: { icon: 'static/image/box1.png' },
     stat:'系统模板',
     children: [
       {
@@ -49,7 +49,7 @@ export const StaticRouterMap = [
     component: Layout,
     redirect: '/template3',
     name: 'template3',
-    meta: { icon: '/static/image/box3.png' },
+    meta: { icon: 'static/image/box3.png' },
     stat:'系统模板',
     children: [
       {
@@ -63,7 +63,7 @@ export const StaticRouterMap = [
     component: Layout,
     redirect: '/template',
     name: 'template',
-    meta: { icon: '/static/image/box3.png' },
+    meta: { icon: 'static/image/box3.png' },
     stat:'系统模板',
     children: [
       {

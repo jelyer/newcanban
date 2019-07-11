@@ -1,7 +1,9 @@
 <template>
   <div class="box1">
+    <img class="pagebgsty" src="@/assets/pageBg.png" alt="">
     <div class="mainBox" id="mainBox">
       <div class="bigTitle">
+        <img class="titlebgstr" src="@/assets/titleBg.png" alt="">
         <h1 class="bigTitleName" v-text="mainTitle"></h1>
         <p>{{date}}</p>
       </div>
@@ -69,7 +71,7 @@
 
 <script>
   import operationForm from "@/components/operationForm/operationForm";
-  import {getSourDataAll,getTempById,getDataByDataKey} from '@/api/chartSetting'
+  import {getTestdata,getSourDataAll,getTempById,getDataByDataKey} from '@/api/chartSetting'
   import tableOne from "@/components/Kanban/table1";
   import tableTwo from "@/components/Kanban/table2";
   import { GridLayout,GridItem } from 'vue-grid-layout'
@@ -138,6 +140,7 @@
       }
     },
     created(){
+      this.testUtl()
       this.thePageId=this.COMMONFUN.GetRequest().pageId;
       if(this.thePageId==undefined){
         this.thePageId='p1';
@@ -182,6 +185,11 @@
       "$store.state.app.sidebar.opened":"isEdit",//监听是否可编辑
     },
     methods:{
+      testUtl(){
+        getTestdata().then(response => {
+            console.log(response)
+        })
+      },
       // 编辑时，禁止刷新页面,模块可拖动
       isEdit(){
         this.reloadbl = !this.reloadbl;

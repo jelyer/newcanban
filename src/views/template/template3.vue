@@ -1,7 +1,9 @@
 <template>
   <div class="box1">
+    <img class="pagebgsty" src="@/assets/pageBg.png" alt="">
     <div class="mainBox" id="mainBox">
       <div class="bigTitle">
+        <img class="titlebgstr" src="@/assets/titleBg.png" alt="">
         <h1 class="bigTitleName" v-text="mainTitle"></h1>
         <p>{{date}}</p>
       </div>

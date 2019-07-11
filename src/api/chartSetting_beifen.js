@@ -65,7 +65,7 @@ export function delSourData(data) {
 //加载所有模板
 export function getTempleteAll() {
   return request({
-    url: '/adminTemplete',
+    url: '/adminTemplete/findAll',
     method: 'get'
   })
 }

@@ -6,7 +6,6 @@ import 'nprogress/nprogress.css' // Progress 进度条样式
 import { Message } from 'element-ui'
 import { getRouter } from './api/login'
 import { addRouter } from './utils/addRouter'
-import {getTempleteAll} from './api/chartSetting'
 
 const whiteList = ['/login']
 router.beforeEach((to, from, next) => {
@@ -58,10 +57,7 @@ router.afterEach(() => {
 })
 
 function gotoRouter(to, next) {
-  getTempleteAll().then((response) => {
-    //console.log(response)
-  })
-  getRouter(store.getters.token) // 获取动态路由的方法
+  getRouter() // 获取动态路由的方法
     .then(res => {
       var result = res.data.data;
       var jsondata = [];
@@ -86,7 +82,7 @@ function gotoRouter(to, next) {
             "name": result[n].tempname,
             "stat": result[n].tempstat,
             "url":'',
-            "icon":"/static/image/"+icon,
+            "icon":"static/image/"+icon,//zy
             "children":[{
                 "name":result[n].tempid,
                 "url":result[n].tempurl+"?pageId="+result[n].tempid+"&stat="+result[n].tempstat

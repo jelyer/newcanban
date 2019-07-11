@@ -144,13 +144,18 @@ a:hover {
   width: 100%;
   /*height: calc(100vh - 84px);*/
   transition: all 0.5s;  padding: 0 2%;  overflow: hidden;
-  background: url("/static/image/pageBg.png" ) no-repeat center;
+/*  background: url("../image/pageBg.png" ) no-repeat center;*/
   background-size: 100% 100%;  height: 100%;
 }
+.pagebgsty{position:absolute;width:100%;height:100%;}
 .bigTitle{
   height: 12.5%;  color: #fff;
-  background: url("/static/image/titleBg.png" ) no-repeat center;
+ /* background: url("../image/titleBg.png" ) no-repeat center;*/
   background-size: 100% 100%;  overflow: hidden;  text-align: center;
+  position:relative;
+}
+.titlebgstr{
+  position:absolute;width:100%;height:100%;left: 0;
 }
 .bigTitle h1{
   font-size: 1.7rem;  font-weight: normal;  margin-top: 1.2%; margin-bottom: 0.5%;
@@ -317,3 +322,264 @@ a:hover {
   overflow: hidden;
 }
 .onScreen{margin-top:2vh}
+
+/*头部*/
+.navbar {
+  height: 3.5rem;
+  line-height: 3.5rem;
+  border-radius: 0px !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #1c1f25;
+  overflow: hidden;
+  .navbar-left{
+    float:left;
+    height: 100%;
+    padding-left: 15px;
+    img{
+      height: 3rem;
+      width: auto;
+      margin-top: 0.25rem;
+    }
+    p{
+      display: inline-block;
+      vertical-align: top;
+      color: #0db3fd;
+      font-size: 1.2rem;
+      margin-left: 0.5rem;
+      padding-top: 1.6rem;
+      line-height: 1.2rem;
+    }
+  }
+  .navbar-right{
+    float: right;
+    height: 100%;
+    ul{
+      display: inline-block;
+      height: 100%;
+      overflow: hidden;
+      li{
+        width: 5rem;
+        height: 100%;
+        float: left;
+        overflow: hidden;
+        cursor: pointer;
+        display: flex;
+        span{
+          display:block ;
+          width: 2.4rem;
+          margin: auto;
+          padding-top: 0.6rem;
+          height: 100%;
+          /* background: url("../image/c5.png") no-repeat center;*/
+        }
+      }
+      li:hover{
+        span{
+          border-top: 2px solid #0db3fd;
+        }
+      }
+      .releasePanel{
+        span{
+          background: url("../image/top-ico/icon-publish.png") no-repeat center;
+          background-size: 80%;
+        }
+      }
+      .releasePanel:hover span{
+        background: url("../image/top-ico/icon-publish-selected.png") no-repeat center;
+        background-size: 80%;
+      }
+      .editPanel{
+        span{
+          background: url("../image/top-ico/icon-edit.png") no-repeat center;
+          background-size: 80%;
+        }
+      }
+      .editPanel:hover span{
+        background: url("../image/top-ico/icon-edit-selected.png") no-repeat center;
+        background-size: 80%;
+      }
+      .editPanel.selected span{
+        background: url("../image/top-ico/icon-edit-selected.png") no-repeat center;
+        background-size: 80%;
+        border-top: 2px solid #0db3fd;
+      }
+      .fullScreen{
+        span{
+          background: url("../image/top-ico/icon-full-screen.png") no-repeat center;
+          background-size: 80%;
+        }
+      }
+      .fullScreen:hover span{
+        background: url("../image/top-ico/icon-full-screen-selected.png") no-repeat center;
+        background-size: 80%;
+      }
+      .elpGuide{
+        span{
+          background: url("../image/top-ico/icon-help.png") no-repeat center;
+          background-size: 80%;
+        }
+      }
+      .elpGuide:hover span{
+        background: url("../image/top-ico/icon-help-selected.png") no-repeat center;
+        background-size: 80%;
+      }
+      .Logout{
+        span{
+          background: url("../image/top-ico/icon-out.png") no-repeat center;
+          background-size: 80%;
+        }
+      }
+      .Logout:hover span{
+        background: url("../image/top-ico/icon-out-selected.png") no-repeat center;
+        background-size: 80%
+      }
+    }
+    .user-inform{
+      display: inline-block;
+      width: 9rem;
+      padding-left: 1.5rem;
+      padding-right: 0.3rem;
+      font-size: 1.2rem;
+      padding-top: 0.3rem;
+      text-align: center;
+      .userName{
+        color:#0db3fd ;
+        line-height: 1.6rem;
+
+      }
+      .userSubordinate{
+        color: white;
+        line-height: 1.6rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+.largeScreen .navbar{
+  display: none;
+}
+
+/*右侧*/
+/*表单样式############### start*/
+.operaform{
+  color: white;
+  font-size: 12px;
+  background: #1c1f25;
+  padding: 0 1rem;
+}
+.operaform .el-input__inner{
+  height: 1.4rem;
+  font-size: 0.85rem ;
+  border-radius: 0;
+  border: 1px solid #2e323b;
+  background: #0e1013;
+  color: #a3a3a3;
+  padding-left: 0.4rem;
+}
+.operaform .el-input__icon{
+  line-height: 1.4rem;
+}
+.operaform .el-form-item__label{
+  height: 1.4rem;
+  line-height: 1.4rem;
+  color: white;
+  width: 5.5rem !important;
+  padding-right: 1rem;
+}
+.operaform .el-form-item__content{
+  height: 1.4rem;
+  line-height: 1.4rem;
+}
+.operaform  .el-form-item{
+  margin-top: 1rem;
+}
+.operaform .el-scrollbar .el-select-dropdown__item{
+  height: 1.4rem;
+  font-size: 0.85rem !important;
+  line-height: 1.4rem;
+}
+.operaform .el-scrollbar .el-select-dropdown__item span{
+  color: black;
+  font-size: 0.85rem !important;
+}
+.operaform .el-form-item{
+  margin-bottom: 0;
+}
+.componentsBox{
+  margin-top: 1rem;
+}
+.componentsContent{
+  width: 100%;
+  height:20.5rem ;
+  border: 2px solid #2e323b;
+  background:#0e1013;
+  overflow:auto;
+}
+.componentsTitle{
+  height: 1.8rem;
+  line-height: 1.8rem;
+  font-size: 0.85rem;
+  color: #ddd;
+  text-align: left;
+  padding-left: 0.5rem;
+}
+.imgBox{
+  font-size: 0;
+  margin: 5px;
+}
+.imgBox img{
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+.imgBox .checked{
+  border: 1px solid #3681ab;
+  background: #0db3fd4f;
+}
+.btnDiv{
+  margin-top:1rem;
+  text-align: center;
+}
+.btnDiv>div{
+  width: 6rem;
+  height: 2.1rem;
+  display: inline-block;
+  line-height: 2.1rem;
+  text-align: center;
+  background: url(../image/choicBtn.png) no-repeat center;
+  background-size: 100% 100%;
+  color: #3caff2;
+  font-size: .95rem;
+  cursor: pointer;
+}
+
+.operaform .el-message-box__header span,.el-message-box__content textarea{
+  color: black;
+}
+.el-table th, .el-table tr{background: #1c1f25 !important;}
+.el-table td, .el-table th.is-leaf{ border-bottom: 1px solid #27343e !important;}
+.el-table .cell{color:#ddd !important;}
+.el-table td, .el-table th{padding: 8px 0 !important;}
+.el-table::before{height: 0px !important;}
+.el-table__row .cell{color:#999 !important;}
+
+.rightSetting{background:rgb(10, 17, 50)}
+.rightSetting .title{width:100%;height:2.7rem;line-height: 2.7rem;text-align: center;font-size: 1.1rem;color: #999;background: #27343e;display: flex}
+.rightSetting .content{height: 100%; background: #1c1f25;  margin: 0;padding-bottom: 2.7rem;  /*border: 1px solid #0db3fd;*/}
+.rightSetting .title .til{width:50%;cursor: pointer;}
+.rightSetting .title .actives{background: #1c1f25;border-top:2px solid #0db3fd;cursor: default;color: #3caff2;}
+
+/*表单按钮样式*/
+.dialog-footer .el-button.el-button--mini{
+  background: url(../image/choicBtn.png) no-repeat center;
+  background-size: 100% 100%;
+  color: #3caff2;
+  font-size: .95rem;
+  cursor: pointer;
+  border: none;
+}
