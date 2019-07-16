@@ -390,7 +390,7 @@
           setTimeout(() => {
             loading.close();
           }, 1000)
-          if(response.data.code == 200) {
+          if(response.data.code == 200 || response.data.code == "200") {
             this.$notify({
               title: '成功',
               message: '添加成功,正在刷新页面!',
@@ -411,7 +411,7 @@
           }else{
             this.$notify({
               title: '提示',
-              message: response.data.errmsg,
+              message: response.data.msg,
               type: 'error',
               duration: 3000
             })
@@ -474,7 +474,7 @@
           setTimeout(() => {
             loading.close();
           }, 1000)
-          if(response.data.code == 200) {
+          if(response.data.code == 200 || response.data.code == "200") {
             this.$notify({
               title: '成功',
               message: '修改成功!',
@@ -491,7 +491,7 @@
           }else{
             this.$notify({
               title: '提示',
-              message: response.data.errmsg,
+              message: response.data.msg,
               type: 'error',
               duration: 3000
             })
@@ -509,7 +509,7 @@
             }
             addSourseData(this.$qs.stringify(this.dataForm)).then((response) => {
               this.dialogFormVisible = false
-              if(response.data.code == 200) {
+              if(response.data.code == 200 || response.data.code == "200") {
                 this.$notify({
                   title: '成功',
                   message: '添加成功',
@@ -522,7 +522,7 @@
               }else{
                 this.$notify({
                   title: '提示',
-                  message: response.data.errmsg,
+                  message: response.data.msg,
                   type: 'error',
                   duration: 3000
                 })
@@ -542,7 +542,7 @@
             this.dataForm.crdt = undefined,
             editSourData(this.$qs.stringify(this.dataForm)).then((response) => {
               this.dialogFormVisible = false
-              if(response.data.code == 200) {
+              if(response.data.code == 200 || response.data.code == "200") {
                 this.$notify({
                   title: '成功',
                   message: '修改成功',
@@ -554,7 +554,7 @@
               }else{
                 this.$notify({
                   title: '提示',
-                  message: response.data.errmsg,
+                  message: response.data.msg,
                   type: 'error',
                   duration: 3000
                 })
@@ -569,7 +569,7 @@
       },
       getTempleteAll(){
         getSourDataAll().then((response) => {
-          if(response.data.code == 200) {
+          if(response.data.code == 200 || response.data.code == "200") {
             var options = [];
             for(var i=0;i<response.data.data.length;i++){
               var tree = {};
@@ -592,7 +592,7 @@
             type: 'warning'
           }).then(() => {
             delSourData(this.$qs.stringify(params)).then(response => {
-              if(response.data.code == 200) {
+              if(response.data.code == 200 || response.data.code == "200") {
                 this.$notify({
                   title: '提示',
                   message: '删除成功！',
@@ -604,7 +604,7 @@
               }else{
                 this.$notify({
                   title: '提示',
-                  message: response.data.errmsg,
+                  message: response.data.msg,
                   type: 'error',
                   duration: 3000
                 })

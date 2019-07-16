@@ -1,7 +1,7 @@
 <template>
   <div class="box1">
     <img class="pagebgsty" src="@/assets/pageBg.png" alt="">
-    <div class="mainBox" id="mainBox">
+    <div class="mainBox" id="mainBox" style="z-index:100;position:absolute">
       <div class="bigTitle">
         <img class="titlebgstr" src="@/assets/titleBg.png" alt="">
         <h1 class="bigTitleName" v-text="mainTitle"></h1>
@@ -71,7 +71,7 @@
 
 <script>
   import operationForm from "@/components/operationForm/operationForm";
-  import {getTestdata,getSourDataAll,getTempById,getDataByDataKey} from '@/api/chartSetting'
+  import {getSourDataAll,getTempById,getDataByDataKey} from '@/api/chartSetting'
   import tableOne from "@/components/Kanban/table1";
   import tableTwo from "@/components/Kanban/table2";
   import { GridLayout,GridItem } from 'vue-grid-layout'
@@ -140,7 +140,6 @@
       }
     },
     created(){
-      this.testUtl()
       this.thePageId=this.COMMONFUN.GetRequest().pageId;
       if(this.thePageId==undefined){
         this.thePageId='p1';
@@ -185,11 +184,6 @@
       "$store.state.app.sidebar.opened":"isEdit",//监听是否可编辑
     },
     methods:{
-      testUtl(){
-        getTestdata().then(response => {
-            console.log(response)
-        })
-      },
       // 编辑时，禁止刷新页面,模块可拖动
       isEdit(){
         this.reloadbl = !this.reloadbl;
@@ -278,7 +272,7 @@
       //获取数据源下拉列表
       getAllDatas:function () {
         getSourDataAll().then((response) => {
-          if(response.data.code == 200) {
+          if(response.data.code == 200 || response.data.code == "200") {
             this.allData=response.data.data;
           }
         })
@@ -293,7 +287,7 @@
         this.echartObjArr = [];
         this.eclist = [];
         getTempById(this.$qs.stringify(paramid)).then(response => {
-          if(response.data.code == 200){
+          if(response.data.code == 200 || response.data.code == "200"){
             //是否模板页面
             if(response.data.data.tempstat == 1){
               this.isModle =true;
@@ -326,7 +320,7 @@
                     }
                     var parafun = function(para,$qs){
                       getDataByDataKey($qs.stringify(dk)).then(response => {
-                        if(response.data.code == 200 && response.data.data != undefined && response.data.data != '[]') {
+                        if(parseInt(response.data.code) == 200 && response.data.data != undefined && response.data.data != '[]') {
                           if(response.data.data != ""){
                             if(response.data.data.indexOf("xkey") != -1){ //如果是典型列表
                               /*var data = _this.COMMONFUN.formatDataToEchart(JSON.parse(response.data.data));
@@ -352,7 +346,7 @@
                     }
                     var parafun = function(para,$qs){
                       getDataByDataKey($qs.stringify(dk)).then(response => {
-                        if(response.data.code == 200 && response.data.data != undefined && response.data.data != '[]') {
+                        if(parseInt(response.data.code) == 200 && response.data.data != undefined && response.data.data != '[]') {
                           var key = para.model.key;
                           _this.ec = _this.$echarts.init(document.getElementById(para.model.id));
                           _this.ecObj = _this.GLOBAL.allChartObj[key];

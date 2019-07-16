@@ -11,13 +11,6 @@ export function addSourseData(data) {
   })
 }
 
-export function getTestdata(data) {
-  return request({
-    url: 'http://localhost:8089/Gwms_chart/getNoticeList',
-    method: 'post',
-    data
-  })
-}
 //加载所有数据源
 export function getSourDataAll() {
   return request({
@@ -26,8 +19,17 @@ export function getSourDataAll() {
   })
 }
 
-//发布模板
+//修改模板
 export function publistTem(data){
+  return request({
+    url: '/adminTemplete/update',
+    method: 'post',
+    data
+  })
+}
+
+//发布模板
+export function publishTems(data){
   return request({
     url: '/adminTemplete/update',
     method: 'post',

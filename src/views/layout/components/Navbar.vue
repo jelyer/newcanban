@@ -73,7 +73,7 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
-import {publistTem} from '@/api/chartSetting'
+import {publishTems} from '@/api/chartSetting'
 
 import Driver from 'driver.js' // import driver.js
 import 'driver.js/dist/driver.min.css' // import driver.js css
@@ -207,13 +207,13 @@ export default {
         var routerDatas = this.$store.state.user.routerDatas;
         for(var j in routerDatas){
            if(routerDatas[j].tempid == pageId){
-               if(routerDatas[j].tempstat == "1"){
+               if(parseInt(routerDatas[j].tempstat) == 1){
                  this.$message({
                    type: 'error',
                    message: '系统模板不需要发布!'
                  });
                  return;
-               }else if(routerDatas[j].tempstat == "9"){
+               }else if(parseInt(routerDatas[j].tempstat) == 9){
                  this.$message({
                    type: 'error',
                    message: '此模板已发布!'
@@ -229,7 +229,7 @@ export default {
           tempstat : 9
         }
         var _this = this;
-        publistTem(this.$qs.stringify(params)).then(response => {
+        publishTems(this.$qs.stringify(params)).then(response => {
           if(response.data.code == 200){
             this.$notify({
               title: '提示',
@@ -251,7 +251,7 @@ export default {
           }else{
             this.$notify({
               title: '提示',
-              message: response.data.errmsg,
+              message: response.data.msg,
               type: 'error',
               duration: 3000
             })

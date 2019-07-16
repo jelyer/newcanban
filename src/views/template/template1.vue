@@ -394,7 +394,7 @@
       //获取数据源下拉列表
       getAllDatas:function () {
         getSourDataAll().then((response) => {
-            if(response.data.code == 200) {
+            if(response.data.code == 200 || response.data.code == "200") {
               this.allData=response.data.data;
             }
         })

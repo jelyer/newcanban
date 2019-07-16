@@ -90,7 +90,7 @@ function gotoRouter(to, next) {
           }
           jsondata.push(data);
           //lunbo 如果是已发布的,1系统模板，5编辑中，9已发布
-          if(result[n].tempstat != 5){
+          if(parseInt(result[n].tempstat) != 5){
             let list = {title:undefined,url:undefined,checked:true};
             list.title = result[n].tempname;
             list.url = result[n].tempurl+"?pageId="+result[n].tempid+"&stat="+result[n].tempstat;
@@ -111,7 +111,7 @@ function gotoRouter(to, next) {
       router.addRoutes(asyncRouter) // vue-router提供的addRouter方法进行路由拼接
       store.dispatch('SetReloadRouter', true) // 记录路由获取状态
       store.dispatch('setRouterList', asyncRouter) // 存储到vuex
-      store.dispatch('GetInfo')
+      //store.dispatch('GetInfo')
       next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
     })
     .catch(e => {

@@ -90,7 +90,7 @@
 <script>
 
 import { Navbar, Sidebar, AppMain} from './components'
-import {delTemById,publistTem} from '@/api/chartSetting'
+import {delTemById,publishTems} from '@/api/chartSetting'
 import ResizeMixin from './mixin/ResizeHandler'
 import Hamburger from '@/components/Hamburger'
 var that;
@@ -190,7 +190,7 @@ export default {
     getList() {
       var allrouter = this.$store.state.user.routerDatas;
       for(let n in allrouter){
-        if(allrouter[n].tempstat != '1'){
+        if(parseInt(allrouter[n].tempstat) != 1){
           this.list.push(allrouter[n]);
         }
       }
@@ -217,7 +217,7 @@ export default {
           }else{
             this.$notify({
               title: '提示',
-              message: response.data.errmsg,
+              message: response.data.msg,
               type: 'error',
               duration: 3000
             })
@@ -232,9 +232,13 @@ export default {
     },
     //切换看板状态
     active_text(even,row){
-      publistTem(this.$qs.stringify(row)).then(response => {
+      var params = {
+        tempid : row.tempid,
+        tempstat : row.tempstat
+      }
+      publishTems(this.$qs.stringify(params)).then(response => {
         if(response.data.code == 200){
-          if(row.tempstat == '9'){
+          if(parseInt(row.tempstat) == 9){
             this.$message({
               message: "发布成功！",
               type: 'success'
@@ -253,7 +257,7 @@ export default {
         }else{
           this.$notify({
             type: 'error',
-            message: response.data.errmsg
+            message: response.data.msg
           })
         }
       })
