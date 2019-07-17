@@ -106,6 +106,7 @@ export default {
       allData:[],
       dialogFormVisible:false,
       dialogKanbanVisible:false,
+      timers:undefined,//轮播对象
       dataForm:{
         routerData:[],
         time:undefined

@@ -389,11 +389,11 @@ const allChartObj ={
     },
     series : [
       {
-        name: '姓名',
+        name: '模块',
         type: 'pie',
         radius : '55%',
         center: ['50%', '50%'],
-        silent:true,
+        silent:false,
         data: [
           {name:'item1',value:10},
           {name:'item2',value:10},
@@ -644,7 +644,7 @@ const allChartObj ={
         type:'pie',
         selectedMode: 'single',
         radius: [0, '30%'],
-        silent:true,
+        silent:false,
         label: {
           normal: {
             position: 'inner'
@@ -720,7 +720,7 @@ const allChartObj ={
         radius : [20, 110],
         center : ['25%', '50%'],
         roseType : 'radius',
-        silent:true,
+        silent:false,
         label: {
           normal: {show: false},
           emphasis: {show: true}

@@ -55,9 +55,7 @@ export default{
         var list = [];
         var isN = data[0].xkey != undefined;
         if(isN){
-          //[{"xkey":"2019","B":2,"C":3},{"xkey":"2018","B":4,"C":5}]
-          //转换为
-          //{legend:["2019","2018"],data:[ [{"name":"B","value":2},{"name":"C","value":3}], [{"name":"B","value":4},{"name":"C","value":5}]  ]}
+          //[{"xkey":"2019","B":2,"C":3},{"xkey":"2018","B":4,"C":5}]转换为{legend:["2019","2018"],data:[ [{"name":"B","value":2},{"name":"C","value":3}], [{"name":"B","value":4},{"name":"C","value":5}]  ]}
           var oo = null;
           var legend = [];
           var dt = [];
@@ -75,17 +73,20 @@ export default{
           }
           return {"legend" : legend, "data" : list};
         }else{
-          //[{"A":1,"B":2,"C":3}]
-          // 转换为
-          //[{"name":"A","value":1},{"name":"B","value":2},{"name":"C","value":3}]
-          var oo = null;
-          for(var i in data){
-            oo = data[i];
-            for(var k in oo){
-              list.push({name:k,value:oo[k]});
+          if(data[0].name != undefined && data[0].value != undefined){
+            //如果格式天然符合，不需要转
+            return data;
+          }else{
+            //[{"A":1,"B":2,"C":3}]转换为[{"name":"A","value":1},{"name":"B","value":2},{"name":"C","value":3}]
+            var oo = null;
+            for(var i in data){
+              oo = data[i];
+              for(var k in oo){
+                list.push({name:k,value:oo[k]});
+              }
             }
+            return list;
           }
-          return list;
         }
       }
       return [];

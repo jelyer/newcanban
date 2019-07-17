@@ -133,41 +133,44 @@
           {
             label: '数据列表',
             options: [{
-              value: this.GLOBAL.fixedChart[0].key,
+              value: 'data',
               label: '直观数据'
             },{
-              value: this.GLOBAL.fixedChart[1].key,
+              value: 'list',
               label: '数据列表'
             }]
           }, {
             label: '单维图表',
             options: [{
-              value: this.GLOBAL.fixedChart[2].key,
+              value: 'line',
               label: '折线统计图'
             }, {
-              value: this.GLOBAL.fixedChart[3].key,
+              value: 'bar',
               label: '柱状统计图'
             }, {
-              value: this.GLOBAL.fixedChart[6].key,
+              value: 'pie',
               label: '饼状图'
             }, {
-              value: this.GLOBAL.fixedChart[1].key,
+              value: 'ring',
               label: '环形图'
             }]
           }, {
             label: '多维图表',
             options: [{
-              value: this.GLOBAL.fixedChart[7].key,
+              value: 'nline',
               label: '多条折线统计图'
             }, {
-              value: this.GLOBAL.fixedChart[8].key,
+              value: 'nbar',
               label: '多条柱状统计图'
             }]
           }, {
             label: '其它',
             options: [{
-              value: this.GLOBAL.fixedChart[4].key,
+              value: 'ybar',
               label: '纵向柱状图'
+            },{
+              value: 'netline',
+              label: '无y网格线折线图'
             }]
           }
         ],

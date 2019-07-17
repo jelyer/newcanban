@@ -1,7 +1,7 @@
 <template>
   <div class="box1">
     <img class="pagebgsty" src="@/assets/pageBg.png" alt="">
-    <div class="mainBox" id="mainBox">
+    <div class="mainBox" id="mainBox" style="z-index:100;position:absolute">
       <div class="bigTitle">
         <img class="titlebgstr" src="@/assets/titleBg.png" alt="">
         <h1 class="bigTitleName" v-text="mainTitle"></h1>
@@ -429,7 +429,7 @@
                       var key = temconfig[i].key;
                       if(key != null){
                          //如果是数据表
-                         if(key == 'list'){
+                        if(key == 'list' || key == 'data'){
                              let dk = {
                                dataKey:temconfig[i].dataKey,
                                boxTitle:temconfig[i].boxTitle
