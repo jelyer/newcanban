@@ -371,7 +371,7 @@
         tempname=this.mainTitle;
         tempconfig=this.$parent.domConfig;
         for(let c in tempconfig){
-          tempconfig[c].data = null;//去掉杂乱数据
+          tempconfig[c].data = "";//去掉杂乱数据
         }
         tempconfig = JSON.stringify(tempconfig);
         tempurl=this.$parent.$data.tempurl;
@@ -445,7 +445,7 @@
         let tempname= this.mainTitle;
         let tempconfig=this.$parent.domConfig;
         for(let c in tempconfig){
-          tempconfig[c].data = null;//去掉杂乱数据
+          tempconfig[c].data = "";//去掉杂乱数据
         }
         tempconfig = JSON.stringify(tempconfig);
         if (this.form.boxTitle == '') {

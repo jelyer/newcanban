@@ -11,10 +11,22 @@
       <div class="mainContent">
         <div class="secondBox">
           <div :class="[{active: isActive == 0 },'secondRight']"  @click="toEditDiv(domConfig[0])">
-            <p class="boxTitle">{{domConfig[0].boxTitle}}</p>
+            <!--<p class="boxTitle">{{domConfig[0].boxTitle}}</p>
             <div class="boxContent">
               <div class="boxContent-div"  :id="domConfig[0].id">
 
+              </div>
+              <div class="icoTL"></div>
+              <div class="icoTR"></div>
+              <div class="icoBL"></div>
+              <div class="icoBR"></div>
+            </div>-->
+            <p class="boxTitle">{{domConfig[0].boxTitle}}</p>
+            <div class="boxContent">
+              <div class="boxContent-div">
+                <table-one v-if="domConfig[0].key == 'data'" :domConfig="domConfig[0].data"></table-one>
+                <table-two v-if="domConfig[0].key == 'list'" :domConfig="domConfig[0].data"></table-two>
+                <div class="chart" :id="domConfig[0].id"></div>
               </div>
               <div class="icoTL"></div>
               <div class="icoTR"></div>
@@ -34,11 +46,15 @@
 <script>
   import operationForm from "@/components/operationForm/operationForm";
   import {getSourDataAll,getTempById,getDataByDataKey} from '@/api/chartSetting'
+  import tableOne from "@/components/Kanban/table1";
+  import tableTwo from "@/components/Kanban/table2";
   export default {
     name: 'template3',
     inject:['reload'],//注入reload方法
     components: {
-      operationForm
+      operationForm,
+      tableOne,
+      tableTwo
     },
     data(){
       return{
@@ -123,6 +139,10 @@
           this.timereload = setInterval(() => {
             if(_this.reloadbl){
              _this.getData();//刷新数据
+              this.$message({
+                message: "刷新数据",
+                type: 'success'
+              });
             }
           }, reloadt * 1000 * 60)
         }
@@ -201,88 +221,91 @@
         this.echartObjArr = [];
         this.eclist = [];
         getTempById(this.$qs.stringify(paramid)).then(response => {
-           if(response.data.code == 200){
-             //是否模板页面
-             if(response.data.data.tempstat == 1){
-               this.isModle =true;
-             }else{
-               this.isModle =false;
-             }
-             //渲染数据
-             this.mainTitle= response.data.data.tempname;
-             var temconfig = response.data.data.tempconfig;
-             if(temconfig != null && temconfig != ""){
-                 temconfig = JSON.parse(temconfig);
-                 this.domConfig = temconfig;
-                 //各个模块根据dataKey加载数据
-                 var index = 0;//图表echartArr下标
-                  for(let i = 0;i<temconfig.length;i++){
-                      var key = temconfig[i].key;
-                      if(key != null){
-                         //如果是数据表
-                        if(key == 'list' || key == 'data'){
-                             let dk = {
-                               dataKey:temconfig[i].dataKey,
-                               boxTitle:temconfig[i].boxTitle
-                             }
-                             var para = {
-                               index:i
-                             }
-                             var parafun = function(para,$qs){
-                               getDataByDataKey($qs.stringify(dk)).then(response => {
-                                 if(response.data.code == 200 && response.data.data != undefined && response.data.data != '[]') {
-                                   //temconfig[para.index].data = response.data.data
-                                   if(response.data.data != ""){
-                                     var data = _this.COMMONFUN.formatDataToEchart(JSON.parse(response.data.data));
-                                     if(data.legend != undefined){ //如果是典型列表
-                                       //_this.domConfig[para.index].data = data;
-                                       _this.domConfig[para.index].data = _this.COMMONFUN.formatTables(data);
-                                     }else{
-                                       _this.domConfig[para.index].data = data;
-                                     }
-                                   }
-                                 }
-                               })
-                             }
-                              parafun(para,this.$qs);
-                         }else{
-                             //如果是图表
-                             let dk = {
-                               dataKey:temconfig[i].dataKey,
-                               boxTitle:temconfig[i].boxTitle
-                             }
-                             var para = {
-                               index:index,
-                               model:temconfig[i]
-                             }
-                             var parafun = function(para,$qs){
-                                 getDataByDataKey($qs.stringify(dk)).then(response => {
-                                   if(response.data.code == 200 && response.data.data != undefined && response.data.data != '[]') {
-                                     var key = para.model.key;
-                                     _this.ec = _this.$echarts.init(document.getElementById(para.model.id));
-                                     _this.ecObj = _this.GLOBAL.allChartObj[key];
-                                     if(response.data.data ==undefined){
-                                        return;
-                                     }
-                                     var parseData =  JSON.parse(response.data.data);
-                                     //缓存id及对应数据
-                                     _this.echartArr.push(para.model.id);
-                                     _this.echartObjArr.push(parseData);
-                                     _this.eclist.push(_this.ec);
-                                      //饼状图和环状图
-                                     //根据图表类型key配置option
-                                     _this.COMMONFUN.setOptionByKey(_this.ecObj,key,parseData);//根据数据和图表类型设置option
-                                     _this.ec.setOption(_this.ecObj);
-                                   }
-                                 })
-                             }
-                             parafun(para,this.$qs);
-                             index++;
-                         }
-                      }
+          if(response.data.code == 200){
+            //是否模板页面
+            if(response.data.data.tempstat == 1){
+              this.isModle =true;
+            }else{
+              this.isModle =false;
+            }
+
+            //渲染数据
+            this.mainTitle= response.data.data.tempname;
+            var temconfig = response.data.data.tempconfig;
+            if(temconfig != null && temconfig != ""){
+              temconfig = JSON.parse(temconfig);
+              this.domConfig = temconfig;
+              //各个模块根据dataKey加载数据
+              var index = 0;//图表echartArr下标
+              for(let i = 0;i<temconfig.length;i++){
+                var key = temconfig[i].key;
+                if(key != null){
+                  //如果是数据表
+                  if(key == 'list' || key == 'data'){
+                    let dk = {
+                      dataKey:temconfig[i].dataKey,
+                      boxTitle:temconfig[i].boxTitle
+                    }
+                    var para = {
+                      index:i
+                    }
+                    var parafun = function(para,$qs){
+                      getDataByDataKey($qs.stringify(dk)).then(response => {
+                        if(response.data.code == 200 && response.data.data != undefined && response.data.data != '[]') {
+                          if(response.data.data != ""){
+                            if(response.data.data.indexOf("xkey") != -1){ //如果是典型列表
+                              /*var data = _this.COMMONFUN.formatDataToEchart(JSON.parse(response.data.data));
+                              _this.domConfig[para.index].data = _this.COMMONFUN.formatTables(data);*/
+                              _this.domConfig[para.index].data = _this.COMMONFUN.formatTotable(JSON.parse(response.data.data),true);//带xkey的
+                            }else{
+                              _this.domConfig[para.index].data = _this.COMMONFUN.formatTotable(JSON.parse(response.data.data),false);
+                            }
+                          }
+                        }
+                      })
+                    }
+                    parafun(para,this.$qs);
+                  }else{
+                    //如果是图表
+                    let dk = {
+                      dataKey:temconfig[i].dataKey,
+                      boxTitle:temconfig[i].boxTitle
+                    }
+                    var para = {
+                      index:index,
+                      model:temconfig[i]
+                    }
+                    var parafun = function(para,$qs){
+                      getDataByDataKey($qs.stringify(dk)).then(response => {
+                        if(response.data.code == 200 && response.data.data != undefined && response.data.data != '[]') {
+                          var key = para.model.key;
+                          _this.ec = _this.$echarts.init(document.getElementById(para.model.id));
+                          _this.ecObj = _this.GLOBAL.allChartObj[key];
+                          if(response.data.data ==undefined){
+                            return;
+                          }
+                          var parseData =  JSON.parse(response.data.data);
+                          //console.log("获取的数据")
+                          //console.log(parseData)
+                          //缓存id及对应数据
+                          _this.echartArr.push(para.model.id);
+                          _this.echartObjArr.push(parseData);
+                          _this.eclist.push(_this.ec);
+                          //饼状图和环状图
+                          //根据图表类型key配置option
+                          _this.COMMONFUN.setOptionByKey(_this.ecObj,key,parseData);//根据数据和图表类型设置option
+                          _this.ec.setOption(_this.ecObj);
+                        }
+                      })
+                    }
+                    parafun(para,this.$qs);
+                    index++;
                   }
-             }
-           }
+
+                }
+              }
+            }
+          }
         })
       }
     },

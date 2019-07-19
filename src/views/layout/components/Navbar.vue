@@ -178,15 +178,13 @@ export default {
       if(document.getElementsByClassName('main-container')[0].getElementsByClassName('active').length>0){
         document.getElementsByClassName('main-container')[0].getElementsByClassName('active') [0].classList.remove('active');
       }
-      this.$store.dispatch('SetIsScreen', true);
-      document.getElementsByClassName('app-wrapper')[0].classList.add('largeScreen');
-      this.$message('esc键 退出大屏展示');
+      this.$store.dispatch('SetIsScreen', true);//layout监听后添加largeScreen类
+      this.$message('按F11进入大屏显示，esc键 退出大屏展示');
 
       var _this = this;
       document.onkeydown=function () {
         let oEvent = window.event;
         if(oEvent.keyCode==27 ){
-          document.getElementsByClassName('app-wrapper')[0].classList.remove('largeScreen');
           document.onkeydown = undefined;
           _this.$store.dispatch('SetIsScreen', false);
         }

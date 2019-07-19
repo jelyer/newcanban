@@ -40,7 +40,7 @@ const allChartObj ={
             textStyle: {
               color: "#fff"
             },
-            formatter:"{b} \n  {d}%",
+            formatter: "{b}: {c} ({d}%)"
           },
           /*emphasis: {
             show: true,
@@ -135,8 +135,17 @@ const allChartObj ={
       type: 'line',
       itemStyle: {
         normal: {
-          show: false,//鼠标悬停时显示label数据
+          show: true,//鼠标悬停时显示label数据
           color: {"x":0,"y":0,"x2":0,"y2":1,"type":"linear","global":false,"colorStops":[{"offset":0,"color":"#3caff2"},{"offset":1,"color":"#3caff2"}]}
+        }
+      },
+      label:{
+        normal:{
+          show:true,        //柱子上面显示数值
+          position:'top',  //数值的位置
+          textStyle:{
+            color:'#fff'
+          }
         }
       },
       data: data2
@@ -174,7 +183,8 @@ const allChartObj ={
       axisLabel: {
         textStyle: {
           color: '#999'
-        }
+        },
+        interval: 0,
       },
       data: data1,
     },
@@ -207,12 +217,21 @@ const allChartObj ={
       barMaxWidth: 15,
       itemStyle: {
         normal: {
-          show: false,//鼠标悬停时显示label数据
+          show: true,//鼠标悬停时显示label数据
           color:'',
           color: {"x":0,"y":0,"x2":0,"y2":1,"type":"linear","global":false,"colorStops":[{"offset":0,"color":"#44cbf5"},{"offset":0.25,"color":"#44cbf5"},{"offset":0.251,"color":"#3caff2"},{"offset":0.5,"color":"#3caff2"},{"offset":0.501,"color":"#318bd8  "},{"offset":0.75,"color":"#318bd8 "},{"offset":0.751,"color":"#2669c5"},{"offset":1,"color":"#2669c5"}]}
         },
         emphasis: {
           color: {"x":0,"y":0,"x2":0,"y2":1,"type":"linear","global":false,"colorStops":[{"offset":0,"color":"#2378f7"},{"offset":0.7,"color":"#2378f7"},{"offset":1,"color":"#83bff6"}]}
+        }
+      },
+      label:{
+        normal:{
+          show:true,        //柱子上面显示数值
+          position:'top',  //数值的位置
+          textStyle:{
+            color:'#fff'
+          }
         }
       },
       data: data2
@@ -281,7 +300,7 @@ const allChartObj ={
       barWidth: 15,
       itemStyle: {
         normal: {
-          show: false,//鼠标悬停时显示label数据
+          show: true,//鼠标悬停时显示label数据
           color:'',
           /*color: new this.$echarts.graphic.LinearGradient(
             0, 0, 0, 1,
@@ -295,7 +314,7 @@ const allChartObj ={
       },
       itemStyle: {
         normal: {
-          show: false,//鼠标悬停时显示label数据
+          show: true,//鼠标悬停时显示label数据
           color: {"x":0,"y":0,"x2":0,"y2":1,"type":"linear","global":false,"colorStops":[{"offset":0,"color":"#44cbf5"},{"offset":0.5,"color":"#3caff2"},{"offset":0.75,"color":"#318bd8"},{"offset":1,"color":"#2669c5"}]}
         },
         emphasis: {
@@ -366,7 +385,7 @@ const allChartObj ={
     },
     series: {
       label: {
-        normal: {show: false,}
+        normal: {show: true,}
       },
       name: '',
       type: 'line',
@@ -404,7 +423,7 @@ const allChartObj ={
             textStyle: {
               color: "rgba(255, 255, 255, 0.8)"
             },
-            formatter:"{b} \n  {d}%",
+            formatter: "{b}: {c} ({d}%)"
           },
         },
         itemStyle: {
@@ -493,8 +512,30 @@ const allChartObj ={
       }
     },
     series: [
-      {name: '深圳仓', type: 'line', data: data2},
-      {name: '北京仓', type: 'line', data: data3}
+      {name: '深圳仓', type: 'line',
+        label:{
+          normal:{
+            show:true,        //柱子上面显示数值
+            position:'top',  //数值的位置
+            textStyle:{
+              color:'#fff'
+            }
+          }
+        },
+        data: data2
+      },
+      {name: '北京仓', type: 'line',
+        label:{
+          normal:{
+            show:true,        //柱子上面显示数值
+            position:'top',  //数值的位置
+            textStyle:{
+              color:'#fff'
+            }
+          }
+        },
+        data: data3
+      }
     ]
   },
 //7、多个柱状图
@@ -652,7 +693,7 @@ const allChartObj ={
         },
         labelLine: {
           normal: {
-            show: false
+            show: true
           }
         },
         data:[
@@ -722,11 +763,11 @@ const allChartObj ={
         roseType : 'radius',
         silent:false,
         label: {
-          normal: {show: false},
+          normal: {show: true},
           emphasis: {show: true}
         },
         lableLine: {
-          normal: {show: false},
+          normal: {show: true},
           emphasis: {show: true}
         },
         data:[

@@ -170,6 +170,10 @@
           this.timereload = setInterval(() => {
             if(_this.reloadbl){
               _this.getData();//刷新数据
+              this.$message({
+                message: "刷新数据",
+                type: 'success'
+              });
             }
           }, reloadt * 1000 * 60)
         }

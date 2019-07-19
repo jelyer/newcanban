@@ -86,14 +86,13 @@
   </div>
 
 </template>
-
 <script>
-
 import { Navbar, Sidebar, AppMain} from './components'
 import {delTemById,publishTems} from '@/api/chartSetting'
 import ResizeMixin from './mixin/ResizeHandler'
 import Hamburger from '@/components/Hamburger'
 var that;
+var index = 0;//轮播记录
 export default {
   name: 'Layout',
   data(){
@@ -131,7 +130,8 @@ export default {
         hideSidebar: !this.sidebar.opened,
         openSidebar: this.sidebar.opened,
         withoutAnimation: this.sidebar.withoutAnimation,
-        mobile: this.device === 'mobile'
+        mobile: this.device === 'mobile',
+        largeScreen:this.$store.state.app.isScreen //看是否全屏，如果全屏，就带上largeScreen样式
       }
     },
     rightSetting(){
@@ -165,7 +165,6 @@ export default {
          this.dataForm.routerData = router;
          this.dataForm.time = routerSet.time;
          //开始轮播
-         var index = 0
          let _this = this;
          this.timers = setInterval(() => {
            _this.$routers.replace(lunbopage[index]);
@@ -173,7 +172,7 @@ export default {
            if(index == lunbopage.length){
              index = 0;
            }
-         }, routerSet.time*1000)
+         }, routerSet.time*1000);//
        }else{
          this.dataForm.routerData = router
        }
@@ -292,24 +291,21 @@ export default {
                 duration: 2000
               })
               this.dialogFormVisible = false;
-              //this.$routers.replace('/');
+              this.$routers.replace('/');
                //开始全屏轮播
-               if(document.getElementsByClassName('main-container')[0].getElementsByClassName('active').length>0){
+               /*if(document.getElementsByClassName('main-container')[0].getElementsByClassName('active').length>0){
                  document.getElementsByClassName('main-container')[0].getElementsByClassName('active') [0].classList.remove('active');
                }
                this.$store.dispatch('SetIsScreen', true);
-               document.getElementsByClassName('app-wrapper')[0].classList.add('largeScreen');
                this.$message('esc键 退出大屏展示');
-
                var _this = this;
                document.onkeydown=function () {
                  let oEvent = window.event;
                  if(oEvent.keyCode==27 ){
-                   document.getElementsByClassName('app-wrapper')[0].classList.remove('largeScreen');
                    document.onkeydown = undefined;
                    _this.$store.dispatch('SetIsScreen', false);
                  }
-               }
+               }*/
 
           } catch (e) {
               this.$message({

@@ -5,7 +5,7 @@ import axios from 'axios'
 //添加保存数据源
 export function addSourseData(data) {
   return request({
-    url: '/adminData?operate=add',
+    url: '/adminData/save',
     method: 'post',
     data
   })
@@ -14,7 +14,7 @@ export function addSourseData(data) {
 //加载所有数据源
 export function getSourDataAll() {
   return request({
-    url: '/adminData?operate=find',
+    url: '/adminData/findAll',
     method: 'get'
   })
 }
@@ -22,7 +22,7 @@ export function getSourDataAll() {
 //修改模板
 export function publistTem(data){
   return request({
-    url: '/adminTemplete?operate=update',
+    url: '/adminTemplete/update',
     method: 'post',
     data
   })
@@ -31,7 +31,7 @@ export function publistTem(data){
 //发布模板
 export function publishTems(data){
   return request({
-    url: '/adminTemplete?operate=publish',
+    url: '/adminTemplete/update',
     method: 'post',
     data
   })
@@ -40,7 +40,7 @@ export function publishTems(data){
 //删除模板
 export function delTemById(data){
   return request({
-    url: '/adminTemplete?operate=del',
+    url: '/adminTemplete/delete',
     method: 'post',
     data
   })
@@ -49,7 +49,7 @@ export function delTemById(data){
 //修改数据源
 export function editSourData(data) {
   return request({
-    url: '/adminData?operate=update',
+    url: '/adminData/update',
     method:'post',
     data
   })
@@ -58,7 +58,7 @@ export function editSourData(data) {
 //删除数据源
 export function delSourData(data) {
   return request({
-    url: '/adminData?operate=del',
+    url: '/adminData/delete',
     method:'post',
     data
   })
@@ -67,7 +67,7 @@ export function delSourData(data) {
 //加载所有模板
 export function getTempleteAll() {
   return request({
-    url: '/adminTemplete?operate=find',
+    url: '/adminTemplete/findAll',
     method: 'get'
   })
 }
@@ -75,7 +75,7 @@ export function getTempleteAll() {
 //保存属性设置
 export function saveTemplateSetting(data){
   return request({
-    url:'/adminTemplete?operate=add',
+    url:'/adminTemplete/save',
     method:'post',
     data
   })
@@ -84,7 +84,7 @@ export function saveTemplateSetting(data){
 //修改模板配置
 export function updataTemSetting(data){
   return request({
-    url:'/adminTemplete?operate=update',
+    url:'/adminTemplete/update',
     method:'post',
     data
   })
@@ -93,7 +93,7 @@ export function updataTemSetting(data){
 //根据模板Id查找模板配置
 export function getTempById(data){
   return request({
-    url:'/adminTemplete?operate=find',
+    url:'/adminTemplete/findModel',
     method:'post',
     data
   })
@@ -103,7 +103,7 @@ export function getTempById(data){
 //根据模板dataKey获取数据
 export function getDataByDataKey(data){
   return request({
-    url:'/adminTemplete?operate=excute',
+    url:'/adminTemplete/excute',
     method:'post',
     data
   })
