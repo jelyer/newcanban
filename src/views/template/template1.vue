@@ -289,7 +289,8 @@
       },
       //刷新页面数据
       reloadPage(){
-        this.reload();
+        //this.reload();
+        this.getData();
       },
       getData(){
         //清空页面初始值

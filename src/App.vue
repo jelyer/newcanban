@@ -26,6 +26,7 @@ export default {
   methods:{
     reload(){
       this.isRouterAlive = false;
+      //dom渲染后回调此函数
       this.$nextTick(function(){
         this.isRouterAlive = true
       })

@@ -207,7 +207,6 @@ export default {
             this.$notify({
               title: '提示',
               message: '删除成功！',
-              type: 'success',
               duration: 2000
             })
             const index = this.list.indexOf(row)
@@ -218,7 +217,6 @@ export default {
             this.$notify({
               title: '提示',
               message: response.data.msg,
-              type: 'error',
               duration: 3000
             })
           }
@@ -256,7 +254,6 @@ export default {
           this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
         }else{
           this.$notify({
-            type: 'error',
             message: response.data.msg
           })
         }
@@ -287,7 +284,6 @@ export default {
               this.$notify({
                 title: '成功',
                 message: '设置成功，开始轮播！',
-                type: 'success',
                 duration: 2000
               })
               this.dialogFormVisible = false;
@@ -320,7 +316,6 @@ export default {
       this.$notify({
         title: '提示',
         message: '轮播清除成功!',
-        type: 'success',
         duration: 2000
       })
     },

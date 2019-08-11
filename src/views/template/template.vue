@@ -202,7 +202,8 @@
       },
       //刷新页面数据
       reloadPage(){
-        this.reload();
+        //this.reload();
+        this.getData();
       },
       //绑定记录鼠标位置
       moserovers(){

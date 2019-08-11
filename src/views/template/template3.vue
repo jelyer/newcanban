@@ -166,7 +166,8 @@
       },
       //刷新页面数据
       reloadPage(){
-        this.reload();
+        //this.reload();
+        this.getData();
       },
       getData(){
         //清空页面初始值
@@ -324,7 +325,7 @@
 <style scoped>
   .boxTitle{height: 25%;color: #3190cb;font-size: 1.1rem;  text-align: left;  line-height: 2.4rem;  }
   .boxContent{  height: 75%;  width: 100%;  border: 1px solid #0d1743;  display: block;  position: relative;}
-  .boxContent-div{  width: 100%;  height: 100%;  cursor: pointer;}
+  .boxContent-div{  width: 100%;  height: 100%;  cursor: auto;}
   .secondBox{  height:100% ;  }
   .secondRight{  width: 100%;  height: 100%;  float: left;  }
   .secondBox .boxTitle{  height:14% ;  }

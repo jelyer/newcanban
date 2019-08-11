@@ -397,7 +397,6 @@
             this.$notify({
               title: '成功',
               message: '添加成功,正在刷新页面!',
-              type: 'success',
               duration: 2000
             })
             this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
@@ -415,7 +414,6 @@
             this.$notify({
               title: '提示',
               message: response.data.msg,
-              type: 'error',
               duration: 3000
             })
           }
@@ -481,7 +479,6 @@
             this.$notify({
               title: '成功',
               message: '修改成功!',
-              type: 'success',
               duration: 2000
             })
             this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
@@ -495,7 +492,6 @@
             this.$notify({
               title: '提示',
               message: response.data.msg,
-              type: 'error',
               duration: 3000
             })
           }
@@ -516,7 +512,6 @@
                 this.$notify({
                   title: '成功',
                   message: '添加成功',
-                  type: 'success',
                   duration: 2000
                 })
                 this.$parent.allData.unshift(this.dataForm);
@@ -526,7 +521,6 @@
                 this.$notify({
                   title: '提示',
                   message: response.data.msg,
-                  type: 'error',
                   duration: 3000
                 })
               }
@@ -549,7 +543,6 @@
                 this.$notify({
                   title: '成功',
                   message: '修改成功',
-                  type: 'success',
                   duration: 2000
                 })
                 //刷TODO
@@ -558,7 +551,6 @@
                 this.$notify({
                   title: '提示',
                   message: response.data.msg,
-                  type: 'error',
                   duration: 3000
                 })
               }
@@ -599,7 +591,6 @@
                 this.$notify({
                   title: '提示',
                   message: '删除成功！',
-                  type: 'success',
                   duration: 2000
                 })
                 const index = this.$parent.allData.indexOf(row)
@@ -608,7 +599,6 @@
                 this.$notify({
                   title: '提示',
                   message: response.data.msg,
-                  type: 'error',
                   duration: 3000
                 })
               }
