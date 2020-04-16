@@ -4,17 +4,13 @@ export default file => {
 
 const map = {
   Nested: () => import('@/views/layout/Layout'),
- // Menu1: () => import('@/views/nested/menu1/index'),
-  'Menu1-1': () => import('@/views/nested/menu1/menu1-1'),
-  'Menu1-2': () => import('@/views/nested/menu1/menu1-2'),
-  line:() => import('@/views/charts/line'),
-  keyboard:() => import('@/views/charts/keyboard'),
-  template2:() => import('@/views/template/template2'),
-
-
   form: () => import('@/views/layout/Layout'),
   Form: () => import('@/views/form/index'),
   Example: () => import('@/views/layout/Layout'),
   Table: () => import('@/views/table/index'),
-  Tree: () => import('@/views/tree/index')
+  Tree: () => import('@/views/tree/index'),
+  template2:() => import('@/views/template/template2'),
+
+  board1:() => import('@/views/board/board1'),
+
 }

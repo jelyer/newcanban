@@ -21,6 +21,9 @@
           :vertical-compact="true"
           :use-css-transforms="true"
           :responsive="responsive"
+          :margin="[10, 10]"
+          :max-rows="100"
+          :auto-size="false"
           @layout-created="layoutCreatedEvent"
           @layout-before-mount="layoutBeforeMountEvent"
           @layout-mounted="layoutMountedEvent"
@@ -44,7 +47,7 @@
                 <div class="boxContent-div">
                   <table-one v-if="item.key == 'data'" :domConfig="item.data"></table-one>
                   <table-two v-if="item.key == 'list'" :domConfig="item.data"></table-two>
-                  <div class="chart" :id="item.id"></div>
+                  <div :class="[{isshow: item.key == 'data' || item.key == 'list' },'chart']" :id="item.id"></div>
                 </div>
                 <div class="icoTL"></div>
                 <div class="icoTR"></div>
@@ -100,7 +103,6 @@
         ecObj:undefined,//ec配置属性
         //isFirst:true,
         isActive:undefined,
-        thePageId:'',//页面传参的id
         mainTitle: '',
         allData:[],
         nowDivIndex:' ',//要编辑的div的编号
@@ -140,11 +142,6 @@
       }
     },
     created(){
-      this.thePageId=this.COMMONFUN.GetRequest().pageId;
-      if(this.thePageId==undefined){
-        this.thePageId='p1';
-      }
-
       var pageId = this.$route.query.pageId;//页面Id
       if(pageId != undefined){
         this.pageId = pageId
@@ -225,9 +222,15 @@
         var _this = this;
         //拖拽模块通过vue-grid-layout重新渲染宽高
         if(this.$store.state.app.isScreen){
-          let width = document.body.clientWidth + (document.body.clientWidth/6-20)
+          let width = document.body.clientWidth + (document.body.clientWidth/6-20);
           let height = document.body.clientHeight + (document.body.clientHeight/6+50);
           $(".vue-grid-layout").css({"width":width,"height":height})
+          ///var aaa = JSON.parse(JSON.stringify(this.domConfig));
+          //this.domConfig = [];
+          //setTimeout(function(){
+           // _this.isreload = true;
+           // _this.domConfig = aaa;
+          //},2300)
         }else{
           $(".vue-grid-layout").css({"width":"100%","height":"100%"})
         }
@@ -285,7 +288,7 @@
       //根据模板id查找模板配置数据
       getTempDataById(pageId){
         let paramid = {
-          tempid:pageId
+          eq_tempid:pageId
         }
         var _this = this;
         this.echartArr = [];
@@ -317,8 +320,8 @@
                   //如果是数据表
                   if(key == 'list' || key == 'data'){
                     let dk = {
-                      dataKey:temconfig[i].dataKey,
-                      boxTitle:temconfig[i].boxTitle
+                      eq_dataKey:temconfig[i].dataKey,
+                      eq_boxTitle:temconfig[i].boxTitle
                     }
                     var para = {
                       index:i
@@ -342,8 +345,8 @@
                   }else{
                     //如果是图表
                     let dk = {
-                      dataKey:temconfig[i].dataKey,
-                      boxTitle:temconfig[i].boxTitle
+                      eq_dataKey:temconfig[i].dataKey,
+                      eq_boxTitle:temconfig[i].boxTitle
                     }
                     var para = {
                       index:index,

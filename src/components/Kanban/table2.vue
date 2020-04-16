@@ -7,19 +7,42 @@
         </el-row>
       </div>
       <vue-seamless-scroll :data="domConfig.data" :class-option="optionSingleHeight" class="seamless-warp">
-      <div class="Tb-content">
-          <el-row v-for="item in domConfig.data">
-            <el-col :span="(parseInt(24/item.length))" v-for="it in item" :title="it">{{it}}</el-col>
-          </el-row>
-      </div>
-      </vue-seamless-scroll>
+         <div class="Tb-content">
+             <el-row v-for="item in domConfig.data">
+               <el-col :span="(parseInt(24/item.length))" v-for="it in item" :title="it">{{it}}</el-col>
+             </el-row>
+         </div>
+       </vue-seamless-scroll>
+      <!--<superslide :options="options" class="slideBox">
+        <div class="bd">
+          <ul>
+            <li v-for="item in domConfig.data">
+              <el-row>
+                <el-col :span="(parseInt(24/item.length))" v-for="it in item" :title="it">{{it}}</el-col>
+              </el-row>
+            </li>
+          </ul>
+        </div>
+      </superslide>-->
     </div>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'table1',
+    name: 'table2',
+    data(){
+      return {
+        options: {
+          "mainCell": ".bd ul",
+          "autoPlay": true,
+          "effect": "topMarquee",
+          "vis": 5,
+          "interTime": 50,
+          "trigger": "click"
+        }
+      }
+    },
     props: {
       domConfig: {
         type: Object,

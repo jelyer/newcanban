@@ -9,6 +9,7 @@ const user = {
     roles: [],
     RouterList: [], // 动态路由,已拼接好
     routerDatas:[],//路由数据，未转格式
+    AsyncRouterMap:[],//动态获取的路由，已转好
   },
 
   mutations: {
@@ -29,6 +30,9 @@ const user = {
     },
     set_routerData: (state, RouterData) => {
       state.routerDatas = RouterData
+    },
+    SET_ASYNCROUTERMAP: (state, RouterData) => {
+      state.AsyncRouterMap = RouterData
     }
   },
 
@@ -78,14 +82,25 @@ const user = {
       })
     },
     // 动态设置路由 此为设置设置途径
-    setRouterList({ commit }, routerList) {
-      commit('set_router', StaticRouterMap.concat(routerList)) // 进行路由拼接并存储
+    setRouterList({ commit },{routerList,isOnlyAsyn}) {
+      if(isOnlyAsyn){
+        //只要动态的路由
+        commit('set_router', routerList);
+      }else{
+        commit('set_router', StaticRouterMap.concat(routerList));
+      }
     },
 
-    // 存储路由数据
+    // 存储路由数据-未转的
     setRouterData({ commit }, RouterData) {
       commit('set_routerData', RouterData)
     },
+
+    // 存储动态路由-已转
+    setAsyncRouterMap({ commit }, RouterData) {
+      commit('SET_ASYNCROUTERMAP', RouterData)
+    },
+
     // 存储颗粒话权限
     setroles({ commit }, roleList) {
       commit('SET_ROLES', roleList)

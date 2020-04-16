@@ -32,7 +32,7 @@
 
     .scrollbar-wrapper {
       overflow-x: hidden !important;
-      height: calc(100% - 40px);
+      height: 100%;
       .el-scrollbar__view {
         height: 100%;
         overflow: hidden;
@@ -60,9 +60,9 @@
     .el-menu {
       border: none;
       height:100%;
-      /*height: calc(100vh - 60px);*/
       width: 100% !important;
       overflow-y: auto;
+      padding-bottom:50px;
     }
     .el-menu::-webkit-scrollbar{width:0}
     .is-active>.el-submenu__title {

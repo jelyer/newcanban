@@ -8,6 +8,7 @@ const getters = {
   roles: state => state.user.roles,
   routerstat: state => state.app.routerstat,
   routerDatas: state => state.user.routerDatas,
+  AsyncRouterMap: state => state.user.AsyncRouterMap,
   routerlb: state => state.app.routerlb,
   isScreen: state => state.app.isScreen
 }

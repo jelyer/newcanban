@@ -494,10 +494,11 @@
     position: relative;
   }
   .boxContent-div{
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
     cursor: pointer;
   }
+  .boxContent-div div{width:100%;height:100%}
   .active .boxContent{
     border:2px solid #0db3fd;
     background: rgba(13,179,253,0.2);

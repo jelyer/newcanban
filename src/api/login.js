@@ -29,16 +29,6 @@ export function changeCodeImg() {
 
 //加载所有模板路由
 export function getRouter(roule) {
-  //console.log(roule)
-  /*if (roule === 'admin') {
-    return axios.get(
-      ' https://www.easy-mock.com/mock/5ca8799b4f62671c250622a9/vlogin/user/getRouterAdmin'
-    )
-  } else {
-    return axios.get(
-      ' https://www.easy-mock.com/mock/5ca8799b4f62671c250622a9/vlogin/user/getRouteReditor'
-    )
-  }*/
   return request({
     url: '/adminTemplete/findAll',
     method: 'get'

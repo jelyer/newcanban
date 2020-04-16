@@ -4,7 +4,7 @@ import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import locale from 'element-ui/lib/locale/lang/en' // lang i18n
+import locale from 'element-ui/lib/locale/lang/zh-CN' // lang i18n 中文
 import { directive } from './utils/directive'
 import '@/styles/index.scss' // global css
 
@@ -24,8 +24,14 @@ import qs from 'qs';
 import vueSeamlessScroll from 'vue-seamless-scroll'
 Vue.use(vueSeamlessScroll);
 import contentmenu from 'v-contextmenu'
+import VueAwesomeSwiper from 'vue-awesome-swiper' /*swiper轮播*/
+import VueSuperSlide from 'vue-superslide'/*轮滚*/
+
+import 'swiper/dist/css/swiper.css'
 import 'v-contextmenu/dist/index.css'
 Vue.use(contentmenu)
+Vue.use(VueAwesomeSwiper)   /* { default global options } */
+Vue.use(VueSuperSlide)
 Vue.prototype.$qs = qs;
 Vue.prototype.$axios=axios;
 Vue.prototype.$echarts=echarts;

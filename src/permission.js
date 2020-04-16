@@ -57,8 +57,8 @@ router.afterEach(() => {
 })
 
 function gotoRouter(to, next) {
-  getRouter() // 获取动态路由的方法
-    .then(res => {
+  // 获取动态路由的方法
+  getRouter().then(res => {
       var result = res.data.data;
       var jsondata = [];
       var roulunbo = [];
@@ -98,9 +98,10 @@ function gotoRouter(to, next) {
           }
         }
       }
-      store.dispatch('setRouterData', result) // 存储到路由数据到vuex
+      store.dispatch('setRouterData', result) // 存储到路由数据，未转
+      store.dispatch('SetRouterLb', roulunbo)//存储路由数据，用于轮播，只包含已发布的路由
       const asyncRouter = addRouter(jsondata) // 进行递归解析
-      store.dispatch('SetRouterLb', roulunbo)//存储路由数据，用于轮播
+      store.dispatch('setAsyncRouterMap', asyncRouter)//已转好的动态路由，存
       //store.dispatch('setroles', res.data.data.permit)
       //console.log(res.data.data.permit)
       // 一定不能写在静态路由里面,否则会出现,访问动态路由404的情况.所以在这列添加
@@ -108,9 +109,9 @@ function gotoRouter(to, next) {
       return asyncRouter;
     })
     .then(asyncRouter => {
-      router.addRoutes(asyncRouter) // vue-router提供的addRouter方法进行路由拼接
+     // router.addRoutes(asyncRouter) // vue-router提供的addRouter方法进行路由拼接
       store.dispatch('SetReloadRouter', true) // 记录路由获取状态
-      store.dispatch('setRouterList', asyncRouter) // 存储到vuex
+      store.dispatch('setRouterList', {routerList:asyncRouter}) // 添加到路由
       //store.dispatch('GetInfo')
       next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
     })

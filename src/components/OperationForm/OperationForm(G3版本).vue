@@ -26,23 +26,18 @@
                 <el-option value="15"  label="15分钟" ></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="查询参数">
-              <el-tooltip class="item" effect="dark" :content="form.queryparam" placement="top">
-                <el-input size="mini" v-model="form.queryparam" type="textarea" :rows="1" @click.native="openSelectQuery()"></el-input>
-              </el-tooltip>
-            </el-form-item>
             <el-form-item label="选择数据">
               <el-select filterable v-model="form.dataKey" placeholder="请选择要绑定的数据"  @change="selected($event)" id="dataKey">
                 <el-option :value="item.datakey" v-for="(item,i) in this.$parent.allData" :label="item.dataname" :key="i" :datatype="item.datatype"></el-option>
               </el-select>
             </el-form-item>
             <div class="componentsBox">
-              <div class="componentsTitle" ><svg-icon icon-class="eye-open" class-name="card-panel-icon" />  可选图表</div>
+              <div class="componentsTitle" >可选图表</div>
               <div class="componentsContent">
                 <el-row>
                   <el-col :span="8" v-for="(item,i) in ableChartsData" :key="i">
                     <div class="imgBox" v-if="dataTypes.indexOf(item.key) > -1 && form.dataKey != null" :title="item.name" @mousedown="chartmouseDown(item.key)" v-on:click="selectionChart(item)">
-                      <img v-if="item.key == currKey" class="checked" :src="'static/image/'+(item.url)+'.png'" alt="" d raggable="true">
+                      <img v-if="item.key == currKey" class="checked" :src="'/static/image/'+(item.url)+'.png'" alt="" d raggable="true">
                       <img v-else :src="'static/image/'+(item.url)+'.png'" alt="" draggable="true">
                     </div>
                   </el-col>
@@ -72,7 +67,6 @@
           </el-table>
         </div>
 
-      <!--数据源-->
       <el-dialog v-dialogDrag :title="textMap[dialogStatus]" :modal="false" :close-on-click-modal="false" width="50%" :visible.sync="dialogFormVisible">
         <el-form :rules="rules" ref="dataForm" :model="dataForm" status-icon label-position="left" label-width="100px" style='margin:0 30px;'>
           <el-form-item label="数据编码" prop="datakey">
@@ -82,7 +76,7 @@
           <el-form-item label="数据名称" prop="dataname">
             <el-input  size="mini" v-model="dataForm.dataname"></el-input>
           </el-form-item>
-          <!--对应G3版本才要这个数据路由 仓云注释此即可-->
+          <!--对应G3版本才要这个数据路由 -->
           <el-form-item label="数据名称" prop="module">
             <el-input  size="mini" v-model="dataForm.module"></el-input>
           </el-form-item>
@@ -113,57 +107,6 @@
         </div>
       </el-dialog>
 
-      <!--选择查询参数-->
-      <el-dialog v-dialogDrag title="查询条件" :modal="false" :close-on-click-modal="false" width="50%" :visible.sync="dialogFormParam">
-        <el-form :rules="rules" :model="queryForm" status-icon label-position="right" label-width="100px" style='margin:0 30px;'>
-          <el-form-item label="查询时间">
-            <el-col :span="11">
-              <el-date-picker value-format="yyyy-MM-dd HH:mm:ss" size="mini" type="datetime" placeholder="开始日期" v-model="queryForm.startTime" style="background: none;height:2rem;width:100%"></el-date-picker>
-            </el-col>
-            <el-col class="line" style="text-align: center;color:#aaa;" :span="2">-</el-col>
-            <el-col :span="11">
-              <el-date-picker value-format="yyyy-MM-dd HH:mm:ss" size="mini" type="datetime" placeholder="结束日期" v-model="queryForm.endTime" style="width:100%"></el-date-picker>
-            </el-col>
-          </el-form-item>
-          <el-form-item label="仓库">
-            <el-select size="mini" style="width:100%" clearable class="filter-item"
-                       filterable v-model="queryForm.whid" placeholder="选择仓库">
-              <el-option
-                v-for="item in whidOption"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="货主">
-            <el-select size="mini" style="width:100%" clearable class="filter-item"
-                       filterable v-model="queryForm.owco" placeholder="选择货主">
-              <el-option
-                v-for="item in owcoOption"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="Top">
-            <el-select size="mini" style="width:100%" clearable filterable v-model="queryForm.top" placeholder="选择排名" >
-              <el-option value="10"  label="10" ></el-option>
-              <el-option value="15"  label="15" ></el-option>
-              <el-option value="20"  label="20" ></el-option>
-              <el-option value="30"  label="30" ></el-option>
-              <el-option value="40"  label="40" ></el-option>
-              <el-option value="50"  label="50" ></el-option>
-              <el-option value="100"  label="100" ></el-option>
-            </el-select>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button size="mini" type="info" @click="dialogFormParam = false">取消</el-button>
-          <el-button size="mini" type="primary" @click="saveParamQuery">保存</el-button>
-        </div>
-      </el-dialog>
     </div>
   </div>
 </template>
@@ -189,7 +132,6 @@
           boxTitle: undefined,//表标题
           key: undefined,//图表类型
           dataKey: undefined,//图表数据
-          queryparam:undefined,//查询参数
         },
         chartOption: [
           {
@@ -245,16 +187,6 @@
           datatype:undefined,
           dataconfig:undefined
         },
-        queryForm:{
-          startTime:undefined,
-          endTime:undefined,
-          whid:undefined,//仓库
-          owco:undefined,//货主
-          top:undefined,//排名
-        },
-        dialogFormParam:false,
-        whidOption:[],
-        owcoOption:[],
         rules: {
           datakey: [{ required: true, message: '请输入编码', trigger: 'blur' }],
           dataname: [{ required: true, message: '请输入名称', trigger: 'blur' }],
@@ -364,6 +296,7 @@
           domId = this.currId;
           this.$parent.ec = this.$echarts.init(document.getElementById(domId));
           this.$parent.ecObj = this.GLOBAL.allChartObj[key];
+
         }else{
             domId = this.$parent.echartArr[index];
             var parseData = this.$parent.echartObjArr[index];
@@ -454,8 +387,7 @@
           tempname:tempname,
           tempconfig:tempconfig,
           tempstat:tempstat,
-          tempurl:tempurl,
-          queryparam:this.form.queryparam
+          tempurl:tempurl
         }
         const loading = this.$loading({
           lock: true,
@@ -497,11 +429,20 @@
       updataChangesData(){
         //设定刷新时间
         if(this.reloadTime != undefined){
-            if(parseInt(this.reloadTime) == 0){
+          try{
+            var time = parseInt(this.reloadTime);
+            if(time == 0){
               //清除刷新
               localStorage.removeItem('reloadTime');
             }else{
-              localStorage.reloadTime = this.reloadTime;
+              localStorage.reloadTime = time;
+            }
+          }catch(e){
+              this.$message({
+                type: 'error',
+                message: '刷新时间输入有误！'
+              });
+              return;
             }
         }
         let tempid = this.$parent.$data.pageId;
@@ -529,7 +470,6 @@
           tempid:tempid,
           tempname:tempname,
           tempconfig:tempconfig,
-          queryparam:this.form.queryparam
         }
         const loading = this.$loading({
           lock: true,
@@ -711,32 +651,6 @@
       //
       chooseSource(){
         this.sourSetting = true;
-      },
-      //打开查询参数
-      openSelectQuery(){
-        this.dialogFormParam = true;
-      },
-      // 保存查询参数
-      saveParamQuery(){
-        if(this.queryForm.startTime != undefined && this.queryForm.endTime != undefined){
-           let stat = new Date(this.queryForm.startTime);
-           let end = new Date(this.queryForm.endTime);
-           if(end <= stat){
-             this.$message({
-               type: 'info',
-               message: '截止时间须大于开始时间！'
-             });
-             return;
-           }
-        }
-        var json = JSON.stringify(this.queryForm);
-        if(json == "{}"){
-          this.form.queryparam = undefined;
-          this.dialogFormParam = false;
-        }else{
-          this.form.queryparam = json;
-          this.dialogFormParam = false;
-        }
       }
     }
   }

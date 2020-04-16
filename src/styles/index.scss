@@ -175,6 +175,10 @@ a:hover {
 .boxTitle{height: 2.4rem !important;color: #3190cb;font-size: 1.1rem;  text-align: left;  line-height: 2.4rem !important;  }
 .boxContent{  height: calc(100% - 2.4rem) !important;  width: 100%;  border: 1px solid #0d1743;  display: block;  position: relative;/*overflow: hidden*/}
 .boxContent-div{  width: 100%;  height: 100%;  cursor: pointer;}
+.boxContent-div .chart div{
+  width: 100% !important;
+  height: 100% !important;
+}
 .boxContent-div .chart{width: 100%;  height: 100%;}
 .boxContent-div>div{height:100%}
 .active .boxContent{  border:2px solid #0db3fd;  background: rgba(13,179,253,0.2);}
@@ -287,7 +291,7 @@ a:hover {
   white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;  line-height: 1.8rem;
 }
 .Tb-title{
-  height: 25px;color: #3caff2;
+  height: 20px;color: #3caff2;
 }
 
 .Tb-title div{
@@ -312,7 +316,7 @@ a:hover {
 .temtable tbody tr td{text-align: center}
 .temtable tbody tr{height: 1.5rem;}
 .seamless-warp {
-  height: calc(100% - 30px);
+  height: calc(100% - 20px);
   width: 100%;
   overflow: hidden;
 }
@@ -321,7 +325,7 @@ a:hover {
   width: 100%;
   overflow: hidden;
 }
-.onScreen{margin-top:2vh}
+.onScreen{margin-top:-1%}
 
 /*头部*/
 .navbar {
@@ -473,7 +477,7 @@ a:hover {
   padding: 0 1rem;
 }
 .operaform .el-input__inner{
-  height: 1.4rem;
+  height: 1.8rem;
   font-size: 0.85rem ;
   border-radius: 0;
   border: 1px solid #2e323b;
@@ -485,11 +489,12 @@ a:hover {
   line-height: 1.4rem;
 }
 .operaform .el-form-item__label{
-  height: 1.4rem;
-  line-height: 1.4rem;
+  height: 1.8rem;
+  line-height: 1.8rem;
   color: white;
   width: 5.5rem !important;
   padding-right: 1rem;
+  font-size:13px;
 }
 .operaform .el-form-item__content{
   height: 1.4rem;
@@ -508,14 +513,15 @@ a:hover {
   font-size: 0.85rem !important;
 }
 .operaform .el-form-item{
-  margin-bottom: 0;
+  margin-top: .8rem !important;
+  margin-bottom: 0 !important;
 }
 .componentsBox{
   margin-top: 1rem;
 }
 .componentsContent{
   width: 100%;
-  height:20.5rem ;
+  height:17rem ;
   border: 2px solid #2e323b;
   background:#0e1013;
   overflow:auto;
@@ -524,7 +530,7 @@ a:hover {
   height: 1.8rem;
   line-height: 1.8rem;
   font-size: 0.85rem;
-  color: #ddd;
+  color: #03A9F4;
   text-align: left;
   padding-left: 0.5rem;
 }
@@ -579,7 +585,9 @@ a:hover {
   background: url(../image/choicBtn.png) no-repeat center;
   background-size: 100% 100%;
   color: #3caff2;
-  font-size: .95rem;
+  font-size: 12px;
   cursor: pointer;
   border: none;
 }
+.isshow{visibility: hidden}
+.el-scrollbar{height: calc(100% - 40px);}

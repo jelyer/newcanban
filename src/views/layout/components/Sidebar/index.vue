@@ -1,25 +1,29 @@
 <template>
-  <el-scrollbar  wrap-class="scrollbar-wrapper">
-    <!--<div class="sidebtn">
-      <div class="sidb">设置</div>
-    </div>-->
-    <el-menu
-      id="scrowrapper"
-      :default-active="$route.path"
-      :collapse="isCollapse"
-      :background-color="variables.menuBg"
-      :text-color="variables.menuText"
-      :active-text-color="variables.menuActiveText"
-      :collapse-transition="false"
-      mode="vertical"
-    >
-      <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path"/>
-    </el-menu>
+  <div>
+    <el-scrollbar  wrap-class="scrollbar-wrapper">
+      <div class="sidebtn">
+          <div :class="[{actives: !sourSetting },'til']" @click="chooseBase(false)">系统模板</div>
+          <div :class="[{actives: sourSetting },'til']" @click="chooseBase(true)">业务看板</div>
+      </div>
+      <el-menu
+        id="scrowrapper"
+        :default-active="$route.path"
+        :collapse="isCollapse"
+        :background-color="variables.menuBg"
+        :text-color="variables.menuText"
+        :active-text-color="variables.menuActiveText"
+        :collapse-transition="false"
+        mode="vertical"
+      >
+        <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path"/>
+      </el-menu>
 
+
+    </el-scrollbar>
     <div id="kanbmanage">
       <el-button id="kbmbtn" size="mini" round type="primary" @click="kanbanManage()">看板管理</el-button>
     </div>
-  </el-scrollbar>
+  </div>
 </template>
 
 <script>
@@ -31,7 +35,8 @@ import Hamburger from '@/components/Hamburger'
 export default {
   data(){
     return {
-      dialogFormVisible:false
+      dialogFormVisible:false,
+      sourSetting:false,//切换
     }
   },
   components: { SidebarItem },
@@ -53,28 +58,43 @@ export default {
   methods: {
     kanbanManage(){
       this.$parent.dialogKanbanVisible = true;
-    }
+    },
+    //切换
+    chooseBase(stat){
+      this.sourSetting = stat;
+      if(stat){
+        //只要动态的路由
+        this.$store.dispatch('setRouterList',{routerList:this.$store.state.user.AsyncRouterMap,isOnlyAsyn:true});
+      }else {
+        this.$store.dispatch('setRouterList',{routerList:[]}) // 动态路由设置为空
+      }
+
+    },
   }
 }
 </script>
 <style scoped>
   .sidebtn{
-    width: 100%;
-    height:60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .sidebtn .sidb{
-    width: 6rem;
-    height: 2.1rem;
-    display: inline-block;
-    line-height: 2.1rem;
+    width: 92%;
+    height: 2.7rem;
+    line-height: 2.7rem;
     text-align: center;
-    background: url(/static/image/choicBtn.png) no-repeat center;
-    background-size: 100% 100%;
+    font-size: 1.1rem;
+    color: #999;
+    background: #27343e;
+    display: flex;
+    margin: auto;
+    margin-bottom: 6px;
+  }
+  .sidebtn .til{
+    width:50%;height:100%;color:#999;font-size: 15px;
+    text-align: center;    cursor: pointer;
+  }
+  .sidebtn .actives{
+    background: #1c1f25;
+    border-top: 2px solid #0db3fd;
+    cursor: default;
     color: #3caff2;
-    font-size: .95rem;cursor: pointer;
   }
   .sidebtn .sidb:hover{opacity: .8}
 </style>

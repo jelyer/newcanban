@@ -26,7 +26,7 @@
               <div class="boxContent-div">
                 <table-one v-if="domConfig[0].key == 'data'" :domConfig="domConfig[0].data"></table-one>
                 <table-two v-if="domConfig[0].key == 'list'" :domConfig="domConfig[0].data"></table-two>
-                <div class="chart" :id="domConfig[0].id"></div>
+                <div :class="[{isshow: domConfig[0].key == 'data' || domConfig[0].key == 'list' },'chart']" :id="domConfig[0].id"></div>
               </div>
               <div class="icoTL"></div>
               <div class="icoTR"></div>
@@ -70,7 +70,6 @@
         //isFirst:true,
         isActive:undefined,
         reloadbl:true,//是否可以刷新本页
-        thePageId:'',//页面传参的id
         mainTitle: '',
         allData:[],
         nowDivIndex:' ',//要编辑的div的编号
@@ -109,11 +108,6 @@
       }
     },
     created(){
-      this.thePageId=this.COMMONFUN.GetRequest().pageId;
-      if(this.thePageId==undefined){
-        this.thePageId='p1';
-      }
-
       var pageId = this.$route.query.pageId;//页面Id
       if(pageId != undefined){
         this.pageId = pageId
@@ -215,7 +209,7 @@
       //根据模板id查找模板配置数据
       getTempDataById(pageId){
         let paramid = {
-          tempid:pageId
+          eq_tempid:pageId
         }
         var _this = this;
         this.echartArr = [];
@@ -244,8 +238,8 @@
                   //如果是数据表
                   if(key == 'list' || key == 'data'){
                     let dk = {
-                      dataKey:temconfig[i].dataKey,
-                      boxTitle:temconfig[i].boxTitle
+                      eq_dataKey:temconfig[i].dataKey,
+                      eq_boxTitle:temconfig[i].boxTitle
                     }
                     var para = {
                       index:i
@@ -269,8 +263,8 @@
                   }else{
                     //如果是图表
                     let dk = {
-                      dataKey:temconfig[i].dataKey,
-                      boxTitle:temconfig[i].boxTitle
+                      eq_dataKey:temconfig[i].dataKey,
+                      eq_boxTitle:temconfig[i].boxTitle
                     }
                     var para = {
                       index:index,

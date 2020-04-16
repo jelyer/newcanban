@@ -72,6 +72,9 @@
         </el-table-column>
         <el-table-column fixed="right" label="操作" align="center" width="100" class-name="small-padding fixed-width">
           <template slot-scope="{row}">
+            <!--<el-button  size="mini" type="primary" plain @click="handleAddQuery(row)">
+              添加查询条件
+            </el-button>-->
             <el-button  size="mini" type="danger" plain @click="handleDeleteK(row)">
               删除
             </el-button>
@@ -80,7 +83,27 @@
       </el-table>
 
       <div slot="footer" class="dialog-footer">
+        <el-button size="mini" round type="info"  @click="addDIYbload()">添加定制化看板页</el-button>
         <el-button size="mini" round type="info"  @click="dialogKanbanVisible = false">关闭管理</el-button>
+      </div>
+    </el-dialog>
+
+    <!--添加定制化看板页-->
+    <el-dialog v-dialogDrag title="添加定制化看板" :modal="false" :close-on-click-modal="false" width="300" :visible.sync="dialogFormDIY">
+      <el-form :rules="rules" ref="diyForm" :model="diyForm" status-icon label-position="right" label-width="100px" style='margin:0 30px;'>
+        <el-form-item label="看板ID">
+          <el-input style="width:300px" size="mini" v-model="diyForm.tempid" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="看板名称" prop="tempname">
+          <el-input style="width:300px" size="mini" v-model="diyForm.tempname"></el-input>
+        </el-form-item>
+        <el-form-item label="看板地址" prop="tempurl">
+          <el-input style="width:300px" size="mini" v-model="diyForm.tempurl"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button size="mini" type="info" @click="dialogFormDIY = false">取消</el-button>
+        <el-button size="mini" type="primary" @click="saveDIYbload">添加</el-button>
       </div>
     </el-dialog>
   </div>
@@ -88,7 +111,7 @@
 </template>
 <script>
 import { Navbar, Sidebar, AppMain} from './components'
-import {delTemById,publishTems} from '@/api/chartSetting'
+import {delTemById,publishTems,saveTemplateSetting} from '@/api/chartSetting'
 import ResizeMixin from './mixin/ResizeHandler'
 import Hamburger from '@/components/Hamburger'
 var that;
@@ -109,6 +132,19 @@ export default {
       dataForm:{
         routerData:[],
         time:undefined
+      },
+      diyForm:{
+        tempid:Date.parse(new Date()),
+        tempname:undefined,
+        tempconfig:Date.parse(new Date()),
+        tempstat:5,
+        tempurl:undefined,
+        queryparam:Date.parse(new Date())
+      },
+      dialogFormDIY:false,
+      rules: {
+        tempname: [{ required: true, message: '请输入页面名称', trigger: 'blur' }],
+        tempurl: [{ required: true, message: '请输入页面url', trigger: 'blur' }],
       }
     }
   },
@@ -309,6 +345,46 @@ export default {
                 message: '请输入不小于30的数字'
               });
           }
+    },
+    //打开添加定制化看板页面
+    addDIYbload(){
+      this.dialogFormDIY = true;
+    },
+    //保存定制化看板
+    saveDIYbload(){
+      debugger
+      this.$refs['diyForm'].validate((valid) => {
+          if (valid) {
+            saveTemplateSetting(this.$qs.stringify(this.diyForm)).then((response) => {
+              if (response.data.code == 200 || response.data.code == "200") {
+                this.dialogFormDIY = false;
+                this.$notify({
+                  title: '成功',
+                  message: '添加成功!',
+                  duration: 2000
+                })
+                this.list.unshift(this.diyForm);
+                this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
+
+                //this.$store.dispatch('ToggleSideBar')
+                //var _this = this;
+                /*  setTimeout(function(){
+                    _this.$routers.replace('/');//刷新页面
+                    _this.$message({
+                      type: 'success',
+                      message: '刷新成功！'
+                    });
+                  },1000)*/
+              } else {
+                this.$notify({
+                  title: '提示',
+                  message: response.data.msg,
+                  duration: 3000
+                })
+              }
+            })
+          }
+      })
     },
     //取消轮播
     clearLunbo(){
