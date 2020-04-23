@@ -1,9 +1,9 @@
 <template>
   <section class="app-main">
     <transition v-if="showRouter" name="fade-transform" mode="out-in">
-      <!-- or name="fade" -->
-      <!-- <router-view :key="key"></router-view> -->
-      <router-view/>
+      <keep-alive>
+        <router-view/>
+      </keep-alive>
     </transition>
   </section>
 </template>
@@ -24,7 +24,8 @@ export default {
   },
   watch: {
     $route(to, from) {
-      if(to.query.pageId != undefined && from.query.pageId != undefined) {
+      //会导致缓存失效
+      if(to.query.pageId != undefined || from.query.pageId != undefined) {
         this.showRouter = false;
         var that = this;
         setTimeout(function(){

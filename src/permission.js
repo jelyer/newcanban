@@ -111,8 +111,10 @@ function gotoRouter(to, next) {
     .then(asyncRouter => {
      // router.addRoutes(asyncRouter) // vue-router提供的addRouter方法进行路由拼接
       store.dispatch('SetReloadRouter', true) // 记录路由获取状态
-      store.dispatch('setRouterList', {routerList:asyncRouter}) // 添加到路由
+      //store.dispatch('setRouterList', {routerList:asyncRouter}) // 添加动态路由
+      store.dispatch('setRouterList', {routerList:[]});//默认不添加，只显示静态路由
       //store.dispatch('GetInfo')
+      store.dispatch('GetSourData');//加载数据源
       next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
     })
     .catch(e => {

@@ -8,14 +8,14 @@
       <el-menu
         id="scrowrapper"
         :default-active="$route.path"
-        :collapse="isCollapse"
-        :background-color="variables.menuBg"
-        :text-color="variables.menuText"
-        :active-text-color="variables.menuActiveText"
+        :collapse="isCollapses"
+        :background-color="variablescss.menuBg"
+        :text-color="variablescss.menuText"
+        :active-text-color="variablescss.menuActiveText"
         :collapse-transition="false"
         mode="vertical"
-      >
-        <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path"/>
+      ><!-- :key="route.path" -->
+        <sidebar-item v-for="route in routedata"  :item="route" :base-path="route.path"/>
       </el-menu>
 
 
@@ -30,12 +30,10 @@
 import { mapGetters } from 'vuex'
 import variables from '@/styles/variables.scss'
 import SidebarItem from './SidebarItem'
-import Hamburger from '@/components/Hamburger'
 
 export default {
   data(){
     return {
-      dialogFormVisible:false,
       sourSetting:false,//切换
     }
   },
@@ -44,14 +42,13 @@ export default {
     ...mapGetters([
       'sidebar'
     ]),
-    routes() {
-      //console.log(this.$store.getters.routerList)
-      return this.$store.getters.routerList
+    routedata() {
+       return this.$store.getters.routerList
     },
-    variables() {
+    variablescss() {
       return variables
     },
-    isCollapse() {
+    isCollapses() {
       return !this.sidebar.opened
     }
   },
@@ -85,6 +82,8 @@ export default {
     display: flex;
     margin: auto;
     margin-bottom: 6px;
+    position: absolute;
+    left: 4%;
   }
   .sidebtn .til{
     width:50%;height:100%;color:#999;font-size: 15px;

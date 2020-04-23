@@ -10,6 +10,7 @@ const getters = {
   routerDatas: state => state.user.routerDatas,
   AsyncRouterMap: state => state.user.AsyncRouterMap,
   routerlb: state => state.app.routerlb,
-  isScreen: state => state.app.isScreen
+  isScreen: state => state.app.isScreen,
+  SourDataAll: state => state.user.SourDataAll,
 }
 export default getters

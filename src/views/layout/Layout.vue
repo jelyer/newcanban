@@ -1,7 +1,7 @@
 <template>
   <!--<div  class="app-wrapper openSidebar">-->
   <div :class="classObj" class="app-wrapper">
-    <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside"/>
+    <div v-if="device==='mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside"/>
     <sidebar class="sidebar-container"/>
     <div class="main-container">
       <navbar/>
@@ -113,7 +113,6 @@
 import { Navbar, Sidebar, AppMain} from './components'
 import {delTemById,publishTems,saveTemplateSetting} from '@/api/chartSetting'
 import ResizeMixin from './mixin/ResizeHandler'
-import Hamburger from '@/components/Hamburger'
 var that;
 var index = 0;//轮播记录
 export default {
@@ -125,7 +124,6 @@ export default {
       total: 0,
       listLoading: false,
       pageData:[],
-      allData:[],
       dialogFormVisible:false,
       dialogKanbanVisible:false,
       timers:undefined,//轮播对象
@@ -168,14 +166,6 @@ export default {
         withoutAnimation: this.sidebar.withoutAnimation,
         mobile: this.device === 'mobile',
         largeScreen:this.$store.state.app.isScreen //看是否全屏，如果全屏，就带上largeScreen样式
-      }
-    },
-    rightSetting(){
-      return {
-        hideRightSet: this.sidebar.opened,
-        openSidebar: !this.sidebar.opened,
-        withoutAnimation: this.sidebar.withoutAnimation,
-        mobile: this.device === 'mobile'
       }
     }
   },
@@ -309,10 +299,10 @@ export default {
          }
          try {
               var time = parseInt(this.dataForm.time);
-              if (time < 15) {
+              if (time < 5) {
                 this.$message({
                   type: 'error',
-                  message: '请输入不小于30的数字'
+                  message: '请输入不小于5的数字'
                 });
                 return;
               }

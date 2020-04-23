@@ -61,6 +61,20 @@ export const StaticRouterMap = [
   {
     path: '',
     component: Layout,
+    redirect: '/template2',
+    name: 'template',
+    meta: { icon: 'static/image/box3.png' },
+    stat:'系统模板',
+    children: [
+      {
+        path: 'template2',
+        component: () => import('@/views/template/template2')
+      }
+    ]
+  },
+  {
+    path: '',
+    component: Layout,
     redirect: '/template',
     name: 'template',
     meta: { icon: 'static/image/box3.png' },

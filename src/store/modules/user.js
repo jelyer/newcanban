@@ -1,4 +1,5 @@
 import { login, logout, getInfo } from '@/api/login'
+import {getSourDataAll} from '@/api/chartSetting'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { StaticRouterMap } from '../../router/index'
 const user = {
@@ -10,6 +11,7 @@ const user = {
     RouterList: [], // 动态路由,已拼接好
     routerDatas:[],//路由数据，未转格式
     AsyncRouterMap:[],//动态获取的路由，已转好
+    SourDataAll:[],//数据源
   },
 
   mutations: {
@@ -33,6 +35,9 @@ const user = {
     },
     SET_ASYNCROUTERMAP: (state, RouterData) => {
       state.AsyncRouterMap = RouterData
+    },
+    SET_SOURDATAAll: (state, SourDataAll) => {
+      state.SourDataAll = SourDataAll
     }
   },
 
@@ -67,7 +72,7 @@ const user = {
               // 验证返回的roles是否是一个非空数组
               commit('SET_ROLES', data.roles)
             } else {
-              reject('getInfo: roles must be a non-null array !')
+              reject('getInfo: 用户角色数据获取失败!')
             }
             commit('SET_NAME', data.name)
             commit('SET_AVATAR', data.avatar)
@@ -87,6 +92,7 @@ const user = {
         //只要动态的路由
         commit('set_router', routerList);
       }else{
+        //静态路由+动态路由
         commit('set_router', StaticRouterMap.concat(routerList));
       }
     },
@@ -128,6 +134,21 @@ const user = {
         commit('SET_TOKEN', '')
         removeToken()
         resolve()
+      })
+    },
+    //加载数据源
+    GetSourData({ commit,state }) {
+      return new Promise(resolve => {
+        getSourDataAll()
+          .then(response => {
+            if(response.data.code == 200) {
+              commit('SET_SOURDATAAll', response.data.data)
+            }
+            resolve(response)
+          })
+          .catch(error => {
+            resolve(error)
+          })
       })
     }
   }

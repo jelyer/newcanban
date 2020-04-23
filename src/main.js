@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Cookies from 'js-cookie'
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
+import vdr from 'vue-draggable-resizable-gorkys'//vue-draggable-resizable-gorkys 新拖拽
+// 导入默认样式
+import 'vue-draggable-resizable-gorkys/dist/VueDraggableResizable.css'
+Vue.component('vdr', vdr)
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'

@@ -173,7 +173,6 @@
     name: 'OperationForm',
     data() {
       return {
-        mainTitle: '',
         currModelIndex:0,//当前模块下标
         currKey:undefined,//当前图表类型--回显
         currDataKey:undefined,//当前数据源类型--回显
@@ -288,8 +287,9 @@
             break;
           }
         }
-        //debugger
-        this.dataTypes = JSON.parse(datatype);
+        if(datatype && datatype.length > 0){
+          this.dataTypes = JSON.parse(datatype);
+        }
       },
       rutrnDatas(){
         this.currDataKey = undefined;
@@ -301,8 +301,9 @@
             break;
           }
         }
-        this.dataTypes = JSON.parse(datatype);
-        //console.log(this.dataTypes)
+        if(datatype && datatype.length > 0){
+          this.dataTypes = JSON.parse(datatype);
+        }
       },
       //主标题联动改变
       changMainTitle: function () {
@@ -327,10 +328,11 @@
              break;
            }
         }
-        this.dataTypes = JSON.parse(datatype);
+        if(datatype && datatype.length > 0){
+          this.dataTypes = JSON.parse(datatype);
+        }
         //如果标题为空，就用这个标题
         this.form.boxTitle = dataname;
-
       },
       //鼠标按下就赋值
       chartmouseDown(key){
@@ -443,8 +445,15 @@
         tempid = Date.parse(new Date());
         tempname=this.mainTitle;
         tempconfig=this.$parent.domConfig;
-        for(let c in tempconfig){
-          tempconfig[c].data = "";//去掉杂乱数据
+        for(let tem of tempconfig){
+          tem.data = "";//去掉杂乱数据
+          if(tem.x != undefined){
+             //是拖拽式的，将宽高转换成百分比
+             tem.x = parseInt((tem.x / this.$parent.mainContent.width * 100).toFixed(0));
+             tem.y = parseInt((tem.y / this.$parent.mainContent.height * 100).toFixed(0));
+             tem.w = parseInt((tem.w / this.$parent.mainContent.width * 100).toFixed(0));
+             tem.h = parseInt((tem.h / this.$parent.mainContent.height * 100).toFixed(0));
+          }
         }
         tempconfig = JSON.stringify(tempconfig);
         tempurl=this.$parent.$data.tempurl;
@@ -507,8 +516,15 @@
         let tempid = this.$parent.$data.pageId;
         let tempname= this.mainTitle;
         let tempconfig=this.$parent.domConfig;
-        for(let c in tempconfig){
-          tempconfig[c].data = "";//去掉杂乱数据
+        for(let tem of tempconfig){
+          tem.data = "";//去掉杂乱数据
+          if(tem.x != undefined){
+            //是拖拽式的，将宽高转换成百分比
+            tem.x = parseInt((tem.x / this.$parent.mainContent.width * 100).toFixed(0));
+            tem.y = parseInt((tem.y / this.$parent.mainContent.height * 100).toFixed(0));
+            tem.w = parseInt((tem.w / this.$parent.mainContent.width * 100).toFixed(0));
+            tem.h = parseInt((tem.h / this.$parent.mainContent.height * 100).toFixed(0));
+          }
         }
         tempconfig = JSON.stringify(tempconfig);
         if (this.form.boxTitle == '') {
@@ -581,8 +597,8 @@
                   duration: 2000
                 })
                 this.$parent.allData.unshift(this.dataForm);
-                //刷新数据源列表 TODO
-
+                //刷新数据源列表
+                this.$store.dispatch('GetSourData');
               }else{
                 this.$notify({
                   title: '提示',
@@ -611,8 +627,8 @@
                   message: '修改成功',
                   duration: 2000
                 })
-                //刷TODO
-
+                //重新加载数据源
+                this.$store.dispatch('GetSourData');
               }else{
                 this.$notify({
                   title: '提示',
@@ -659,8 +675,8 @@
                   message: '删除成功！',
                   duration: 2000
                 })
-                const index = this.$parent.allData.indexOf(row)
-                this.$parent.allData.splice(index, 1)
+                //重新加载数据源
+                this.$store.dispatch('GetSourData');
               }else{
                 this.$notify({
                   title: '提示',

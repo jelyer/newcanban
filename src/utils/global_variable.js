@@ -76,12 +76,12 @@ const allChartObj ={
   line:{
     color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],
     tooltip: {
-      show: false,
+      show: true,
     },
     grid: {
       left: '5%',
-      bottom: '6%',
-      top: '20%',
+      bottom: '5%',
+      top: '10%',
       right: '5%',
       containLabel: true
     },
@@ -90,6 +90,7 @@ const allChartObj ={
         interval: 0,
         margin: 7,
         color: "#fff",
+        rotate:40
       },
       name: '',
       type: 'category',
@@ -155,17 +156,16 @@ const allChartObj ={
 // 2-柱状图
   bar:{
     color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],
-    /*title:'',*/
     tooltip: {
       trigger: 'axis',
-      axisPointer: {type: 'shadow'}
-      /*show:false,*/
+      axisPointer: {type: 'shadow'},
+      show:true,
     },
     grid: {
-      left: '10',
-      bottom: '10',
-      top: '20',
-      right: '10',
+      left: '5%',
+      bottom: '5%',
+      top: '10%',
+      right: '5%',
       containLabel: true
     },
     xAxis: {
@@ -241,9 +241,9 @@ const allChartObj ={
   ybar : {
     color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],
     /*title:'',*/
-    tooltip: {show:false,},
+    tooltip: {show:true,},
     grid: {
-      left: '10', bottom: '10', top: '35', right: '10', containLabel: true
+      left: '5%', bottom: '5%', top: '10%', right: '5%', containLabel: true
     },
     yAxis: {
       /*name: '单位',*/
@@ -329,13 +329,13 @@ const allChartObj ={
   netline : {
     color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],
     tooltip: {
-      show: false,
+      show: true,
     },
     grid: {
-      left: '10%',
-      bottom: '10%',
-      top: '15%',
-      right: '10%',
+      left: '5%',
+      bottom: '5%',
+      top: '10%',
+      right: '5%',
       containLabel: true
     },
 
@@ -440,7 +440,7 @@ const allChartObj ={
   nline:{
     color:['#3caff2','#ffdf8b','#61e064','#0b4383','#ff3126','#f6ff61','#3b3bc9','#ffb31f','#5efcbf','#61e064'],
     tooltip: {
-      show: false,
+      show: true,
     },
     legend: {
       data:[{
@@ -459,8 +459,8 @@ const allChartObj ={
     },
     grid: {
       left: '5%',
-      bottom: '6%',
-      top: '20%',
+      bottom: '5%',
+      top: '10%',
       right: '5%',
       containLabel: true
     },
@@ -580,7 +580,7 @@ const allChartObj ={
     grid: {
       left: '5%',
       bottom: '5%',
-      top: 30,
+      top: '10%',
       right: '5%',
       containLabel: true
     },

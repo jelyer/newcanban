@@ -45,7 +45,7 @@ export default{
           break;
         default:
           ecObj.xAxis.data=this.toFormatZhu(data).name;
-          ecObj.series.data=this.toFormatZhu(data).value;
+          ecObj.series[0].data=this.toFormatZhu(data).value;
       }
     }
   },

@@ -427,7 +427,7 @@
     width: 100%;
     /*height: calc(100vh - 84px);*/
     transition: all 0.5s;
-    padding: 0 2%;
+    padding: 0 1%;
     overflow: hidden;
     background: url("/static/image/pageBg.png" ) no-repeat center;
     background-size: 100% 100%;

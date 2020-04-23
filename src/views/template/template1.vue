@@ -110,12 +110,15 @@
 </template>
 
 <script>
+  import {mixinsMain} from '@/mixins/main' //基础调用
   import operationForm from "@/components/operationForm/operationForm";
-  import {getSourDataAll,getTempById,getDataByDataKey} from '@/api/chartSetting'
+  import {getTempById,getDataByDataKey} from '@/api/chartSetting'
   import tableOne from "@/components/Kanban/table1";
   import tableTwo from "@/components/Kanban/table2";
+
   export default {
-    name: 'template1',
+    name: 'temone',//系统模板一
+    mixins:[mixinsMain],
     inject:['reload'],//注入reload方法
     components: {
       operationForm,
@@ -136,8 +139,7 @@
         //isFirst:true,
         isActive:undefined,
         reloadbl:true,//是否可以刷新本页
-        mainTitle: '',
-        allData:[],
+        mainTitle: '系统模板一',
         nowDivIndex:' ',//要编辑的div的编号
         nowDivKey:'',
         pageData:'',//渲染页面的数据
@@ -147,26 +149,26 @@
         domConfig:[
           {
             id:"firstLeftTop",
-            boxTitle:"仓库预警报表",
+            boxTitle:"待完成任务",
             key:'data', //图表类型
             dataKey:null,//
             data:{
-                legend:['模拟数据一','模拟数据二','模拟数据三','模拟数据四'],
+                legend:['分拣中','待复核','待装车','未打单','未锁库'],
                 data:[
-                  ["35","35","343","234"]
+                  ["35","334","189","112","545"]
                 ]
               }
           },{
             id:"firstLeftBot1",
-            boxTitle:"到货预约信息",
+            boxTitle:"货主库存变动",
             key:'list',
             dataKey:null,
             data:{
-                legend:['标题','单数','件数'],
+                legend:['货主','入库总件数','出库总件数'],
                 data:[
-                  ["模拟数据一","35","34352"],
-                  ["模拟数据二","35","34352"],
-                  ["模拟数据三","35","34352"],
+                  ["A货主","35","343"],
+                  ["B货主","345","78"],
+                  ["C货主","895","23"]
                 ]
             }
           },{
@@ -177,32 +179,32 @@
             data:{
               legend:['快递公司','总单量','完成量','占比'],
               data:[
-                ["模拟数据一","35","34352","30%"],
-                ["模拟数据二","35","34352","30%"],
-                ["模拟数据三","35","34352","30%"],
-                ["模拟数据四","35","34352","30%"],
-                ["模拟数据五","35","34352","30%"]
+                ["圆通速递","35","352","30%"],
+                ["申通快递","445","322","30%"],
+                ["顺丰快递","345","2","40%"],
+                ["中通快递","135","533","30%"],
+                ["菜鸟速递","315","444","30%"]
               ]
             }
 
           },{
             id:"firstRight",
             boxTitle:"订单进展情况",
-            key:null,
+            key:'line',
             dataKey:null,
-            data:null
+            data:[{"分拣中":100,"待复核":280,"待装车":300,"未打单":350,"分拣完成":550,"已复核":126,"未锁库":470,"已分配任务":335}]
           },{
             id:"secondLeft",
-            boxTitle:"到货预约信息1",
-            key:null,
+            boxTitle:"到货预约信息",
+            key:'ring',
             dataKey:null,
-            data:null
+            data:[{"未完成":3,"总订单数":5,"完成率%":0E-12,"已完成":0,"已取消":2}]
           },{
             id:"secondRight",
             boxTitle:"快递订单完成情况",
-            key:null,
+            key:'nbar',
             dataKey:null,
-            data:null
+            data:[{"xkey":"北京仓","商品过期数量":35,"订单超时数量":56,"禁售库存数量":90,"安全库存数量":34},{"xkey":"深圳仓","商品过期数量":15,"订单超时数量":26,"禁售库存数量":30,"安全库存数量":74}],
           }
         ],
         form: {
@@ -226,57 +228,23 @@
       }
     },
     created(){
-      var pageId = this.$route.query.pageId;//页面Id
+      let pageId = this.$route.query.pageId;//页面Id
       if(pageId != undefined){
-        this.pageId = pageId
+        this.pageId = pageId;
+        this.isModle = false;
       }
-      //setInterval (this.showMarquee, 2000)
     },
     mounted(){
-      /* 测试数据
-      this.$axios.get('static/json/box1-'+this.thePageId+'.json').then((response) => {
-
-        this.pageData=response.data;
-        this.drawLine(response);
-      });*/
       if(this.pageId != undefined){
-        this.getTempDataById(this.pageId);
-      }
-      //加载数据源
-      this.getAllDatas();
-      //当前时间
-      let _this = this;
-      _this.date = this.COMMONFUN.parseTime(null,new Date());
-      this.timer = setInterval(() => {
-        _this.date = this.COMMONFUN.parseTime(null,new Date());
-      }, 1000)
-      //设定刷新时间
-      let reloadt = localStorage.reloadTime;//单位分钟
-      if(reloadt != undefined){
-        reloadt = parseInt(reloadt);
-        if(reloadt > 0){
-          this.timereload = setInterval(() => {
-            if(_this.reloadbl){
-              _this.getData();//刷新数据
-              this.$message({
-                message: "刷新数据",
-                type: 'success'
-              });
-            }
-          }, reloadt * 1000 * 60)
-        }
+        this.getData();//业务模板数据
+      }else{
+        this.DrawTemplateData();//渲染模板页数据
       }
     },
     watch:{
-      "$route":"reloadPage",    //监听路由变化
+      //"$route":"reloadPage", 监听路由变化，由于路由AppMain.vue的设定，只对模板页面能触发
       "$store.state.app.isScreen":"screenGetData",//监听是否全屏
       "$store.state.app.sidebar.opened":"isEdit",//监听是否可编辑
-      "$route":function(to, from) {
-        if (to.path !== from.path) {
-         // this.selected_index = to.params.index;　　// 获取参数
-          this.getAnimateScroll();　　// 滚动方法
-        }
-      }
     },
     methods:{
       //编辑时，禁止刷新页面
@@ -289,103 +257,33 @@
           this.eclist[c].resize();//从新加载图表，自适应宽高
         }
       },
-      //刷新页面数据
-      reloadPage(){
-        //this.reload();
-        this.$message({
-          message: "切换看板",
-          type: 'success'
-        },200);
-        this.getData();
+
+      //渲染模板页数据
+      DrawTemplateData(){
+        this.eclist = [];
+        for(let chart of this.domConfig){
+          if(chart.key != "data" && chart.key != "list" && chart.data != null){
+            this.ec = this.$echarts.init(document.getElementById(chart.id));
+            this.ecObj = this.GLOBAL.allChartObj[chart.key];
+            this.COMMONFUN.setOptionByKey(this.ecObj,chart.key,chart.data);
+            this.ec.setOption(this.ecObj);
+            this.eclist.push(this.ec);
+          }
+        }
       },
+
+      //获取所有数据
       getData(){
         //清空页面初始值
         for(let i = 0;i<this.echartArr.length;i++){
           this.$echarts.init(document.getElementById(this.echartArr[i])).clear();
         }
-        //Object.assign(this.$data, this.$options.data());//清空页面数据
-        var pageId = this.$route.query.pageId;//页面Id
-        if(pageId != undefined){
-          this.pageId = pageId
-        }else{
-          this.isModle = true;
-        }
-        this.getTempDataById(pageId);
-        //加载数据源
-        this.getAllDatas();
+        this.getTempDataById(this.pageId);
       },
       //获取页面数据，以及渲染数据
       drawLine:function(response){
         this.mainTitle=response.data.pageTitle;
         this.$refs.operation_form.mainTitle=this.mainTitle;
-       /* this.echartObjArr[0]= this.GLOBAL.allChartObj[response.data.data[0].key];
-        this.echartObjArr[1]= this.GLOBAL.allChartObj[response.data.data[1].key];
-        this.echartObjArr[2]= this.GLOBAL.allChartObj[response.data.data[2].key];*/
-        /*document.getElementById('firstRight').getElementsByTagName('p')[0].innerHTML=response.data.data[0].boxTitle;
-        document.getElementById('secondRight').getElementsByTagName('p')[0].innerHTML=response.data.data[1].boxTitle;
-        document.getElementById('secondLeft').getElementsByTagName('p')[0].innerHTML=response.data.data[2].boxTitle;*/
-
-/*        for(let i = 0;i<3;i++){
-          var resd = response.data.data[i];
-          this.$axios.get('static/json/'+resd.dataKey+'.json').then((res) => {
-            if(resd.key!=0){
-              this.echartObjArr[0].xAxis.data=this.COMMONFUN.getChartData(res.data.dataKey)[0];
-              this.echartObjArr[0].series.data=this.COMMONFUN.getChartData(res.data.dataKey)[1];
-              if(resd.key==2){
-                this.echartObjArr[0].series.itemStyle.normal.color=new this.$echarts.graphic.LinearGradient(
-                  0, 0, 0, 1,
-                  [
-                    {offset: 0, color: '#44cbf5'},
-                    {offset: 1, color:'#2669c5'}
-                  ]
-                )
-              }
-            }else{
-              this.echartObjArr[0].series[0].data=this.COMMONFUN.getChartDataPie(res.data.dataKey);
-            }
-            this.echartArr[0].setOption(this.echartObjArr[0]);
-          });
-        }
-
-        this.$axios.get('static/json/'+response.data.data[1].dataKey+'.json').then((res) => {
-
-          if(response.data.data[1].key!=0){
-            this.echartObjArr[1].xAxis.data=this.COMMONFUN.getChartData(res.data.dataKey)[0];
-            this.echartObjArr[1].series.data=this.COMMONFUN.getChartData(res.data.dataKey)[1];
-            if(response.data.data[1].key==2){
-              this.echartObjArr[1].series.itemStyle.normal.color=new this.$echarts.graphic.LinearGradient(
-                0, 0, 0, 1,
-                [
-                  {offset: 0, color: '#44cbf5'},
-                  {offset: 1, color:'#2669c5'}
-                ]
-              )
-            }
-          }else{
-            this.echartObjArr[1].series[0].data=this.COMMONFUN.getChartDataPie(res.data.dataKey);
-          }
-          this.echartArr[1].setOption(this.echartObjArr[1]);
-        });
-        this.$axios.get('static/json/'+response.data.data[2].dataKey+'.json').then((res) => {
-
-          if(response.data.data[2].key!=0){
-            this.echartObjArr[2].xAxis.data=this.COMMONFUN.getChartData(res.data.dataKey)[0];
-            this.echartObjArr[2].series.data=this.COMMONFUN.getChartData(res.data.dataKey)[1];
-            if(response.data.data[2].key==2){
-              this.echartObjArr[2].series.itemStyle.normal.color=new this.$echarts.graphic.LinearGradient(
-                0, 0, 0, 1,
-                [
-                  {offset: 0, color: '#44cbf5'},
-                  {offset: 1, color:'#2669c5'}
-                ]
-              )
-            }
-          }else{
-            this.echartObjArr[2].series[0].data=this.COMMONFUN.getChartDataPie(res.data.dataKey);
-          }
-          this.echartArr[2].setOption(this.echartObjArr[2]);
-        });*/
-
       },
       //点击需要编辑的div后  param: 元素id
       toEditDiv:function (ele) {
@@ -402,14 +300,7 @@
         this.$refs.operation_form.form.boxTitle= ele.boxTitle;//模块标题
         this.isActive = index;
       },
-      //获取数据源下拉列表
-      getAllDatas:function () {
-        getSourDataAll().then((response) => {
-            if(response.data.code == 200 || response.data.code == "200") {
-              this.allData=response.data.data;
-            }
-        })
-      },
+
       //根据模板id查找模板配置数据
       getTempDataById(pageId){
         let paramid = {
@@ -500,7 +391,6 @@
                              parafun(para,this.$qs);
                              index++;
                          }
-
                       }
                   }
              }

@@ -6,7 +6,7 @@
     transition: margin-left .28s;
     transition: margin-right .3s;
     margin-left: $sideBarWidth;
-    margin-right: 20px;
+    margin-right: 1rem;
     position: relative;
     overflow: hidden;
   }
@@ -36,6 +36,7 @@
       .el-scrollbar__view {
         height: 100%;
         overflow: hidden;
+        position: relative;
       }
     }
 
@@ -59,10 +60,12 @@
 
     .el-menu {
       border: none;
-      height:100%;
       width: 100% !important;
       overflow-y: auto;
       padding-bottom:50px;
+      position: absolute;
+      top:3.2rem;
+      height: calc(100% - 40px);
     }
     .el-menu::-webkit-scrollbar{width:0}
     .is-active>.el-submenu__title {
