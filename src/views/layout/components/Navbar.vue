@@ -198,21 +198,18 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        let url = window.location.href;
-        let bb = url.indexOf("pageId=");
-        let pageId = url.substring(bb+7,url.indexOf("&"))
-
-
+        let pageId = this.$route.query.pageId;//页面Id
+        if(!pageId){
+          this.$message({
+            type: 'error',
+            message: '系统模板不能发布!'
+          });
+          return;
+        }
         var routerDatas = this.$store.state.user.routerDatas;
         for(var j in routerDatas){
            if(routerDatas[j].tempid == pageId){
-               if(parseInt(routerDatas[j].tempstat) == 1){
-                 this.$message({
-                   type: 'error',
-                   message: '系统模板不需要发布!'
-                 });
-                 return;
-               }else if(parseInt(routerDatas[j].tempstat) == 9){
+               if(parseInt(routerDatas[j].tempstat) == 9){
                  this.$message({
                    type: 'error',
                    message: '此模板已发布!'
@@ -236,8 +233,6 @@ export default {
               type: 'success',
               duration: 2000
             })
-            //刷新左侧路由状态显示
-            document.getElementById(pageId).innerHTML = "已发布";
             //如果处于编辑模式，则关闭编辑
             let theSideBar=document.getElementsByClassName('app-wrapper')[0];
             if(theSideBar.getAttribute("class").indexOf('openSidebar')==-1){
@@ -246,7 +241,9 @@ export default {
                 document.getElementsByClassName('editPanel')[0].classList.remove('selected');
               }
             }
-            this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
+            //this.$store.dispatch('SetReloadRouter', false);//路由有变化
+            //重新加载路由
+            this.$store.dispatch('getSyncRouterData');
           }else{
             this.$notify({
               title: '提示',

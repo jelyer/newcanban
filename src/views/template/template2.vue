@@ -4,7 +4,7 @@
     <div class="mainBox" id="mainBox" style="z-index:100;position:absolute">
       <div class="bigTitle">
         <img class="titlebgstr" src="@/assets/titleBg2.png" alt="">
-        <h1 class="bigTitleName" v-text="mainTitle"></h1>
+        <h1 class="bigTitleName">{{mainTitle}}  <i v-show="dataloading" style="position:absolute;right:0" class="el-icon-loading"></i></h1>
         <p>{{date}}</p>
       </div>
       <!--firstLeftTop-->
@@ -130,7 +130,7 @@
         animate: false,//是否滚动
         pageId:undefined,
         isModle:true,//是否是模板页面
-        tempurl:'/template1',
+        tempurl:'/template2',
         echartArr:[],//ec Dom id
         echartObjArr:[],//缓存ec数据
         eclist:[],//换成ec对象
@@ -143,6 +143,7 @@
         nowDivIndex:' ',//要编辑的div的编号
         nowDivKey:'',
         pageData:'',//渲染页面的数据
+        dataloading:false,//数据加载loading
         date: undefined,
         timer:undefined,//标题下面的时间定时器
         timereload:undefined,//页面定时刷新数据
@@ -230,8 +231,14 @@
     created(){
       let pageId = this.$route.query.pageId;//页面Id
       if(pageId != undefined){
+        this.mainTitle = "";
         this.pageId = pageId;
         this.isModle = false;
+        //业务看板，把模板数据去掉
+        for(let mod of this.domConfig){
+          mod.boxTitle = "";
+          mod.data = [];
+        }
       }
     },
     mounted(){
@@ -310,7 +317,11 @@
         this.echartArr = [];
         this.echartObjArr = [];
         this.eclist = [];
+        this.dataloading = true;
         getTempById(this.$qs.stringify(paramid)).then(response => {
+          setTimeout(function(){
+            _this.dataloading = false;
+          },1500)
           if(response.data.code == 200){
             //是否模板页面
             if(response.data.data.tempstat == 1){

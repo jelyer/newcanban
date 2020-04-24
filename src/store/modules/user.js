@@ -1,5 +1,6 @@
-import { login, logout, getInfo } from '@/api/login'
+import { login, logout,getInfo,getRouter} from '@/api/login'
 import {getSourDataAll} from '@/api/chartSetting'
+import { addRouter } from '@/utils/addRouter'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { StaticRouterMap } from '../../router/index'
 const user = {
@@ -10,6 +11,7 @@ const user = {
     roles: [],
     RouterList: [], // 动态路由,已拼接好
     routerDatas:[],//路由数据，未转格式
+    routerlb:[],//用于路由轮播
     AsyncRouterMap:[],//动态获取的路由，已转好
     SourDataAll:[],//数据源
   },
@@ -38,7 +40,10 @@ const user = {
     },
     SET_SOURDATAAll: (state, SourDataAll) => {
       state.SourDataAll = SourDataAll
-    }
+    },
+    set_routerlb: (state, routerlb) => {
+      state.routerlb = routerlb
+    },
   },
 
   actions: {
@@ -97,9 +102,73 @@ const user = {
       }
     },
 
+    //轮播
+    SetRouterLb({commit},routerlb){
+      commit('set_routerlb', routerlb)
+    },
+
     // 存储路由数据-未转的
     setRouterData({ commit }, RouterData) {
       commit('set_routerData', RouterData)
+    },
+
+    //重新加载路由
+    getSyncRouterData({ commit,state }) {
+      return new Promise(resolve => {
+        getRouter()
+          .then(response => {
+            if(response.data.data) {
+              let result = response.data.data;
+              commit('set_routerData', result);//看板管理
+              var jsondata = [];
+              var roulunbo = [];
+              var icon;
+              if(result.length > 0){
+                for(let n in result){
+                  switch (result[n].tempurl){
+                    case "/template1":
+                      icon = "box1.png";
+                      break;
+                    case "/template2":
+                      icon = "box2.jpg";
+                      break
+                    case "/template3":
+                      icon = "box5.png";
+                      break;
+                    default:
+                      icon = "box3.png";
+                  }
+                  var data = {
+                    "name": result[n].tempname,
+                    "stat": result[n].tempstat,
+                    "url":'',
+                    "icon":"static/image/"+icon,//zy
+                    "children":[{
+                      "name":result[n].tempid,
+                      "url":result[n].tempurl+"?pageId="+result[n].tempid+"&stat="+result[n].tempstat
+                    }]
+                  }
+                  jsondata.push(data);
+                  //轮播如果是已发布的,1系统模板，5编辑中，9已发布
+                  if(parseInt(result[n].tempstat) != 5){
+                    let list = {title:undefined,url:undefined,checked:true};
+                    list.title = result[n].tempname;
+                    list.url = result[n].tempurl+"?pageId="+result[n].tempid+"&stat="+result[n].tempstat;
+                    roulunbo.push(list);
+                  }
+                }
+              }
+              commit('set_routerlb', roulunbo);//存储路由数据，用于轮播，只包含已发布的路由
+              const asyncRouter = addRouter(jsondata);//进行递归解析
+              commit('SET_ASYNCROUTERMAP', asyncRouter)//已转好的动态路由，存
+              commit('set_router', asyncRouter);//显示业务看板的路由
+            }
+            resolve(response)
+          })
+          .catch(error => {
+            resolve(error)
+          })
+      })
     },
 
     // 存储动态路由-已转

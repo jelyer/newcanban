@@ -83,7 +83,7 @@
             <el-input  size="mini" v-model="dataForm.dataname"></el-input>
           </el-form-item>
           <!--对应G3版本才要这个数据路由 仓云注释此即可-->
-          <el-form-item label="数据名称" prop="module">
+          <el-form-item label="数据路由" prop="module">
             <el-input  size="mini" v-model="dataForm.module"></el-input>
           </el-form-item>
           <el-form-item label="图表类型" prop="datatype">
@@ -479,19 +479,13 @@
           if(response.data.code == 200 || response.data.code == "200") {
             this.$notify({
               title: '成功',
-              message: '添加成功,正在刷新页面!',
-              duration: 2000
+              message: '添加成功，请在业务看板查看!',
+              duration: 3000
             })
-            this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
-            var _this = this;
-            this.$store.dispatch('ToggleSideBar')
-            setTimeout(function(){
-              _this.$routers.replace('/');//刷新页面
-              _this.$message({
-                type: 'success',
-                message: '刷新成功！'
-              });
-            },1000)
+            this.$store.dispatch('SetReloadRouter', false);//路由有变化
+            this.$store.dispatch('ToggleSideBar');//退出编辑模式
+            //重新加载路由
+            this.$store.dispatch('getSyncRouterData');
 
           }else{
             this.$notify({
@@ -563,7 +557,9 @@
               message: '修改成功!',
               duration: 2000
             })
-            this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
+            this.$store.dispatch('SetReloadRouter', false);//路由有变化
+            //重新加载路由
+            this.$store.dispatch('getSyncRouterData');
             var _this = this;
             this.$store.dispatch('ToggleSideBar')
             window.location.reload();

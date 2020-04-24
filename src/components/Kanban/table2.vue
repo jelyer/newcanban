@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="Tb-box" v-if="domConfig != []">
+    <div class="Tb-box"  v-if="domConfig.legend && domConfig.data.length > 0">
       <div class="Tb-title">
         <el-row>
           <el-col :style="{'width':parseInt(100/domConfig.legend.length)+'%'}" v-for="item in domConfig.legend">{{item}}</el-col>

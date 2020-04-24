@@ -70,13 +70,13 @@ function gotoRouter(to, next) {
               icon = "box1.png";
               break;
             case "/template2":
-              icon = "box2.png";
+              icon = "box2.jpg";
               break
             case "/template3":
-              icon = "box3.png";
+              icon = "box5.png";
               break;
             default:
-              icon = "box1.png";
+              icon = "box3.png";
           }
           var data = {
             "name": result[n].tempname,
@@ -98,7 +98,7 @@ function gotoRouter(to, next) {
           }
         }
       }
-      store.dispatch('setRouterData', result) // 存储到路由数据，未转
+      store.dispatch('setRouterData', result); // 存储到路由数据，未转,看板管理
       store.dispatch('SetRouterLb', roulunbo)//存储路由数据，用于轮播，只包含已发布的路由
       const asyncRouter = addRouter(jsondata) // 进行递归解析
       store.dispatch('setAsyncRouterMap', asyncRouter)//已转好的动态路由，存

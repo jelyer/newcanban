@@ -8,8 +8,7 @@ const app = {
       withoutAnimation: false
     },
     device: 'desktop',
-    routerstat:false, //控制是否重新加载路由，false：加载；true：不加载
-    routerlb:[],//用于路由轮播
+    routerstat:false, //路由是否有变化，false：有变化；true：无
     isScreen:false,//用于页面是否需要重新渲染数据
   },
   mutations: {
@@ -33,9 +32,6 @@ const app = {
     set_routerstat: (state, stat) => {
       state.routerstat = stat
     },
-    set_routerlb: (state, routerlb) => {
-      state.routerlb = routerlb
-    },
     set_isScreen:(state,isScreen) => {
       state.isScreen = isScreen
     }
@@ -52,9 +48,6 @@ const app = {
     },
     SetReloadRouter({commit},stat){
       commit('set_routerstat', stat) // 进行路由拼接并存储
-    },
-    SetRouterLb({commit},routerlb){
-      commit('set_routerlb', routerlb)
     },
     SetIsScreen({commit},isScreen){
       commit('set_isScreen', isScreen)

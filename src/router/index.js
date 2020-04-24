@@ -47,23 +47,9 @@ export const StaticRouterMap = [
   {
     path: '',
     component: Layout,
-    redirect: '/template3',
-    name: 'template3',
-    meta: { icon: 'static/image/box3.png' },
-    stat:'系统模板',
-    children: [
-      {
-        path: 'template3',
-        component: () => import('@/views/template/template3')
-      }
-    ]
-  },
-  {
-    path: '',
-    component: Layout,
     redirect: '/template2',
     name: 'template',
-    meta: { icon: 'static/image/box3.png' },
+    meta: { icon: 'static/image/box2.jpg' },
     stat:'系统模板',
     children: [
       {
@@ -89,6 +75,21 @@ export const StaticRouterMap = [
   {
     path: '',
     component: Layout,
+    redirect: '/template3',
+    name: 'template3',
+    meta: { icon: 'static/image/box5.png' },
+    stat:'系统模板',
+    children: [
+      {
+        path: 'template3',
+        component: () => import('@/views/template/template3')
+      }
+    ]
+  },
+
+  /*{
+    path: '',
+    component: Layout,
     redirect: '/template',
     name: 'template',
     meta: { icon: 'static/image/box3.png' },
@@ -99,7 +100,7 @@ export const StaticRouterMap = [
         component: () => import('@/views/board/board1')
       }
     ]
-  },
+  },*/
 /*  {
     path: '',
     component: Layout,

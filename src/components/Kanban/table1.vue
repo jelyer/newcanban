@@ -1,7 +1,7 @@
 <template>
   <div>
    <!-- <vue-seamless-scroll :data="domConfig" :class-option="optionSingleHeight" class="seamless-warps">-->
-    <div class="seamless-warps" v-if="domConfig != []">
+    <div class="seamless-warps" v-if="domConfig.legend && domConfig.data.length > 0">
       <el-row>
         <el-col v-for="item in domConfig.legend" :style="{'width':parseInt(100/domConfig.legend.length)+'%'}">
           <p><span></span>{{item}}</p>

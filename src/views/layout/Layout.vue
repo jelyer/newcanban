@@ -1,5 +1,4 @@
 <template>
-  <!--<div  class="app-wrapper openSidebar">-->
   <div :class="classObj" class="app-wrapper">
     <div v-if="device==='mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside"/>
     <sidebar class="sidebar-container"/>
@@ -7,17 +6,6 @@
       <navbar/>
       <app-main/>
     </div>
-
-<!--    <div class="rightSetting">
-      <div class="title">属性设置</div>
-      <div class="content">
-        <operation-form/>
-      </div>
-    </div>-->
-    <!--收缩按钮-->
-    <!--<div id="topleftb" style="position: absolute;bottom: 20px;left: 10px;background: #fff;z-index: 1001;">
-      <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opened" class="hamburger-container"/>
-    </div>-->
     <!--轮播设置-->
     <el-dialog :modal="false" v-dialogDrag title="轮播设置" width="50%" :visible.sync="dialogFormVisible">
       <el-form  status-icon label-position="left" label-width="100px" style='margin:0 30px;'>
@@ -30,7 +18,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button size="mini" round type="info"  @click="dialogFormVisible = false">取消</el-button>
-        <el-button size="mini" round  type="info" @click="clearLunbo">清除轮播</el-button>
+        <el-button size="mini" round type="info" @click="clearLunbo">清除轮播</el-button>
         <el-button size="mini" round type="primary" @click="saveRouterSet">设定轮播</el-button>
       </div>
     </el-dialog>
@@ -75,7 +63,7 @@
             <!--<el-button  size="mini" type="primary" plain @click="handleAddQuery(row)">
               添加查询条件
             </el-button>-->
-            <el-button  size="mini" type="danger" plain @click="handleDeleteK(row)">
+            <el-button size="mini" plain @click="handleDeleteK(row)">
               删除
             </el-button>
           </template>
@@ -143,7 +131,8 @@ export default {
       rules: {
         tempname: [{ required: true, message: '请输入页面名称', trigger: 'blur' }],
         tempurl: [{ required: true, message: '请输入页面url', trigger: 'blur' }],
-      }
+      },
+      lunbopage:[],//轮播页面
     }
   },
   components: {
@@ -172,36 +161,28 @@ export default {
   mounted(){
     that = this;
     this.getList();
-    let router = this.$store.state.app.routerlb;
+    let router = this.$store.state.user.routerlb;//已发布的业务模板
     if(router.length > 0){
-       var routerSet = localStorage.routerSet;
-       if(routerSet != undefined){
-          routerSet = JSON.parse(routerSet);
-          var lunbopage = [];//需要轮播的页面url
-          for(let c in routerSet.routerData){
-              for(let j in router){
-                 if(router[j].title == routerSet.routerData[c].title){
-                   router[j].checked = routerSet.routerData[c].checked;
-                   if(router[j].checked){
-                     lunbopage.push(router[j].url);//要轮播
-                   }
-                 }
+      let routerSet = localStorage.routerSet;
+      if(routerSet != undefined){
+        routerSet = JSON.parse(routerSet);
+        this.lunbopage = [];//需要轮播的页面url
+        for(let c in routerSet.routerData){
+          for(let j in router){
+            if(router[j].title == routerSet.routerData[c].title){
+              router[j].checked = routerSet.routerData[c].checked;
+              if(router[j].checked){
+                this.lunbopage.push(router[j].url);//要轮播
               }
+            }
           }
-         this.dataForm.routerData = router;
-         this.dataForm.time = routerSet.time;
-         //开始轮播
-         let _this = this;
-         this.timers = setInterval(() => {
-           _this.$routers.replace(lunbopage[index]);
-           index++;
-           if(index == lunbopage.length){
-             index = 0;
-           }
-         }, routerSet.time*1000);//
-       }else{
-         this.dataForm.routerData = router
-       }
+        }
+        this.dataForm.routerData = router;
+        this.dataForm.time = routerSet.time;
+
+      }else{
+        that.dataForm.routerData = router
+      }
     }
  /*   var _this = this;
     document.onkeydown = function(event) {
@@ -212,8 +193,14 @@ export default {
       }
     };*/
   },
+  watch:{
+    //"$route":"reloadPage", 监听路由变化，由于路由AppMain.vue的设定，只对模板页面能触发
+    "$store.state.app.isScreen":"screenGetData",//监听是否全屏
+    "$store.state.user.routerDatas":"getList",//监听路由是否改变
+  },
   methods: {
     getList() {
+      this.list = [];
       var allrouter = this.$store.state.user.routerDatas;
       for(let n in allrouter){
         if(parseInt(allrouter[n].tempstat) != 1){
@@ -237,8 +224,9 @@ export default {
             })
             const index = this.list.indexOf(row)
             this.list.splice(index, 1);
-            //重新加载一次
-            this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
+            //this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
+            //重新加载路由
+            this.$store.dispatch('getSyncRouterData');
           }else{
             this.$notify({
               title: '提示',
@@ -277,7 +265,9 @@ export default {
             //刷新左侧路由状态显示
             document.getElementById(row.tempid).innerHTML = "编辑中";
           }
-          this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
+          //this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
+          //重新加载路由
+          this.$store.dispatch('getSyncRouterData');
         }else{
           this.$notify({
             message: response.data.msg
@@ -299,10 +289,10 @@ export default {
          }
          try {
               var time = parseInt(this.dataForm.time);
-              if (time < 5) {
+              if (time < 10) {
                 this.$message({
                   type: 'error',
-                  message: '请输入不小于5的数字'
+                  message: '请输入不小于10的数字'
                 });
                 return;
               }
@@ -313,7 +303,8 @@ export default {
                 duration: 2000
               })
               this.dialogFormVisible = false;
-              this.$routers.replace('/');
+              this.handlelunbo();
+             // this.$routers.replace('/');
                //开始全屏轮播
                /*if(document.getElementsByClassName('main-container')[0].getElementsByClassName('active').length>0){
                  document.getElementsByClassName('main-container')[0].getElementsByClassName('active') [0].classList.remove('active');
@@ -332,7 +323,7 @@ export default {
           } catch (e) {
               this.$message({
                 type: 'error',
-                message: '请输入不小于30的数字'
+                message: '请输入不小于10的数字'
               });
           }
     },
@@ -342,7 +333,6 @@ export default {
     },
     //保存定制化看板
     saveDIYbload(){
-      debugger
       this.$refs['diyForm'].validate((valid) => {
           if (valid) {
             saveTemplateSetting(this.$qs.stringify(this.diyForm)).then((response) => {
@@ -354,17 +344,10 @@ export default {
                   duration: 2000
                 })
                 this.list.unshift(this.diyForm);
-                this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
-
+                //this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
+                //重新加载路由
+                this.$store.dispatch('getSyncRouterData');
                 //this.$store.dispatch('ToggleSideBar')
-                //var _this = this;
-                /*  setTimeout(function(){
-                    _this.$routers.replace('/');//刷新页面
-                    _this.$message({
-                      type: 'success',
-                      message: '刷新成功！'
-                    });
-                  },1000)*/
               } else {
                 this.$notify({
                   title: '提示',
@@ -379,6 +362,7 @@ export default {
     //取消轮播
     clearLunbo(){
       localStorage.removeItem('routerSet');
+      clearInterval(that.timers);//销毁
       this.$notify({
         title: '提示',
         message: '轮播清除成功!',
@@ -398,6 +382,22 @@ export default {
           }
         }
       })
+    },
+
+    //轮播
+    handlelunbo(){
+      clearInterval(that.timers);//销毁
+      //开始轮播
+      that.timers = setInterval(() => {
+        //如果是全屏
+        if(that.$store.state.app.isScreen){
+          that.$routers.replace(this.lunbopage[index]);
+        }
+        index++;
+        if(index == this.lunbopage.length){
+          index = 0;
+        }
+      },that.dataForm.time*1000);//
     }
   },
   beforeDestroy() {

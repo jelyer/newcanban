@@ -4,7 +4,7 @@
     <div class="mainBox" id="mainBox"  style="z-index:100;position:absolute">
       <div class="bigTitle">
         <img class="titlebgstr" src="@/assets/titleBg.png" alt="">
-        <h1 class="bigTitleName" v-text="mainTitle"></h1>
+        <h1 class="bigTitleName">{{mainTitle}}  <i v-show="dataloading" style="position:absolute;right:0" class="el-icon-loading"></i></h1>
         <p>{{date}}</p>
       </div>
       <div class="mainContent">
@@ -69,6 +69,7 @@
         timer:undefined,//标题下面的时间定时器
         timereload:undefined,//页面定时刷新数据
         reloadbl:true,//是否可以刷新页面，编辑时不可以
+        dataloading:false,//数据加载loading
         domConfig:[
         {
             id:"secondRight",
@@ -127,8 +128,11 @@
     created(){
       var pageId = this.$route.query.pageId;//页面Id
       if(pageId != undefined){
+        this.mainTitle = "";
         this.pageId = pageId;
         this.isModle = false;
+        this.domConfig[0].boxTitle = "";
+        this.domConfig[0].data = [];
       }
     },
     mounted(){
@@ -204,7 +208,11 @@
         this.echartArr = [];
         this.echartObjArr = [];
         this.eclist = [];
+        this.dataloading = true;
         getTempById(this.$qs.stringify(paramid)).then(response => {
+          setTimeout(function(){
+            _this.dataloading = false;
+          },1500)
           if(response.data.code == 200){
             //是否模板页面
             if(response.data.data.tempstat == 1){
@@ -268,8 +276,6 @@
                             return;
                           }
                           var parseData =  JSON.parse(response.data.data);
-                          //console.log("获取的数据")
-                          //console.log(parseData)
                           //缓存id及对应数据
                           _this.echartArr.push(para.model.id);
                           _this.echartObjArr.push(parseData);

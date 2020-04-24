@@ -9,7 +9,7 @@ const getters = {
   routerstat: state => state.app.routerstat,
   routerDatas: state => state.user.routerDatas,
   AsyncRouterMap: state => state.user.AsyncRouterMap,
-  routerlb: state => state.app.routerlb,
+  routerlb: state => state.user.routerlb,
   isScreen: state => state.app.isScreen,
   SourDataAll: state => state.user.SourDataAll,
 }

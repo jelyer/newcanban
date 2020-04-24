@@ -52,7 +52,16 @@ export default {
       return !this.sidebar.opened
     }
   },
+  created(){
+    this.routerchange();
+  },
+  watch:{
+    "$store.state.app.routerstat":"isShowyboard",//监听是否可编辑
+  },
   methods: {
+    isShowyboard(){
+      this.sourSetting = true;
+    },
     kanbanManage(){
       this.$parent.dialogKanbanVisible = true;
     },

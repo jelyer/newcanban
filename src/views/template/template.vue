@@ -4,7 +4,7 @@
     <div class="mainBox" id="mainBox" style="z-index:100;position:absolute">
       <div class="bigTitle">
         <img class="titlebgstr" src="@/assets/titleBg.png" alt="">
-        <h1 class="bigTitleName" v-text="mainTitle"></h1>
+        <h1 class="bigTitleName">{{mainTitle}}  <i v-show="dataloading" style="position:absolute;right:0" class="el-icon-loading"></i></h1>
         <p>{{date}}</p>
       </div>
       <!--firstLeftTop-->
@@ -97,6 +97,7 @@
         timereload:undefined,//页面定时刷新数据
         reloadbl:true,//是否可以刷新本页
         onScreen:false,
+        dataloading:false,//数据加载loading
         form: {
           boxTitle: '',//表标题
           key:'',//图表类型
@@ -108,42 +109,42 @@
         domConfig: [
           {
             "x":52,
-            "y":6,
-            "w":49,
+            "y":3,
+            "w":48,
             "h":53,
             "id":"s1575610822000",
             "boxTitle":"仓库预警报表",
             "key":"pie",
             "dataKey":"001",
             "data":[{
-              "分拣中": 1,
-              "待复核": 0,
-              "待装车": 0,
-              "未打单": 2,
-              "分拣完成": 0,
-              "已复核": 0,
-              "未锁库": 0,
+              "分拣中": 8,
+              "待复核": 2,
+              "待装车": 5,
+              "未打单": 12,
+              "分拣完成": 6,
+              "已复核": 6,
+              "未锁库": 15,
               "已分配任务": 1
             }]
           },
           {
             "x":0,
-            "y":6,
-            "w":49,
+            "y":3,
+            "w":48,
             "h":53,
             "id":"s1575610887000",
             "boxTitle":"订单情况分析",
             "key":"ybar",
             "dataKey":"001",
             "data":[{
-              "分拣中": 1,
-              "待复核": 0,
-              "待装车": 0,
-              "未打单": 2,
-              "分拣完成": 0,
-              "已复核": 0,
-              "未锁库": 0,
-              "已分配任务": 1
+              "分拣中": 8,
+              "待复核": 2,
+              "待装车": 5,
+              "未打单": 12,
+              "分拣完成": 6,
+              "已复核": 6,
+              "未锁库": 15,
+              "已分配任务": 7
             }]
           },
           {
@@ -203,6 +204,8 @@
     created(){
       var pageId = this.$route.query.pageId;//页面Id
       if(pageId != undefined){
+        this.mainTitle = "";
+        this.domConfig = [];
         this.pageId = pageId;
         this.isModle = false;
       }
@@ -403,8 +406,12 @@
         this.echartArr = [];
         this.echartObjArr = [];
         this.eclist = [];
+        this.dataloading = true;
         getTempById(this.$qs.stringify(paramid)).then(response => {
-          if(response.data.code == 200 || response.data.code == "200"){
+          setTimeout(function(){
+            _this.dataloading = false;
+          },1500)
+          if(response.data.code == 200){
             //是否模板页面
             if(response.data.data.tempstat == 1){
               this.isModle =true;
@@ -426,9 +433,6 @@
                 }
               }
               this.domConfig = temconfig;
-             setTimeout(function(){
-               console.log(JSON.stringify(_this.domConfig))
-             },2000)
               this.index = this.domConfig.length;//拖拽的key
               //各个模块根据dataKey加载数据
               var index = 0;//图表echartArr下标
@@ -480,8 +484,6 @@
                             return;
                           }
                           var parseData =  JSON.parse(response.data.data);
-                          //console.log("获取的数据")
-                          //console.log(parseData)
                           //缓存id及对应数据
                           _this.echartArr.push(para.model.id);
                           _this.echartObjArr.push(parseData);
