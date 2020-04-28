@@ -162,10 +162,10 @@ const allChartObj ={
       show:true,
     },
     grid: {
-      left: '5%',
+      left: '10',
       bottom: '5%',
       top: '10%',
-      right: '5%',
+      right: '10',
       containLabel: true
     },
     xAxis: {
@@ -211,7 +211,7 @@ const allChartObj ={
         }
       }
     }],
-    series: {
+    series: [{
       name: '销量',
       type: 'bar',
       barMaxWidth: 15,
@@ -235,7 +235,7 @@ const allChartObj ={
         }
       },
       data: data2
-    }
+    }]
   },
 //3、纵向柱状图
   ybar : {
@@ -578,10 +578,10 @@ const allChartObj ={
       //data: ['Forest', 'Steppe', 'Desert', 'Wetland']
     },
     grid: {
-      left: '5%',
+      left: '10',
       bottom: '5%',
       top: '10%',
-      right: '5%',
+      right: '10',
       containLabel: true
     },
 

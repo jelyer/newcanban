@@ -1,5 +1,5 @@
 <template>
-  <div class="box1">
+  <div class="box1 template2">
     <img class="pagebgsty" src="@/assets/pageBg2.png" alt="">
     <div class="mainBox" id="mainBox" style="z-index:100;position:absolute">
       <div class="bigTitle">
@@ -26,8 +26,8 @@
               </div>
             </div>
             <div class="firstLeftBot">
-              <div :class="[{active: isActive == 1 },'firstLeftBot1']"  @click="toEditDiv(domConfig[1])">
-                <p class="boxTitle">{{domConfig[1].boxTitle}}</p>
+              <div :class="[{active: isActive == 1 },'firstLeftBot2']" @click="toEditDiv(domConfig[1])">
+                <p class="boxTitle">{{domConfig[2].boxTitle}}</p>
                 <div class="boxContent">
                   <div class="boxContent-div">
                     <table-one v-if="domConfig[1].key == 'data'" :domConfig="domConfig[1].data"></table-one>
@@ -40,29 +40,15 @@
                   <div class="icoBR"></div>
                 </div>
               </div>
-              <div :class="[{active: isActive == 2 },'firstLeftBot2']" @click="toEditDiv(domConfig[2])">
-                <p class="boxTitle">{{domConfig[2].boxTitle}}</p>
-                <div class="boxContent">
-                  <div class="boxContent-div">
-                    <table-one v-if="domConfig[2].key == 'data'" :domConfig="domConfig[2].data"></table-one>
-                    <table-two v-if="domConfig[2].key == 'list'" :domConfig="domConfig[2].data"></table-two>
-                    <div :class="[{isshow: domConfig[2].key == 'data' || domConfig[2].key == 'list' },'chart']" :id="domConfig[2].id"></div>
-                  </div>
-                  <div class="icoTL"></div>
-                  <div class="icoTR"></div>
-                  <div class="icoBL"></div>
-                  <div class="icoBR"></div>
-                </div>
-              </div>
             </div>
           </div>
-          <div :class="[{active: isActive == 3 },'firstRight']"  @click="toEditDiv(domConfig[3])">
+          <div :class="[{active: isActive == 2 },'firstRight']"  @click="toEditDiv(domConfig[2])">
             <p class="boxTitle">{{domConfig[3].boxTitle}}</p>
             <div class="boxContent" >
               <div class="boxContent-div">
-                <table-one v-if="domConfig[3].key == 'data'" :domConfig="domConfig[3].data"></table-one>
-                <table-two v-if="domConfig[3].key == 'list'" :domConfig="domConfig[3].data"></table-two>
-                <div :class="[{isshow: domConfig[3].key == 'data' || domConfig[3].key == 'list' },'chart']" :id="domConfig[3].id"></div>
+                <table-one v-if="domConfig[2].key == 'data'" :domConfig="domConfig[2].data"></table-one>
+                <table-two v-if="domConfig[2].key == 'list'" :domConfig="domConfig[2].data"></table-two>
+                <div :class="[{isshow: domConfig[2].key == 'data' || domConfig[2].key == 'list' },'chart']" :id="domConfig[2].id"></div>
               </div>
               <div class="icoTL"></div>
               <div class="icoTR"></div>
@@ -72,27 +58,13 @@
           </div>
         </div>
         <div class="secondBox">
-          <div :class="[{active: isActive == 4 },'secondLeft']"  @click="toEditDiv(domConfig[4])">
-            <p class="boxTitle">{{domConfig[4].boxTitle}}</p>
+          <div :class="[{active: isActive == 3 },'secondRight']"  @click="toEditDiv(domConfig[3])">
+            <p class="boxTitle">{{domConfig[3].boxTitle}}</p>
             <div class="boxContent">
               <div class="boxContent-div">
-                <table-one v-if="domConfig[4].key == 'data'" :domConfig="domConfig[4].data"></table-one>
-                <table-two v-if="domConfig[4].key == 'list'" :domConfig="domConfig[4].data"></table-two>
-                <div :class="[{isshow: domConfig[4].key == 'data' || domConfig[4].key == 'list' },'chart']" :id="domConfig[4].id"></div>
-              </div>
-              <div class="icoTL"></div>
-              <div class="icoTR"></div>
-              <div class="icoBL"></div>
-              <div class="icoBR"></div>
-            </div>
-          </div>
-          <div :class="[{active: isActive == 5 },'secondRight']"  @click="toEditDiv(domConfig[5])">
-            <p class="boxTitle">{{domConfig[5].boxTitle}}</p>
-            <div class="boxContent">
-              <div class="boxContent-div">
-                <table-one v-if="domConfig[5].key == 'data'" :domConfig="domConfig[5].data"></table-one>
-                <table-two v-if="domConfig[5].key == 'list'" :domConfig="domConfig[5].data"></table-two>
-                <div :class="[{isshow: domConfig[5].key == 'data' || domConfig[5].key == 'list' },'chart']" :id="domConfig[5].id"></div>
+                <table-one v-if="domConfig[3].key == 'data'" :domConfig="domConfig[3].data"></table-one>
+                <table-two v-if="domConfig[3].key == 'list'" :domConfig="domConfig[3].data"></table-two>
+                <div :class="[{isshow: domConfig[3].key == 'data' || domConfig[3].key == 'list' },'chart']" :id="domConfig[3].id"></div>
               </div>
               <div class="icoTL"></div>
               <div class="icoTR"></div>
@@ -150,16 +122,17 @@
         domConfig:[
           {
             id:"firstLeftTop",
-            boxTitle:"待完成任务",
+            boxTitle:"各仓库发货进度",
             key:'data', //图表类型
             dataKey:null,//
             data:{
-              legend:['分拣中','待复核','待装车','未打单','未锁库'],
+              legend:['深圳仓','北京仓','武汉仓','海南仓'],
               data:[
-                ["35","334","189","112","545"]
+                ["35","334","189","112"]
               ]
             }
-          },{
+          },
+          /*{
             id:"firstLeftBot1",
             boxTitle:"货主库存变动",
             key:'list',
@@ -172,40 +145,48 @@
                 ["C货主","895","23"]
               ]
             }
-          },{
+          },*/
+          {
             id:"firstLeftBot2",
-            boxTitle:"快递订单完成情况",
+            boxTitle:"热销商品库存信息",
             key:'list',
             dataKey:null,
             data:{
-              legend:['快递公司','总单量','完成量','占比'],
+              legend:['商品名称','销量汇总','库存','深圳仓','北京仓','武汉仓','海南仓'],
               data:[
-                ["圆通速递","35","352","30%"],
-                ["申通快递","445","322","30%"],
-                ["顺丰快递","345","2","40%"],
-                ["中通快递","135","533","30%"],
-                ["菜鸟速递","315","444","30%"]
+                ["百草味-每日坚果","35","352","111","895","456","747"],
+                ["百草味-华夫饼","445","322","234","7852","5654","8889"],
+                ["百草味-肉松饼","345","2","689","1236","556","789"],
+                ["百草味-芒果干","135","533","588","556","5587","335"],
+                ["百草味-榴莲干","315","444","9998","852","6355","7452"],
+                ["百草味-鱿鱼丝","315","444","5684","4123","5236","5689"]
               ]
             }
 
           },{
             id:"firstRight",
-            boxTitle:"订单进展情况",
+            boxTitle:"仓库各节点完成情况",
             key:'line',
             dataKey:null,
             data:[{"分拣中":100,"待复核":280,"待装车":300,"未打单":350,"分拣完成":550,"已复核":126,"未锁库":470,"已分配任务":335}]
-          },{
+          },
+          /*{
             id:"secondLeft",
             boxTitle:"到货预约信息",
             key:'ring',
             dataKey:null,
             data:[{"未完成":3,"总订单数":5,"完成率%":0E-12,"已完成":0,"已取消":2}]
-          },{
+          },*/
+          {
             id:"secondRight",
-            boxTitle:"快递订单完成情况",
+            boxTitle:"各仓库发货量时段分布",
             key:'nbar',
             dataKey:null,
-            data:[{"xkey":"北京仓","商品过期数量":35,"订单超时数量":56,"禁售库存数量":90,"安全库存数量":34},{"xkey":"深圳仓","商品过期数量":15,"订单超时数量":26,"禁售库存数量":30,"安全库存数量":74}],
+            data:[{"xkey":"北京仓","0:00":35,"2:00":56,"4:00":90,"6:00":34,"8:00":55,"10:00":39,"12:00":85,"14:00":24,"16:00":74,"18:00":56,"20:00":42,"22:00":23},
+              {"xkey":"深圳仓","0:00":45,"2:00":86,"4:00":70,"6:00":24,"8:00":85,"10:00":89,"12:00":55,"14:00":64,"16:00":94,"18:00":76,"20:00":82,"22:00":33},
+              {"xkey":"武汉仓","0:00":55,"2:00":66,"4:00":50,"6:00":64,"8:00":25,"10:00":79,"12:00":25,"14:00":44,"16:00":54,"18:00":16,"20:00":72,"22:00":43},
+              {"xkey":"海南仓","0:00":65,"2:00":36,"4:00":60,"6:00":94,"8:00":45,"10:00":99,"12:00":45,"14:00":64,"16:00":34,"18:00":66,"20:00":62,"22:00":83}
+            ],
           }
         ],
         form: {
@@ -440,4 +421,47 @@
 
 </script>
 <style scoped>
+  .bigTitle{height: 9.5%}
+  .bigTitle p{
+    font-size: 1rem;
+    margin: 0;
+    position: absolute;
+    right: 20px;
+    bottom: 20%;
+  }
+  .mainContent{margin-top: 0;height: 88.5%;}
+  .firstLeft{width: 56%;}
+  .firstRight{width:42.5%;}
+  .firstLeftBot2{
+    width: 100%;
+  }
+  .firstLeftBot2 .el-col{
+    width: 12% !important;
+  }
+  .firstLeftBot2 .el-col:nth-child(1){
+    width: 26% !important;
+  }
+  .secondRight{
+    width: 100%;
+  }
+  .boxTitle{
+    color: #00ffd8;
+  }
+  .Tb-title{
+    color: #00ffd8;
+  }
+  .icoTL,.icoTR,.icoBL,.icoBR{
+    border-color: #00ffd8;
+  }
+.bigTitleName{
+  color: #00ffd8;
+  margin-top: 2.5%;
+}
+  .titlebgstr {
+    height: 60%;
+    top: 40%;
+  }
+  .box1{
+    border-color: #00ffd8;
+  }
 </style>
