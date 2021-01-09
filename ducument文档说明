@@ -1,0 +1,50 @@
+一、图表类型
+pie  饼图
+bar  柱状图
+ybar  纵向柱状图
+line  线性图
+netline 网线线性图
+list   数据列表
+ring 环图
+nline  多线性图
+nbar  多柱状图
+
+二、模板ID
+  2.1制定模板id
+
+     基础模板
+        baseTemplate1
+        baseTemplate2
+        baseTemplate3
+        baseTemplate4
+        ...
+     拓展模板(基础模板-Expand序号)
+        baseTemplate1Expand1
+        baseTemplate1-Expand2
+        ...
+
+        baseTemplate2-Expand1
+        baseTemplate2-Expand2
+        ...
+
+  2.2模板状态
+
+  模板状态(1 系统模板, 5 用户编辑中模板, 9用户发布模板)
+
+三、页面模块ID
+
+    moduleId1
+    moduleId2
+    moduleId3
+    ...
+
+四、模块标记，用于限制
+   curModelType:undefined,//当前模块类型, 0：数据表；1：正方形图表；2：长方形图表；3：其它
+
+
+五、数据源规则
+当前时间：getdate()
+仓库：'${orid}'
+用户：'${usid}'
+
+
