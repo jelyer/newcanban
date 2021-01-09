@@ -1,0 +1,604 @@
+@import './variables.scss';
+@import './mixin.scss';
+@import './transition.scss';
+@import './element-ui.scss';
+@import './sidebar.scss';
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  height: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  background:#0a1132 !important;
+}
+
+#app,.el-menu{
+  background:#0a1132 !important;
+}
+
+label {
+  font-weight: 700;
+}
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+#app {
+  height: 100%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  outline: none;
+  text-decoration: none;
+}
+
+div:focus {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+
+//main-container全局样式
+.app-main {
+  min-height: 100%;
+  height:calc(100vh - 5rem) ;
+  margin-top: 4rem;
+}
+
+.app-container {
+  padding: 20px;
+}
+
+//refine vue-multiselect plugin
+.multiselect {
+  line-height: 16px;
+}
+
+.multiselect--active {
+  z-index: 1000 !important;
+}
+::-webkit-scrollbar{
+  /*display: none;*/
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  overflow: auto;
+  background: #666;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #999;
+  min-height: 10px;
+  min-width: 10px;
+  border: 0px;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+  background-color: #ccc;
+  border: 0px;
+  border-radius: 10px;
+}
+.routerDiv,.mainBox{height: calc(100vh - 84px);}
+.largeScreen .app-main{
+  height: 100vh;
+  margin-top: 0;
+}
+.largeScreen .box1{
+  border:none
+}
+/*引导页的*/
+#driver-highlighted-element-stage{
+  border: 3px solid #fff;
+  background: none;
+  background-color: #ffffff30 !important}
+
+
+
+/*看板样式*/
+.box1{
+  /*min-height: calc(100vh - 84px);*/
+  position: relative;  border: 2px solid #0db3fd;  color: white;  height: 100%;
+  /*overflow: hidden;*/
+}
+.mainBox{
+  width: 100%;
+  /*height: calc(100vh - 84px);*/
+  transition: all 0.5s;  padding: 0 2%;  overflow: hidden;
+/*  background: url("../images/pageBg.png" ) no-repeat center;*/
+  background-size: 100% 100%;  height: 100%;
+}
+.pagebgsty{position:absolute;width:100%;height:100%;}
+.bigTitle{
+  height: 12.5%;  color: #fff;
+ /* background: url("../images/titleBg.png" ) no-repeat center;*/
+  background-size: 100% 100%;  overflow: hidden;  text-align: center;
+  position:relative;
+}
+.titlebgstr{
+  position:absolute;width:100%;height:100%;left: 0;
+}
+.bigTitle h1{
+  font-size: 1.7rem;  font-weight: normal;  margin-top: 1.2%; margin-bottom: 0.5%;
+}
+.bigTitle p{
+  font-size: 0.7rem;  margin: 0;
+}
+.mainContent{
+  height: 87.5%;margin-top: -2%;
+}
+.firstBox{
+  height: 56%;width: 100%;
+}
+.firstBox>div{float:left;}
+.firstLeft{width: 66%;margin-right: 1.5%;height: 100%;}
+.firstLeftTop{  height: 44%;  width: 100%;  text-align: left;}
+.boxTitle{height: 2.4rem !important;color: #3190cb;font-size: 1.1rem;  text-align: left;  line-height: 2.4rem !important;  }
+.boxContent{  height: calc(100% - 2.4rem) !important;  width: 100%;  border: 1px solid #0d1743;  display: block;  position: relative;/*overflow: hidden*/}
+.boxContent-div{  width: 100%;  height: 100%;  cursor: pointer;}
+.boxContent-div .chart{width: 100%;  height: 100%;}
+.boxContent-div>div{height:100%}
+.active .boxContent{  border:2px solid #0db3fd;  background: rgba(13,179,253,0.2);}
+.active .boxContent>div{  border:none;  }
+.icoTL{position: absolute;  left:-1px;  top:-1px;  width: 1rem;  height: 1rem; border-left:2px solid #0db3fd ;
+  border-top:2px solid #0db3fd ;
+}
+.icoTR{position: absolute;  right:-1px;  top:-1px;  width: 1rem;  height: 1rem;
+  border-right:2px solid #0db3fd ;  border-top:2px solid #0db3fd ;
+}
+.icoBL{
+  position: absolute;
+  left:-1px;  bottom:-1px;  width: 1rem;  height: 1rem;  border-left:2px solid #0db3fd ;  border-bottom:2px solid #0db3fd ;
+}
+.icoBR{
+  position: absolute;  right:-1px;  bottom:-1px;  width: 1rem;  height: 1rem;
+  border-right:2px solid #0db3fd ;  border-bottom:2px solid #0db3fd ;
+}
+.firstLeftBot{  height: 56%;  }
+.firstLeftBot1{
+  width: 40%;  height: 100%;
+  float: left;  margin-right: 2%;
+}
+.firstLeftBot2{
+  width: 58%;  height: 100%;  float: left;
+}
+.firstLeftBot .boxTitle{
+  height:2.4rem;
+}
+.firstLeftBot .boxContent{
+  height:calc(100% - 2.4rem) ;
+}
+.firstRight{
+  width: 32.5%;height: 100%;
+}
+.firstRight .boxTitle{
+  height:10.7% ;
+}
+.firstRight .boxContent{
+  height:89.2% ;
+}
+.secondBox{
+  height:44% ;
+}
+.secondLeft{
+  width: 26.4%;  height: 100%;  float: left;  margin-right: 1.5%;
+}
+.secondRight{
+  width: 72.1%;  height: 100%;  float: left;
+}
+.secondBox .boxTitle{
+  height:14% ;
+}
+.secondBox .boxContent{
+  height:85% ;
+}
+
+/*数据样式##########################starrt*/
+.firstLeftTop .el-row{
+  height: 100%;  padding-top: .7rem;overflow: hidden;
+}
+.el-row>div{
+  height: 100%;  text-align: center;
+}
+.el-row .el-col p{
+  font-size: 1.2rem;
+  white-space:nowrap;
+}
+.el-row .el-col p span{
+  background-color: #44b9ef;
+  width: 0.7rem;  height: 0.7rem;  border-radius: 50%;
+  display: inline-block;  margin:0 0.5rem;  vertical-align: middle;
+}
+.el-row .el-col:nth-child(1) p span{
+  background-color: #ffb522;
+}
+.el-row .el-col:nth-child(2) p span{
+  background-color: #44b9ef;
+}
+.el-row .el-col:nth-child(3) p span{
+  background-color: #61e263;
+}
+.el-row .el-col:nth-child(4) p span{
+  background-color: #fd3126;
+}
+.el-row .el-col:nth-child(5) p span{
+  background-color: #ffb522;
+}
+.el-row .el-col:nth-child(6) p span{
+  background-color: #44b9ef;
+}
+.el-row .el-col:nth-child(7) p span{
+  background-color: #61e263;
+}
+.el-row .el-col:nth-child(8) p span{
+  background-color: #fd3126;
+}
+.el-row .el-col div{
+  margin-top: 0.5rem;
+}
+.el-row .el-col div span{
+  font-size: 2rem;  margin:0 0.5rem;
+}
+
+/*列表样式##########################starrt*/
+.Tb-box{
+  width: 100%;  height: 100%;  padding:0 .3rem;  overflow: hidden;
+}
+.Tb-box .el-row .el-col{
+  white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;  line-height: 1.8rem;
+}
+.Tb-title{
+  height: 1.6rem;color: #3caff2;
+}
+.template2 .Tb-title{
+  color: #00ffd8;
+}
+.Tb-title div{
+  height: 100%;
+}
+.Tb-title .colflex, .Tb-content .colflex{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.Tb-box .el-row .el-col:nth-child(1){
+  /*text-align: left;*/
+}
+.Tb-content{
+  height: 100% !important;  overflow: hidden;
+}
+::-webkit-scrollbar{
+  display: none;
+}
+
+.temtable thead th{text-align: center;color:#3caff2;height: 1.6rem;}
+.temtable tbody tr td{text-align: center}
+.temtable tbody tr{height: 1.5rem;}
+.seamless-warp {
+  height: calc(100% - 1.6rem);
+  width: 100%;
+  overflow: hidden;
+}
+.seamless-warps{
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.onScreen{margin-top:-1%}
+
+/*头部*/
+.navbar {
+  height: 3.5rem;
+  line-height: 3.5rem;
+  border-radius: 0px !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #1c1f25;
+  overflow: hidden;
+  .navbar-left{
+    float:left;
+    height: 100%;
+    padding-left: 15px;
+    img{
+      height: 3rem;
+      width: auto;
+      margin-top: 0.25rem;
+    }
+    p{
+      display: inline-block;
+      vertical-align: top;
+      color: #0db3fd;
+      font-size: 1.2rem;
+      margin-left: 0.5rem;
+      padding-top: 1.6rem;
+      line-height: 1.2rem;
+    }
+  }
+  .navbar-right{
+    float: right;
+    height: 100%;
+    ul{
+      display: inline-block;
+      height: 100%;
+      overflow: hidden;
+      li{
+        width: 5rem;
+        height: 100%;
+        float: left;
+        overflow: hidden;
+        cursor: pointer;
+        display: flex;
+        span{
+          display:block ;
+          width: 2.4rem;
+          margin: auto;
+          padding-top: 0.6rem;
+          height: 100%;
+          /* background: url("../images/c5.png") no-repeat center;*/
+        }
+      }
+      li:hover{
+        span{
+          border-top: 2px solid #0db3fd;
+        }
+      }
+      .releasePanel{
+        span{
+          background: url("../image/top-ico/icon-publish.png") no-repeat center;
+          background-size: 80%;
+        }
+      }
+      .releasePanel:hover span{
+        background: url("../image/top-ico/icon-publish-selected.png") no-repeat center;
+        background-size: 80%;
+      }
+      .editPanel{
+        span{
+          background: url("../image/top-ico/icon-edit.png") no-repeat center;
+          background-size: 80%;
+        }
+      }
+      .editPanel:hover span{
+        background: url("../image/top-ico/icon-edit-selected.png") no-repeat center;
+        background-size: 80%;
+      }
+      .editPanel.selected span{
+        background: url("../image/top-ico/icon-edit-selected.png") no-repeat center;
+        background-size: 80%;
+        border-top: 2px solid #0db3fd;
+      }
+      .reloaddata{
+        span{
+          background: url("../image/top-ico/icon-reloadw.png") no-repeat center;
+          background-size: 75%;
+        }
+      }
+      .reloaddata:hover span{
+        background: url("../image/top-ico/icon-reloadb.png") no-repeat center;
+        background-size: 75%;
+      }
+      .fullScreen{
+        span{
+          background: url("../image/top-ico/icon-full-screen.png") no-repeat center;
+          background-size: 80%;
+        }
+      }
+      .fullScreen:hover span{
+        background: url("../image/top-ico/icon-full-screen-selected.png") no-repeat center;
+        background-size: 80%;
+      }
+      .elpGuide{
+        span{
+          background: url("../image/top-ico/icon-help.png") no-repeat center;
+          background-size: 80%;
+        }
+      }
+      .elpGuide:hover span{
+        background: url("../image/top-ico/icon-help-selected.png") no-repeat center;
+        background-size: 80%;
+      }
+      .Logout{
+        span{
+          background: url("../image/top-ico/icon-out.png") no-repeat center;
+          background-size: 80%;
+        }
+      }
+      .Logout:hover span{
+        background: url("../image/top-ico/icon-out-selected.png") no-repeat center;
+        background-size: 80%
+      }
+    }
+    .user-inform{
+      display: inline-block;
+      width: 9rem;
+      padding-left: 1.5rem;
+      padding-right: 0.3rem;
+      font-size: 1.2rem;
+      padding-top: 0.3rem;
+      text-align: center;
+      .userName{
+        color:#0db3fd ;
+        line-height: 1.6rem;
+
+      }
+      .userSubordinate{
+        color: white;
+        line-height: 1.6rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+.largeScreen .navbar{
+  display: none;
+}
+
+/*右侧*/
+/*表单样式############### start*/
+.operaform{
+  color: white;
+  font-size: 12px;
+  background: #1c1f25;
+  padding: 0 1rem;
+}
+.operaform .el-input__inner{
+  height: 1.8rem;
+  font-size: .85vw;
+  border-radius: 0;
+  border: 1px solid #2e323b;
+  background: #0e1013;
+  color: #a3a3a3;
+  padding-left: 0.4rem;
+}
+.operaform .el-input__icon{
+  line-height: 1.4rem;
+}
+.operaform .el-form-item__label{
+  height: 1.8rem;
+  line-height: 1.8rem;
+  width: 5.5rem !important;
+  padding-right: 10px;
+  font-size: .9vw;
+}
+.operaform .el-form-item__content{
+  height: 1.4rem;
+  line-height: 1.4rem;
+}
+.operaform  .el-form-item{
+  margin-top: 1rem;
+}
+.operaform .el-scrollbar .el-select-dropdown__item{
+  height: 1.4rem;
+  font-size: 0.85rem !important;
+  line-height: 1.4rem;
+}
+.operaform .el-scrollbar .el-select-dropdown__item span{
+  color: black;
+  font-size: 0.85rem !important;
+}
+.operaform .el-form-item{
+  margin-top: .8rem !important;
+  margin-bottom: 0 !important;
+}
+.componentsBox{
+  margin-top: 1rem;
+}
+.componentsContent{
+  width: 100%;
+  height:17rem ;
+  border: 2px solid #2e323b;
+  background:#0e1013;
+  overflow:auto;
+}
+.componentsTitle{
+  height: 1.8rem;
+  line-height: 1.8rem;
+  font-size: 0.85rem;
+  color: #03A9F4;
+  text-align: left;
+  padding-left: 0.5rem;
+}
+.imgBox{
+  font-size: 0;
+  margin: 5px;
+}
+.imgBox img{
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+.imgBox .checked{
+  border: 1px solid #3681ab;
+  background: #0db3fd4f;
+}
+.btnDiv{
+  margin-top:1rem;
+  text-align: center;
+}
+.btnDiv>div{
+  width: 6rem;
+  height: 2.1rem;
+  display: inline-block;
+  line-height: 2.1rem;
+  text-align: center;
+  background: url(../image/choicBtn.png) no-repeat center;
+  background-size: 100% 100%;
+  color: #3caff2;
+  font-size: .9vw;
+  cursor: pointer;
+}
+
+.operaform .el-message-box__header span,.el-message-box__content textarea{
+  color: black;
+}
+.el-table th, .el-table tr{background: #1c1f25 !important;}
+.el-table td, .el-table th.is-leaf{ border-bottom: 1px solid #27343e !important;}
+.el-table .cell{color:#ddd !important;}
+.el-table td, .el-table th{padding: 8px 0 !important;}
+.el-table::before{height: 0px !important;}
+.el-table__row .cell{color:#999 !important;}
+
+.rightSetting{background:rgb(10, 17, 50)}
+.rightSetting .title{width:100%;height:2.7rem;line-height: 2.7rem;text-align: center;font-size: 1vw;color: #999;background: #27343e;display: flex}
+.rightSetting .content{height: 100%; background: #1c1f25;  margin: 0;padding-bottom: 2.7rem;  /*border: 1px solid #0db3fd;*/}
+.rightSetting .title .til{width:50%;cursor: pointer;}
+.rightSetting .title .actives{background: #1c1f25;border-top:2px solid #0db3fd;cursor: default;color: #3caff2;}
+
+/*表单按钮样式*/
+.dialog-footer .el-button.el-button--mini{
+  background: url(../image/choicBtn.png) no-repeat center;
+  background-size: 100% 100%;
+  color: #3caff2;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  padding: 10px 20px;
+}
+.isshow{visibility: hidden}
+.el-scrollbar{height: calc(100% - 50px);}
+.vdr{border:none;    box-sizing: border-box;}
+.my-resizing-class{border:1px dashed #117dd1}
+.my-active-class{border:1px dashed #ccc}

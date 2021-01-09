@@ -1,0 +1,49 @@
+{
+  "Template": [
+       {
+                 "id": 1,
+                 "name": "Menu1",
+                 "code": null,
+                 "description": null,
+                 "url": "menu1",
+                 "generatemenu": 0,
+                 "sort": 0,
+                 "parentId": 1,
+                 "permName": null,
+                 "redirect": "",
+                 "title": "Menu1",
+                 "icon": "menu1",
+                 "children":null
+               },
+               {
+               "id": 2,
+               "name": "Menu2",
+               "code": null,
+               "description": null,
+               "url": "menu2",
+               "generatemenu": 0,
+               "sort": 0,
+               "parentId": 1,
+               "permName": null,
+               "redirect": "",
+               "title": "Menu2",
+               "icon": "menu2",
+               "children": null
+               },
+               {
+               "id": 3,
+               "name": "Menu1-2",
+               "code": null,
+               "description": null,
+               "url": "menu1-2",
+               "generatemenu": 0,
+               "sort": 0,
+               "parentId": 2,
+               "permName": null,
+               "redirect": "",
+               "title": "Menu1-2",
+               "icon": "",
+               "children": null
+             }
+  ]
+}

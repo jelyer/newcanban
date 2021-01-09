@@ -1,0 +1,41 @@
+{
+  "dataUrl1": [
+    {
+      "dataX": "数据1",
+      "dataY": "310"
+    },{
+      "dataX": "数据2",
+      "dataY": "420"
+    },{
+      "dataX": "数据3",
+      "dataY": "330"
+    },{
+      "dataX": "数据4",
+      "dataY": "240"
+    },{
+      "dataX": "数据5",
+      "dataY": "400"
+    },{
+      "dataX": "数据6",
+      "dataY": "500"
+    },{
+      "dataX": "数据6",
+      "dataY": "300"
+    },{
+      "dataX": "数据6",
+      "dataY": "180"
+    }
+  ],
+  "ableCharts": [
+    {
+      "url": "c1",
+      "key": 0
+    },{
+      "url": "c2",
+      "key": 1
+    },{
+      "url": "c3",
+      "key": 2
+    }
+  ]
+}

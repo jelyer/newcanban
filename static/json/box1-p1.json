@@ -1,0 +1,23 @@
+{
+  "data": [
+    {
+      "dataKey":"dataKey1",
+      "boxTitle": "仓库预警报表",
+      "key":2
+    },
+    {
+      "dataKey": "dataKey2",
+      "boxTitle": "到货预约信息",
+      "key":1
+    },
+    {
+      "dataKey": "dataKey3",
+      "boxTitle": "快递订单完成情况",
+      "key":0
+    },
+    {},{},{}
+
+  ],
+  "isModle": true,
+  "pageTitle": "box1-p1"
+}

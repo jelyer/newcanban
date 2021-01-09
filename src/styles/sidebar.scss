@@ -1,0 +1,213 @@
+#app {
+
+  // 主体区域 Main container
+  .main-container {
+    min-height: 100%;
+    transition: margin-left .28s;
+    transition: margin-right .3s;
+    margin-left: $sideBarWidth;
+    margin-right: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  // 侧边栏 Sidebar container
+  .sidebar-container {
+    transition: width 0.28s;
+    width: $sideBarWidth ;
+    height: 100%;
+    position: fixed;
+    font-size: 0px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    overflow: hidden;
+    padding-top: 4rem;
+
+    //reset element-ui css
+    .horizontal-collapse-transition {
+      transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
+    }
+
+    .scrollbar-wrapper {
+      overflow-x: hidden !important;
+      height: 100%;
+      .el-scrollbar__view {
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+      }
+    }
+
+    .el-scrollbar__bar.is-vertical {
+      right: 0px;
+    }
+
+    .is-horizontal {
+      display: none;
+    }
+
+    a {
+      display: inline-block;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .svg-icon {
+      margin-right: 16px;
+    }
+
+    .el-menu {
+      border: none;
+      width: 100% !important;
+      overflow-y: auto;
+      padding-bottom:50px;
+      position: absolute;
+      top:3.2rem;
+      height: calc(100% - 40px);
+    }
+    .el-menu::-webkit-scrollbar{width:0}
+    .is-active>.el-submenu__title {
+      color: #f4f4f5 !important;
+    }
+  }
+
+  .rightSetting{
+    transition: width 0.28s;
+    width: 0px;
+    position: fixed;
+    font-size: 0px;
+    top: 4rem;
+    bottom: 0;
+    right: 0;
+    z-index: 1001;
+    overflow: hidden;
+  }
+
+  .hideSidebar {
+    .sidebar-container {
+      width: 0 ;
+    }
+
+    .sidebtn{visibility:hidden}
+    .rightSetting{width:17rem;height: calc(100vh - 5rem);background: #1c1f25;}
+
+    .main-container {
+      margin-left: 1rem;
+      margin-right:18rem;
+    }
+
+    .submenu-title-noDropdown {
+      padding-left: 10px !important;
+      position: relative;
+
+      .el-tooltip {
+        padding: 0 10px !important;
+      }
+    }
+
+    .el-submenu {
+      overflow: hidden;
+
+      &>.el-submenu__title {
+        padding-left: 10px !important;
+
+        .el-submenu__icon-arrow {
+          display: none;
+        }
+      }
+    }
+
+    .el-menu--collapse {
+      .el-submenu {
+        &>.el-submenu__title {
+          &>span {
+            height: 0;
+            width: 0;
+            overflow: hidden;
+            visibility: hidden;
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+
+  .sidebar-container .nest-menu .el-submenu>.el-submenu__title,
+  .sidebar-container .el-submenu .el-menu-item {
+    min-width: $sideBarWidth !important;
+    background-color: $subMenuBg !important;
+
+    &:hover {
+      background-color: $menuHover !important;
+    }
+  }
+
+  .el-menu--collapse .el-menu .el-submenu {
+    min-width: $sideBarWidth !important;
+  }
+
+  // 适配移动端, Mobile responsive
+  .mobile {
+    .main-container {
+      margin-left: 0px;
+    }
+
+    .sidebar-container {
+      transition: transform .28s;
+      width: $sideBarWidth !important;
+    }
+
+    &.hideSidebar {
+      .sidebar-container {
+        transition-duration: 0.3s;
+        transform: translate3d(-$sideBarWidth, 0, 0);
+      }
+    }
+  }
+
+  .withoutAnimation {
+
+    .main-container,
+    .sidebar-container {
+      transition: none;
+    }
+  }
+  .largeScreen{
+    .main-container{
+      margin-right: 0;
+      margin-left: 0;
+    }
+    .sidebar-container{
+      width: 0;
+    }
+    .rightSetting{
+      width: 0;
+    }
+
+  }
+}
+
+.el-menu--vertical {
+  &>.el-menu {
+    .svg-icon {
+      margin-right: 16px;
+    }
+  }
+}
+#kanbmanage{height:40px; width: $sideBarWidth;position: absolute;z-index: 100;color:#fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;padding-top:8px;
+}
+#kanbmanage .el-button{
+  background: url(../image/choicBtn.png) no-repeat center;
+  background-size: 100% 100%;
+  color: #3caff2;
+  font-size: .9vw;
+  cursor: pointer;
+  border: none;
+  width: 6vw;
+  line-height: 2vh;
+}

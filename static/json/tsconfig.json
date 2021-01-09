@@ -1,0 +1,27 @@
+{
+  "Template": [
+    {
+      "picUrl": "/static/image/box1.png",
+      "name": "模板1",
+      "path": "/box1",
+      "pageId": "p1"
+    },{
+      "picUrl": "/static/image/box2.png",
+      "name": "模板2",
+      "path": "/box2",
+      "pageId": "p2"
+    },
+    {
+      "picUrl": "/static/image/box3.png",
+      "name": "模板3",
+      "path": "/box1",
+      "pageId": "p3"
+    } ,
+    {
+      "picUrl": "/static/image/box4.png",
+      "name": "模板4",
+      "path": "/box1",
+      "pageId": "p4"
+    }
+  ]
+}
