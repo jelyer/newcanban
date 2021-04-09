@@ -1,7 +1,7 @@
 <template>
   <section class="app-main">
-    <transition v-if="showRouter" name="fade-transform" mode="out-in">
-        <router-view/>
+    <transition name="fade-transform" mode="out-in"><!--v-show="showRouter"-->
+      <router-view :key="key"></router-view>
     </transition>
   </section>
 </template>
@@ -19,6 +19,11 @@ export default {
     // key() {
     //   return this.$route.name !== undefined ? this.$route.name + +new Date() : this.$route + +new Date()
     // }
+    key() {
+      return this.$route.name !== undefined
+        ? this.$route.name + new Date()
+        : this.$route + new Date();
+    }
   },
   watch: {
     $route(to, from) {
