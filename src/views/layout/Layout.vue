@@ -144,7 +144,8 @@ export default {
       },
       lunbopage:[],//轮播页面
       visiblesysModel:true,//设置是否显示系统模板
-      router:[]
+      router:[],
+	    timedRefreshTimer:undefined
     }
   },
   components: {
@@ -179,6 +180,14 @@ export default {
       this.visiblesysModel = true;
     }
 
+    /*
+      为了处理轮播时内存泄露自动刷新
+    if(localStorage.isBeingRotated=='1'){
+      setTimeout(function(){
+        that.handlelunbo()
+      },4000)
+    }
+	  this.timedRefresh();*/
   },
   mounted(){
     that = this;
@@ -431,6 +440,18 @@ export default {
         //只要动态的路由
         this.$store.dispatch('setRouterList',{routerList:this.$store.state.user.AsyncRouterMap,isOnlyAsyn:true});
       }
+    },
+		//定时刷新
+    timedRefresh(){
+      clearInterval(this.timedRefreshTimer);//销毁
+      //开始轮播
+      this.timedRefreshTimer = setInterval(() => {
+        //是否是轮播状态
+        if(that.timers){
+          localStorage.isBeingRotated='1';
+          location.reload();
+        }
+      },20*60*1000);//
     }
   },
   beforeDestroy() {
