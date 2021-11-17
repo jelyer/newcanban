@@ -1,7 +1,7 @@
 <template>
   <section class="app-main">
     <transition name="fade-transform" mode="out-in"><!--v-show="showRouter"-->
-      <router-view :key="key"></router-view>
+      <router-view :key="key"/>
     </transition>
   </section>
 </template>
@@ -9,11 +9,11 @@
 <script>
 export default {
   name: 'AppMain',
-  data(){
+  data() {
     return {
-      transitionName:'',
-      showRouter:true
-    }
+      transitionName: '',
+      showRouter: true
+    };
   },
   computed: {
     // key() {
@@ -27,17 +27,17 @@ export default {
   },
   watch: {
     $route(to, from) {
-      //会导致缓存失效
-      if(to.query.pageId != undefined || from.query.pageId != undefined) {
+      // 会导致缓存失效
+      if (to.query.pageId != undefined || from.query.pageId != undefined) {
         this.showRouter = false;
         var that = this;
-        setTimeout(function(){
+        setTimeout(function() {
           that.showRouter = true;
-        },500)
+        }, 500);
       }
     }
   }
-}
+};
 </script>
 
 <style scoped>

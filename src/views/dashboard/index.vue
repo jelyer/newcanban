@@ -1,44 +1,44 @@
 <template>
   <div class="box1">
-    <div class="mainBox" id="mainBox">
+    <div id="mainBox" class="mainBox">
       <div class="bigTitle">
-        <h1 class="bigTitleName" v-text="mainTitle"></h1>
+        <h1 class="bigTitleName" v-text="mainTitle"/>
         <p>2019-04-11 14:16:00</p>
       </div>
       <div class="mainContent">
         <div class="firstBox">
           <div class="firstLeft">
-            <div class="firstLeftTop" @click="toEditDiv('firstLeftTop')" id="firstLeftTop"   index=3>
+            <div id="firstLeftTop" class="firstLeftTop" index="3" @click="toEditDiv('firstLeftTop')">
               <p class="boxTitle">仓库预警报表</p>
               <div class="boxContent">
                 <div class="boxContent-div">
                   <el-row>
                     <el-col :span="6">
-                      <p><span></span>商品过期数量</p>
+                      <p><span/>商品过期数量</p>
                       <div><span>35</span>个</div>
                     </el-col>
                     <el-col :span="6">
-                      <p><span></span>订单超时数量</p>
+                      <p><span/>订单超时数量</p>
                       <div><span>35</span>个</div>
                     </el-col>
                     <el-col :span="6">
-                      <p><span></span>安全库存预警数量</p>
+                      <p><span/>安全库存预警数量</p>
                       <div><span>35</span>个</div>
                     </el-col>
                     <el-col :span="6">
-                      <p><span></span>禁售库存数量</p>
+                      <p><span/>禁售库存数量</p>
                       <div><span>35</span>个</div>
                     </el-col>
                   </el-row>
                 </div>
-                <div class="icoTL"></div>
-                <div class="icoTR"></div>
-                <div class="icoBL"></div>
-                <div class="icoBR"></div>
+                <div class="icoTL"/>
+                <div class="icoTR"/>
+                <div class="icoBL"/>
+                <div class="icoBR"/>
               </div>
             </div>
             <div class="firstLeftBot">
-              <div class="firstLeftBot1" @click="toEditDiv('firstLeftBot1')" id="firstLeftBot1"   index=4>
+              <div id="firstLeftBot1" class="firstLeftBot1" index="4" @click="toEditDiv('firstLeftBot1')">
                 <p class="boxTitle">到货预约信息</p>
                 <div class="boxContent">
                   <div class="boxContent-div">
@@ -104,13 +104,13 @@
                       </div>
                     </div>
                   </div>
-                  <div class="icoTL"></div>
-                  <div class="icoTR"></div>
-                  <div class="icoBL"></div>
-                  <div class="icoBR"></div>
+                  <div class="icoTL"/>
+                  <div class="icoTR"/>
+                  <div class="icoBL"/>
+                  <div class="icoBR"/>
                 </div>
               </div>
-              <div class="firstLeftBot2" @click="toEditDiv('firstLeftBot2')" id="firstLeftBot2"  index=5>
+              <div id="firstLeftBot2" class="firstLeftBot2" index="5" @click="toEditDiv('firstLeftBot2')">
                 <p class="boxTitle">快递订单完成情况</p>
                 <div class="boxContent">
                   <div class="boxContent-div">
@@ -191,50 +191,44 @@
                       </div>
                     </div>
                   </div>
-                  <div class="icoTL"></div>
-                  <div class="icoTR"></div>
-                  <div class="icoBL"></div>
-                  <div class="icoBR"></div>
+                  <div class="icoTL"/>
+                  <div class="icoTR"/>
+                  <div class="icoBL"/>
+                  <div class="icoBR"/>
                 </div>
               </div>
             </div>
           </div>
-          <div class="firstRight"  @click="toEditDiv('firstRight')" id="firstRight"  index=0>
+          <div id="firstRight" class="firstRight" index="0" @click="toEditDiv('firstRight')">
             <p class="boxTitle">订单进展情况</p>
             <div class="boxContent" >
-              <div class="boxContent-div"  id="firstRightChart">
-
-              </div>
-              <div class="icoTL"></div>
-              <div class="icoTR"></div>
-              <div class="icoBL"></div>
-              <div class="icoBR"></div>
+              <div id="firstRightChart" class="boxContent-div"/>
+              <div class="icoTL"/>
+              <div class="icoTR"/>
+              <div class="icoBL"/>
+              <div class="icoBR"/>
             </div>
           </div>
         </div>
         <div class="secondBox">
-          <div class="secondLeft" @click="toEditDiv('secondLeft')" id="secondLeft" index=2>
+          <div id="secondLeft" class="secondLeft" index="2" @click="toEditDiv('secondLeft')">
             <p class="boxTitle">到货预约信息</p>
             <div class="boxContent">
-              <div class="boxContent-div"  id="secondLeftChart">
-
-              </div>
-              <div class="icoTL"></div>
-              <div class="icoTR"></div>
-              <div class="icoBL"></div>
-              <div class="icoBR"></div>
+              <div id="secondLeftChart" class="boxContent-div"/>
+              <div class="icoTL"/>
+              <div class="icoTR"/>
+              <div class="icoBL"/>
+              <div class="icoBR"/>
             </div>
           </div>
-          <div class="secondRight" @click="toEditDiv('secondRight')" id="secondRight" index=1>
+          <div id="secondRight" class="secondRight" index="1" @click="toEditDiv('secondRight')">
             <p class="boxTitle">快递订单完成情况</p>
             <div class="boxContent">
-              <div class="boxContent-div"  id="secondRightChart">
-
-              </div>
-              <div class="icoTL"></div>
-              <div class="icoTR"></div>
-              <div class="icoBL"></div>
-              <div class="icoBR"></div>
+              <div id="secondRightChart" class="boxContent-div"/>
+              <div class="icoTL"/>
+              <div class="icoTR"/>
+              <div class="icoBL"/>
+              <div class="icoBR"/>
             </div>
           </div>
         </div>
@@ -243,7 +237,7 @@
     <div class="rightSetting">
       <div class="title">属性设置</div>
       <div class="content">
-        <operation-form ref="operation_form"></operation-form>
+        <operation-form ref="operation_form"/>
       </div>
 
     </div>
@@ -251,163 +245,155 @@
 </template>
 
 <script>
-  import operationForm from "@/components/operationForm/operationForm";
-  export default {
-    name: 'dashboard',
-    components: {
-      operationForm
-    },
-    data(){
-      return{
-        echartArr:[],
-        echartObjArr:[],
-        //isFirst:true,
-        thePageId:'',//页面传参的id
-        mainTitle: '深圳仓订单进展统计',
-        allData:[],
-        nowDivIndex:' ',//要编辑的div的编号
-        nowDivKey:'',
-        pageData:'',//渲染页面的数据
-        form: {
-          boxTitle: '',//表标题
-          key:'',//图表类型
-          dataKey:'',//图表数据
-        },
-        nowEditDivId:'',
-        nowEditChartId:'',
+import operationForm from '@/components/operationForm/operationForm';
+export default {
+  name: 'Dashboard',
+  components: {
+    operationForm
+  },
+  data() {
+    return {
+      echartArr: [],
+      echartObjArr: [],
+      // isFirst:true,
+      thePageId: '', // 页面传参的id
+      mainTitle: '深圳仓订单进展统计',
+      allData: [],
+      nowDivIndex: ' ', // 要编辑的div的编号
+      nowDivKey: '',
+      pageData: '', // 渲染页面的数据
+      form: {
+        boxTitle: '', // 表标题
+        key: '', // 图表类型
+        dataKey: '' // 图表数据
+      },
+      nowEditDivId: '',
+      nowEditChartId: ''
 
-      }
-    },
+    };
+  },
 
-    computed: {
-      sidebar() {
-        return this.$store.state.app.sidebar
-      }
-    },
-    created(){
-      this.thePageId=this.COMMONFUN.GetRequest().pageId;
-      if(this.thePageId==undefined){
-        this.thePageId='p1';
-      }
+  computed: {
+    sidebar() {
+      return this.$store.state.app.sidebar;
+    }
+  },
+  created() {
+    this.thePageId = this.COMMONFUN.GetRequest().pageId;
+    if (this.thePageId == undefined) {
+      this.thePageId = 'p1';
+    }
+  },
+  mounted() {
+    this.$axios.get('static/json/box1-' + this.thePageId + '.json').then((response) => {
+      this.pageData = response.data;
+      this.drawLine(response);
+    });
+  },
+  methods: {
+    // 获取页面数据，以及渲染数据
+    drawLine: function(response) {
+      this.mainTitle = response.data.pageTitle;
+      // document.getElementById('mainTitle').value=this.mainTitle;
+      this.$refs.operation_form.mainTitle = this.mainTitle;
+      this.echartArr[0] = this.$echarts.init(document.getElementById('firstRightChart'));
+      this.echartArr[1] = this.$echarts.init(document.getElementById('secondRightChart'));
+      this.echartArr[2] = this.$echarts.init(document.getElementById('secondLeftChart'));
+      this.echartObjArr[0] = this.GLOBAL.allChartObj[response.data.data[0].key];
+      this.echartObjArr[1] = this.GLOBAL.allChartObj[response.data.data[1].key];
+      this.echartObjArr[2] = this.GLOBAL.allChartObj[response.data.data[2].key];
+      document.getElementById('firstRight').getElementsByTagName('p')[0].innerHTML = response.data.data[0].boxTitle;
+      document.getElementById('secondRight').getElementsByTagName('p')[0].innerHTML = response.data.data[1].boxTitle;
+      document.getElementById('secondLeft').getElementsByTagName('p')[0].innerHTML = response.data.data[2].boxTitle;
 
-    },
-    mounted(){
-      this.$axios.get('static/json/box1-'+this.thePageId+'.json').then((response) => {
-
-        this.pageData=response.data;
-        this.drawLine(response);
+      this.$axios.get('static/json/' + response.data.data[0].dataKey + '.json').then((res) => {
+        if (response.data.data[0].key != 0) {
+          this.echartObjArr[0].xAxis.data = this.COMMONFUN.getChartData(res.data.dataKey)[0];
+          this.echartObjArr[0].series.data = this.COMMONFUN.getChartData(res.data.dataKey)[1];
+          if (response.data.data[0].key == 2) {
+            this.echartObjArr[0].series.itemStyle.normal.color = new this.$echarts.graphic.LinearGradient(
+              0, 0, 0, 1,
+              [
+                { offset: 0, color: '#44cbf5' },
+                { offset: 1, color: '#2669c5' }
+              ]
+            );
+          }
+        } else {
+          this.echartObjArr[0].series[0].data = this.COMMONFUN.getChartDataPie(res.data.dataKey);
+        }
+        this.echartArr[0].setOption(this.echartObjArr[0]);
+      });
+      this.$axios.get('static/json/' + response.data.data[1].dataKey + '.json').then((res) => {
+        if (response.data.data[1].key != 0) {
+          this.echartObjArr[1].xAxis.data = this.COMMONFUN.getChartData(res.data.dataKey)[0];
+          this.echartObjArr[1].series.data = this.COMMONFUN.getChartData(res.data.dataKey)[1];
+          if (response.data.data[1].key == 2) {
+            this.echartObjArr[1].series.itemStyle.normal.color = new this.$echarts.graphic.LinearGradient(
+              0, 0, 0, 1,
+              [
+                { offset: 0, color: '#44cbf5' },
+                { offset: 1, color: '#2669c5' }
+              ]
+            );
+          }
+        } else {
+          this.echartObjArr[1].series[0].data = this.COMMONFUN.getChartDataPie(res.data.dataKey);
+        }
+        this.echartArr[1].setOption(this.echartObjArr[1]);
+      });
+      this.$axios.get('static/json/' + response.data.data[2].dataKey + '.json').then((res) => {
+        if (response.data.data[2].key != 0) {
+          this.echartObjArr[2].xAxis.data = this.COMMONFUN.getChartData(res.data.dataKey)[0];
+          this.echartObjArr[2].series.data = this.COMMONFUN.getChartData(res.data.dataKey)[1];
+          if (response.data.data[2].key == 2) {
+            this.echartObjArr[2].series.itemStyle.normal.color = new this.$echarts.graphic.LinearGradient(
+              0, 0, 0, 1,
+              [
+                { offset: 0, color: '#44cbf5' },
+                { offset: 1, color: '#2669c5' }
+              ]
+            );
+          }
+        } else {
+          this.echartObjArr[2].series[0].data = this.COMMONFUN.getChartDataPie(res.data.dataKey);
+        }
+        this.echartArr[2].setOption(this.echartObjArr[2]);
       });
     },
-    methods:{
-      //获取页面数据，以及渲染数据
-      drawLine:function(response){
-        this.mainTitle=response.data.pageTitle;
-        //document.getElementById('mainTitle').value=this.mainTitle;
-        this.$refs.operation_form.mainTitle=this.mainTitle;
-        this.echartArr[0]=this.$echarts.init(document.getElementById('firstRightChart'));
-        this.echartArr[1]=this.$echarts.init(document.getElementById('secondRightChart'));
-        this.echartArr[2]=this.$echarts.init(document.getElementById('secondLeftChart'));
-        this.echartObjArr[0]= this.GLOBAL.allChartObj[response.data.data[0].key];
-        this.echartObjArr[1]= this.GLOBAL.allChartObj[response.data.data[1].key];
-        this.echartObjArr[2]= this.GLOBAL.allChartObj[response.data.data[2].key];
-        document.getElementById('firstRight').getElementsByTagName('p')[0].innerHTML=response.data.data[0].boxTitle;
-        document.getElementById('secondRight').getElementsByTagName('p')[0].innerHTML=response.data.data[1].boxTitle;
-        document.getElementById('secondLeft').getElementsByTagName('p')[0].innerHTML=response.data.data[2].boxTitle;
-
-        this.$axios.get('static/json/'+response.data.data[0].dataKey+'.json').then((res) => {
-
-          if(response.data.data[0].key!=0){
-            this.echartObjArr[0].xAxis.data=this.COMMONFUN.getChartData(res.data.dataKey)[0];
-            this.echartObjArr[0].series.data=this.COMMONFUN.getChartData(res.data.dataKey)[1];
-            if(response.data.data[0].key==2){
-              this.echartObjArr[0].series.itemStyle.normal.color=new this.$echarts.graphic.LinearGradient(
-                0, 0, 0, 1,
-                [
-                  {offset: 0, color: '#44cbf5'},
-                  {offset: 1, color:'#2669c5'}
-                ]
-              )
-            }
-          }else{
-            this.echartObjArr[0].series[0].data=this.COMMONFUN.getChartDataPie(res.data.dataKey);
-          }
-          this.echartArr[0].setOption(this.echartObjArr[0]);
-        });
-        this.$axios.get('static/json/'+response.data.data[1].dataKey+'.json').then((res) => {
-
-          if(response.data.data[1].key!=0){
-            this.echartObjArr[1].xAxis.data=this.COMMONFUN.getChartData(res.data.dataKey)[0];
-            this.echartObjArr[1].series.data=this.COMMONFUN.getChartData(res.data.dataKey)[1];
-            if(response.data.data[1].key==2){
-              this.echartObjArr[1].series.itemStyle.normal.color=new this.$echarts.graphic.LinearGradient(
-                0, 0, 0, 1,
-                [
-                  {offset: 0, color: '#44cbf5'},
-                  {offset: 1, color:'#2669c5'}
-                ]
-              )
-            }
-          }else{
-            this.echartObjArr[1].series[0].data=this.COMMONFUN.getChartDataPie(res.data.dataKey);
-          }
-          this.echartArr[1].setOption(this.echartObjArr[1]);
-        });
-        this.$axios.get('static/json/'+response.data.data[2].dataKey+'.json').then((res) => {
-
-          if(response.data.data[2].key!=0){
-            this.echartObjArr[2].xAxis.data=this.COMMONFUN.getChartData(res.data.dataKey)[0];
-            this.echartObjArr[2].series.data=this.COMMONFUN.getChartData(res.data.dataKey)[1];
-            if(response.data.data[2].key==2){
-              this.echartObjArr[2].series.itemStyle.normal.color=new this.$echarts.graphic.LinearGradient(
-                0, 0, 0, 1,
-                [
-                  {offset: 0, color: '#44cbf5'},
-                  {offset: 1, color:'#2669c5'}
-                ]
-              )
-            }
-          }else{
-            this.echartObjArr[2].series[0].data=this.COMMONFUN.getChartDataPie(res.data.dataKey);
-          }
-          this.echartArr[2].setOption(this.echartObjArr[2]);
-        });
-      },
-      //点击需要编辑的div后
-      toEditDiv:function (eleId) {
-        let theStatus=document.getElementsByClassName('app-wrapper')[0];
-        //if(!this.sidebar.opened){
-        if(theStatus.getAttribute("class").indexOf('openSidebar')==-1){
-          let nowDivBox=document.getElementById(eleId);
-          //let echartBox=nowDivBox.getElementsByClassName("boxContent")[0];
-          if(nowDivBox.getAttribute("class").indexOf('active')==-1){
-            this.$refs.operation_form.form.boxTitle=nowDivBox.getElementsByClassName('boxTitle')[0].innerHTML;
-           document.getElementById('dataKey').value='';
-            this.allData=null;
-            this.nowDivIndex=nowDivBox.getAttribute('index')*1;
-            this.nowDivKey=this.pageData.data[this.nowDivIndex].key;
-            if(document.getElementById('mainBox').getElementsByClassName("active").length>0)
-              document.getElementById('mainBox').getElementsByClassName("active")[0].classList.remove('active');
-            nowDivBox.classList.add('active');
-            this.nowEditDivId=eleId;
-            this.nowEditChartId=nowDivBox.getElementsByClassName('boxContent-div')[0].id;
-            this.getAllDatas();
-
-          }
+    // 点击需要编辑的div后
+    toEditDiv: function(eleId) {
+      const theStatus = document.getElementsByClassName('app-wrapper')[0];
+      // if(!this.sidebar.opened){
+      if (theStatus.getAttribute('class').indexOf('openSidebar') == -1) {
+        const nowDivBox = document.getElementById(eleId);
+        // let echartBox=nowDivBox.getElementsByClassName("boxContent")[0];
+        if (nowDivBox.getAttribute('class').indexOf('active') == -1) {
+          this.$refs.operation_form.form.boxTitle = nowDivBox.getElementsByClassName('boxTitle')[0].innerHTML;
+          document.getElementById('dataKey').value = '';
+          this.allData = null;
+          this.nowDivIndex = nowDivBox.getAttribute('index') * 1;
+          this.nowDivKey = this.pageData.data[this.nowDivIndex].key;
+          if (document.getElementById('mainBox').getElementsByClassName('active').length > 0) { document.getElementById('mainBox').getElementsByClassName('active')[0].classList.remove('active'); }
+          nowDivBox.classList.add('active');
+          this.nowEditDivId = eleId;
+          this.nowEditChartId = nowDivBox.getElementsByClassName('boxContent-div')[0].id;
+          this.getAllDatas();
         }
-      },
-      //获取所有的可取后台数据列表
-      getAllDatas:function () {
-
-        this.$axios.get('static/json/allDatas.json').then(response => {
-          this.allData=response.data.allDatas;
-        })
-      },
+      }
     },
+    // 获取所有的可取后台数据列表
+    getAllDatas: function() {
+      this.$axios.get('static/json/allDatas.json').then(response => {
+        this.allData = response.data.allDatas;
+      });
+    }
+  }
 
-    /*props: {
+  /* props: {
         msg: String
     }*/
-  }
+};
 
 </script>
 
@@ -695,7 +681,6 @@
   .rightSetting .title{width:100%;height:60px;line-height: 60px;text-align: center;font-size: 16px;color: #209ff2;}
   .rightSetting .content{height: calc(100vh - 84px); background: black;  margin: 0 5px;overflow: hidden;  /*border: 1px solid #0db3fd;*/}
 
-
   /*数据样式##########################starrt*/
   .firstLeftTop .el-row{
     height: 100%;
@@ -764,41 +749,6 @@
     height: 75%;
     overflow-y: scroll;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   ::-webkit-scrollbar{
     display: none;

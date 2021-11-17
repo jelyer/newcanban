@@ -72,7 +72,7 @@ export const StaticRouterMap = [
       }
     ]
   },
-  {
+  /*{
     path: '',
     component: Layout,
     redirect: '/template3',
@@ -85,7 +85,7 @@ export const StaticRouterMap = [
         component: () => import('@/views/template/template3')
       }
     ]
-  },
+  },*/
   {
     path: '',
     component: Layout,

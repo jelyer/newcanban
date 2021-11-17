@@ -5,12 +5,12 @@
 </template>
 
 <script>
-import Chart from '@/components/Charts/keyboard'
+import Chart from '@/components/Charts/keyboard';
 
 export default {
   name: 'KeyboardChart',
   components: { Chart }
-}
+};
 </script>
 
 <style scoped>

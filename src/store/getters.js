@@ -11,6 +11,6 @@ const getters = {
   AsyncRouterMap: state => state.user.AsyncRouterMap,
   routerlb: state => state.user.routerlb,
   isScreen: state => state.app.isScreen,
-  SourDataAll: state => state.user.SourDataAll,
-}
-export default getters
+  SourDataAll: state => state.user.SourDataAll
+};
+export default getters;

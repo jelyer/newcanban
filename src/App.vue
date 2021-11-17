@@ -7,30 +7,30 @@
 <script>
 export default {
   name: 'App',
-  provide(){
-     return {
-       reload:this.reload
-     }
-  },
-  data(){
+  provide() {
     return {
-      isRouterAlive:true
-    }
+      reload: this.reload
+    };
   },
-  created(){
-    document.documentElement.style.fontSize = document.documentElement.clientWidth/96+'px';
-    window.addEventListener('resize',function(){
-      document.documentElement.style.fontSize = document.documentElement.clientWidth/96+'px';
-    })
+  data() {
+    return {
+      isRouterAlive: true
+    };
   },
-  methods:{
-    reload(){
+  created() {
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 96 + 'px';
+    window.addEventListener('resize', function() {
+      document.documentElement.style.fontSize = document.documentElement.clientWidth / 96 + 'px';
+    });
+  },
+  methods: {
+    reload() {
       this.isRouterAlive = false;
-      //dom渲染后回调此函数
-      this.$nextTick(function(){
-        this.isRouterAlive = true
-      })
+      // dom渲染后回调此函数
+      this.$nextTick(function() {
+        this.isRouterAlive = true;
+      });
     }
   }
-}
+};
 </script>

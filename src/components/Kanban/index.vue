@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import draggable from 'vuedraggable'
+import draggable from 'vuedraggable';
 
 export default {
   name: 'DragKanbanDemo',
@@ -29,17 +29,17 @@ export default {
     options: {
       type: Object,
       default() {
-        return {}
+        return {};
       }
     },
     list: {
       type: Array,
       default() {
-        return []
+        return [];
       }
     }
   }
-}
+};
 </script>
 <style lang="scss">
 .board-column {
