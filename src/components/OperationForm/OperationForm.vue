@@ -121,16 +121,16 @@
         <el-form :rules="rules" :model="queryForm" status-icon label-position="right" label-width="100px" style="margin:0 30px;">
           <el-form-item label="查询时间">
             <el-col :span="11">
-              <el-date-picker v-model="queryForm.stdate" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="开始日期" style="background: none;height:2rem;width:100%"/>
+              <el-date-picker v-model="queryForm.query_pub_stdate" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="开始日期" style="background: none;height:2rem;width:100%"/>
             </el-col>
             <el-col :span="2" class="line" style="text-align: center;color:#aaa;">-</el-col>
             <el-col :span="11">
-              <el-date-picker v-model="queryForm.enddate" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="结束日期" style="width:100%"/>
+              <el-date-picker v-model="queryForm.query_pub_enddate" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="结束日期" style="width:100%"/>
             </el-col>
           </el-form-item>
           <el-form-item label="仓库">
             <el-select
-              v-model="queryForm.whid"
+              v-model="queryForm.query_pub_whid"
               style="width:100%"
               clearable
               class="filter-item"
@@ -145,7 +145,7 @@
           </el-form-item>
           <el-form-item label="货主">
             <el-select
-              v-model="queryForm.owco"
+              v-model="queryForm.query_pub_owco"
               style="width:100%"
               clearable
               class="filter-item"
@@ -159,7 +159,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="Top">
-            <el-select v-model="queryForm.top" style="width:100%" clearable filterable placeholder="选择排名" >
+            <el-select v-model="queryForm.query_pub_top" style="width:100%" clearable filterable placeholder="选择排名" >
               <el-option value="10" label="10" />
               <el-option value="15" label="15" />
               <el-option value="20" label="20" />
@@ -260,11 +260,11 @@ export default {
         dataconfig: undefined
       },
       queryForm: {
-        stdate: undefined, // 开始时间
-        enddate: undefined, // 结束时间
-        whid: undefined, // 仓库
-        owco: undefined, // 货主
-        top: undefined// 排名
+        query_pub_stdate: '', // 开始时间
+        query_pub_enddate: '', // 结束时间
+        query_pub_whid: '', // 仓库
+        query_pub_owco: '', // 货主
+        query_pub_top: ''// 排名
       },
       dialogFormParam: false,
       whidOption: [],
@@ -320,13 +320,13 @@ export default {
       if (this.queryparams != '') {
         this.form.queryparams = this.queryparams;
         const querydata = JSON.parse(this.queryparams);
-        if (querydata.stdate) { this.queryForm.stdate = querydata.stdate; }
+        if (querydata.query_pub_stdate) { this.queryForm.query_pub_stdate = querydata.query_pub_stdate; }
         this.queryForm = {
-          stdate: querydata.stdate ? querydata.stdate : undefined, // 开始时间
-          enddate: querydata.enddate ? querydata.enddate : undefined, // 结束时间
-          whid: querydata.whid ? querydata.whid : undefined, // 仓库
-          owco: querydata.owco ? querydata.owco : undefined, // 货主
-          top: querydata.top ? querydata.top : undefined // 排名
+          query_pub_stdate: querydata.query_pub_stdate ? querydata.query_pub_stdate : '', // 开始时间
+          query_pub_enddate: querydata.query_pub_enddate ? querydata.query_pub_enddate : '', // 结束时间
+          query_pub_whid: querydata.query_pub_whid ? querydata.query_pub_whid : '', // 仓库
+          query_pub_owco: querydata.query_pub_owco ? querydata.query_pub_owco : '', // 货主
+          query_pub_top: querydata.query_pub_top ? querydata.query_pub_top : '' // 排名
         };
       }
     },
@@ -793,8 +793,8 @@ export default {
     },
     // 保存查询参数
     saveParamQuery() {
-      if (this.queryForm.stdate != undefined && this.queryForm.enddate != undefined) {
-        if (new Date(this.queryForm.enddate) <= new Date(this.queryForm.stdate)) {
+      if (this.queryForm.query_pub_stdate != undefined && this.queryForm.query_pub_enddate != undefined) {
+        if (new Date(this.queryForm.query_pub_enddate) <= new Date(this.queryForm.query_pub_stdate)) {
           this.$message({
             type: 'info',
             message: '截止时间须大于开始时间！'

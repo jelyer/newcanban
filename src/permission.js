@@ -4,7 +4,7 @@ import store from './store';
 import { getToken, removeToken } from './utils/auth';
 import NProgress from 'nprogress'; // Progress 进度条
 import 'nprogress/nprogress.css'; // Progress 进度条样式
-// import { Message } from 'element-ui'
+import { Message } from 'element-ui';
 import { getRouter } from './api/login';
 import { addRouter } from './utils/addRouter';
 
@@ -20,19 +20,20 @@ router.beforeEach((to, from, next) => {
     } else {
       // routerstat为false,一定没有获取动态路由,就跳转到获取动态路由的方法
       gotoRouter(to, next);
-    }
-    /* if (store.getters.roles.length === 0) {
+      // 获取info
+      if (store.getters.roles.length === 0) {
         store.dispatch('GetInfo').then(res => { // 拉取用户信息
-          next()
+          next();
         }).catch((err) => {
           store.dispatch('FedLogOut').then(() => {
-            Message.error(err || 'Verification failed, please login again')
-            next({ path: '/' })
-          })
-        })
+            Message.error(err || '验证错误，请重新登录！');
+            next({ path: '/' });
+          });
+        });
       } else {
-        next()
-      }*/
+        next();
+      }
+    }
     /*    } else {
       Message({ message: '您已经登录', type: 'info' })
       next('/')

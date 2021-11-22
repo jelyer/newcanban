@@ -29,7 +29,6 @@
         v-loading="listLoading"
         key="tableKey"
         :data="list"
-        fit
         height="45vh"
         style="width: 100%;">
         <el-table-column :show-overflow-tooltip="true" label="模版ID" prop="tempid" align="center" width="150">
@@ -58,14 +57,12 @@
             />
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作" align="center" width="100" class-name="small-padding fixed-width">
+        <el-table-column label="操作" align="center" width="100">
           <template slot-scope="{row}">
             <!--<el-button  size="mini" type="primary" plain @click="handleAddQuery(row)">
               添加查询条件
             </el-button>-->
-            <el-button size="mini" plain @click="handleDeleteK(row)">
-              删除
-            </el-button>
+            <el-button type="text" size="small" @click="handleDeleteK(row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -176,13 +173,16 @@ export default {
   },
   created() {
     // 是否显示系统模板
-    const visiblesysModel = localStorage.visiblesysModel;
-    if (visiblesysModel == 'false') {
+    if (this.$store.state.user.mode == 'read') {
       this.visiblesysModel = false;
     } else {
-      this.visiblesysModel = true;
+      const visiblesysModel = localStorage.visiblesysModel;
+      if (visiblesysModel == 'false') {
+        this.visiblesysModel = false;
+      } else {
+        this.visiblesysModel = true;
+      }
     }
-
     /*
       为了处理轮播时内存泄露自动刷新
     if(localStorage.isBeingRotated=='1'){
@@ -259,11 +259,6 @@ export default {
               duration: 3000
             });
           }
-        });
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消'
         });
       });
     },

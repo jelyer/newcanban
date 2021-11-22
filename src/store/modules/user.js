@@ -16,7 +16,8 @@ const user = {
     AsyncRouterMap: [], // 动态获取的路由，已转好
     SourDataAll: [], // 数据源
     whidData: [], // 仓库数据，用户查询条件
-    owcoData: [] // 货主数据
+    owcoData: [], // 货主数据
+    mode: '' // 模式：edit(可见系统模板) read（只能看到业务看板）
   },
 
   mutations: {
@@ -52,6 +53,9 @@ const user = {
     },
     set_routerlb: (state, routerlb) => {
       state.routerlb = routerlb;
+    },
+    SET_MODE: (state, mode) => {
+      state.mode = mode;
     }
   },
 
@@ -82,15 +86,18 @@ const user = {
       return new Promise((resolve, reject) => {
         getInfo(state.token)
           .then(response => {
-            const data = response.data;
-            if (data.roles && data.roles.length > 0) {
-              // 验证返回的roles是否是一个非空数组
-              commit('SET_ROLES', data.roles);
-            } else {
-              reject('getInfo: 用户角色数据获取失败!');
+            if (response.data.code == 200) {
+              const data = response.data.data;
+              if (data.roles && data.roles.length > 0) {
+                // 验证返回的roles是否是一个非空数组
+                commit('SET_ROLES', data.roles);
+              } else {
+                // reject('getInfo: 用户角色数据获取失败!');
+              }
+              commit('SET_MODE', data.mode);
+              commit('SET_NAME', data.name);
+              commit('SET_AVATAR', data.avatar);
             }
-            commit('SET_NAME', data.name);
-            commit('SET_AVATAR', data.avatar);
             resolve(response);
           })
           // eslint-disable-next-line handle-callback-err

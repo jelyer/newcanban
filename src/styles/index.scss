@@ -575,6 +575,7 @@ a:hover {
   color: black;
 }
 .el-table th, .el-table tr{background: #1c1f25 !important;}
+.el-table__row:hover,.el-table__row:hover td,.el-table__row td:hover{background: rgb(41,51,60) !important;}
 .el-table td, .el-table th.is-leaf{ border-bottom: 1px solid #27343e !important;}
 .el-table .cell{color:#ddd !important;}
 .el-table td, .el-table th{padding: 8px 0 !important;}
