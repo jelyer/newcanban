@@ -11,6 +11,7 @@ const IPCONFIG = 'http://112.74.85.149:19015/kb'; // 有大量测试业务看板
 // eslint-disable-next-line no-unused-vars
 // const IPCONFIG = 'http://localhost:8088/kb';
 var pathName = window.document.location.pathname;
+
 // eslint-disable-next-line no-unused-vars
 var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
 // const IPCONFIG = projectName;

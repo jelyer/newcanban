@@ -18,12 +18,14 @@
             <!--<el-input v-model="reloadTime" @input.native="changeCode" id="reloadTime"></el-input>-->
             <el-select v-model="reloadTime" filterable placeholder="请选择页面刷新时间" >
               <el-option value="0" label="清除刷新" />
-              <el-option value="1" label="1分钟" />
-              <el-option value="2" label="2分钟" />
-              <el-option value="3" label="3分钟" />
               <el-option value="5" label="5分钟" />
+              <el-option value="6" label="6分钟" />
               <el-option value="8" label="8分钟" />
+              <el-option value="10" label="10分钟" />
               <el-option value="15" label="15分钟" />
+              <el-option value="20" label="20分钟" />
+              <el-option value="30" label="30分钟" />
+              <el-option value="60" label="60分钟" />
             </el-select>
           </el-form-item>
           <el-form-item label="查询参数">

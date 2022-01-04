@@ -216,6 +216,9 @@ export default {
   },
 
   created() {
+    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+      this.draggable = false;
+    }
     var pageId = this.$route.query.pageId;// 页面Id
     if (pageId != undefined) {
       this.mainTitle = '';

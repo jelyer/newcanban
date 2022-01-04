@@ -603,3 +603,27 @@ a:hover {
 .vdr{border:none;    box-sizing: border-box;}
 .my-resizing-class{border:1px dashed #117dd1}
 .my-active-class{border:1px dashed #ccc}
+// mobile style
+.mobile{
+  #kanbmanage{
+    display: none;
+  }
+  .sidebtn{
+    display: none !important;
+  }
+  .menu-wrapper{
+    .el-menu-item{
+      padding: 0 5px !important;
+      .itemTitle{
+        bottom: 5px;
+      }
+    }
+    li > div{
+      min-height:auto !important;
+      padding-bottom: 10px;
+    }
+  }
+  .main-container{
+    margin-left: 18rem !important;
+  }
+}

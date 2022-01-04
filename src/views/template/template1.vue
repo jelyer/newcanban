@@ -236,6 +236,9 @@ export default {
     '$store.state.app.reloadData': 'getData'// 监听刷新页面
   },
   created() {
+    if (!this.$store.state.user.mode || this.$store.state.user.mode == 'read') {
+      this.domConfig = [];
+    }
     const pageId = this.$route.query.pageId;// 页面Id
     if (pageId != undefined) {
       this.mainTitle = '';

@@ -66,15 +66,17 @@ const user = {
       return new Promise((resolve, reject) => {
         login(username, userInfo.password)
           .then(response => {
-            const data = response.data;
-            setToken(data.token);
-            commit('SET_TOKEN', data.token);
+            // const data = response.data;
+            // setToken(data.token);
+            // commit('SET_TOKEN', data.token);
+            setToken('1639981376000');
+            commit('SET_TOKEN', '1639981376000');
             resolve();
           })
           // eslint-disable-next-line handle-callback-err
           .catch(error => {
-            setToken('jsiifeerw');
-            commit('SET_TOKEN', 'jsiifeerw');
+            setToken('1639981376000');
+            commit('SET_TOKEN', '1639981376000');
             resolve();
             // reject(error)
           });

@@ -1,68 +1,76 @@
-import axios from 'axios'
-import { Message, MessageBox } from 'element-ui'
-import store from '../store'
-import { getToken } from '@/utils/auth'
-axios.default = IPCONFIG;//设置默认ip
+import axios from 'axios';
+import { Message, MessageBox } from 'element-ui';
+import store from '../store';
+import { getToken, getPath } from '@/utils/auth';
+axios.default = IPCONFIG;// 设置默认ip
 // 创建axios实例
 const service = axios.create({
-  //baseURL: process.env.BASE_API, // api 的 base_url
-  baseURL:IPCONFIG,
+  // baseURL: process.env.BASE_API, // api 的 base_url
+  baseURL: IPCONFIG,
   timeout: 100000 // 请求超时时间
-})
+});
 
 // request拦截器
 service.interceptors.request.use(
   config => {
     if (store.getters.token) {
-      config.headers['X-Token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+      config.headers['X-Token'] = getToken(); // 让每个请求携带自定义token 请根据实际情况自行修改
     }
-    return config
+    return config;
   },
   error => {
     // Do something with request error
-    console.log(error) // for debug
-    Promise.reject(error)
+    console.log(error); // for debug
+    Promise.reject(error);
   }
-)
+);
 
 // response 拦截器
 service.interceptors.response.use(
   response => {
-    const res = response.data
-
-    if (res.code === 501) {
+    const res = response.data;
+    if (res.code == 501) {
       MessageBox.alert('系统未登录，请重新登录', '未登录', {
         confirmButtonText: '确定',
         type: 'error'
       }).then(() => {
         store.dispatch('FedLogOut').then(() => {
-          location.reload()
-        })
-      })
-      return Promise.reject('error')
-    } else if (res.code === 502) {
+          // location.reload();
+          window.location.href = getPath() + '/login.html';
+        });
+      });
+      return Promise.reject('error');
+    } else if (res.code == 502) {
       MessageBox.alert('系统内部错误，请联系管理员维护', '错误', {
         confirmButtonText: '确定',
         type: 'error'
-      })
-      return Promise.reject('error')
-    } else if (res.code === 503) {
+      });
+      return Promise.reject('error');
+    } else if (res.code == 503) {
       MessageBox.alert('请求业务目前未支持', '警告', {
         confirmButtonText: '确定',
         type: 'error'
-      })
-      return Promise.reject('error')
+      });
+      return Promise.reject('error');
     } else {
-      return response
+      return response;
     }
   }, error => {
-   /* console.log('err' + error)// for debug
+    /* console.log('err' + error)// for debug
     Message({
       message: '登录连接超时',
       type: 'error',
       duration:3000
     })*/
-    return Promise.reject(error)
-  })
+    Message({
+      message: '连接超时！',
+      type: 'error',
+      duration: 3000
+    });
+    setTimeout(function() {
+      // window.location.href = getPath() + '/login.html';
+    }, 3000);
+    return Promise.reject(error);
+  });
 
-export default service
+export default service;

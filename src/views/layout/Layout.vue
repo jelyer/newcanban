@@ -68,7 +68,7 @@
       </el-table>
 
       <div slot="footer" class="dialog-footer" style="display: flex;justify-content: space-between;">
-        <div style="color: #409eff;font-size: 14px;">
+        <div v-if="visiblesysModel" style="color: #409eff;font-size: 14px;">
           是否显示系统模板:
           <el-switch
             v-model="visiblesysModel"
@@ -144,7 +144,7 @@ export default {
         tempurl: [{ required: true, message: '请输入页面url', trigger: 'blur' }]
       },
       lunbopage: [], // 轮播页面
-      visiblesysModel: true, // 设置是否显示系统模
+      visiblesysModel: false, // 设置是否显示系统模，默认不显示
       timedRefreshTimer: undefined,
       router: []
     };
@@ -177,7 +177,9 @@ export default {
       this.visiblesysModel = false;
     } else {
       const visiblesysModel = localStorage.visiblesysModel;
-      if (visiblesysModel == 'false') {
+      debugger;
+
+      if (!visiblesysModel || visiblesysModel == 'false') {
         this.visiblesysModel = false;
       } else {
         this.visiblesysModel = true;

@@ -11,7 +11,7 @@
             <span/>
           </el-tooltip>
         </li>
-        <li id="editKanban" :class="[{selected: isActive},'editPanel']" @click="toggleSideBar()">
+        <li id="editKanban" ref="editKanbanRef" :class="[{selected: isActive},'editPanel']" @click="toggleSideBar()">
           <el-tooltip content="编辑看板" effect="dark" placement="bottom">
             <span/>
           </el-tooltip>
@@ -75,6 +75,17 @@ export default {
     ])
   },
   mounted() {
+    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+      // 手机端
+      this.$refs['editKanbanRef'].style.display = 'none';
+      var sideBar = document.getElementsByClassName('app-wrapper')[0];
+      sideBar.classList.remove('hideSidebar');
+      sideBar.classList.add('openSidebar');
+      setTimeout(function() {
+        sideBar.classList.remove('hideSidebar');
+        sideBar.classList.add('openSidebar');
+      }, 100);
+    }
     // this.driver = new Driver();
     this.driver = new Driver({
       className: 'scoped-class', // className to wrap driver.js popover
@@ -122,6 +133,14 @@ export default {
       }, 150);
     },
     toggleSideBar() {
+      if (this.$store.getters.name != 'admin') {
+        // 如果不是管理员，禁止编辑
+        this.$message({
+          type: 'info',
+          message: '您没用编辑权限，请登录管理员账户!'
+        });
+        return;
+      }
       this.isActive = true;
       this.$store.dispatch('ToggleSideBar');
       const theSideBar = document.getElementsByClassName('app-wrapper')[0];

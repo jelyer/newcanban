@@ -1,7 +1,7 @@
 import router from './router';
 import store from './store';
 // eslint-disable-next-line no-unused-vars
-import { getToken, removeToken } from './utils/auth';
+import { getToken, removeToken, getPath } from './utils/auth';
 import NProgress from 'nprogress'; // Progress 进度条
 import 'nprogress/nprogress.css'; // Progress 进度条样式
 import { Message } from 'element-ui';
@@ -43,6 +43,7 @@ router.beforeEach((to, from, next) => {
       // 免登陆白名单 直接进入
       next();
     } else {
+      debugger;
       if (to.path !== '/login') {
         // 重定向到登录页面 不能这么写 因为假如之前的角色是 管理员页面 后又登陆了非管理员 重定向的页面就可能不存在,就会导致404
         // next(`/login?redirect=${to.path}`)
