@@ -363,10 +363,10 @@ export default {
     },
     // 点击需要编辑的div后
     toEditDiv: function(eleId) {
-      const theStatus = document.getElementsByClassName('app-wrapper')[0];
+      var theStatus = document.getElementsByClassName('app-wrapper')[0];
       // if(!this.sidebar.opened){
       if (theStatus.getAttribute('class').indexOf('openSidebar') == -1) {
-        const nowDivBox = document.getElementById(eleId);
+        var nowDivBox = document.getElementById(eleId);
         // let echartBox=nowDivBox.getElementsByClassName("boxContent")[0];
         if (nowDivBox.getAttribute('class').indexOf('active') == -1) {
           this.$refs.operation_form.form.boxTitle = nowDivBox.getElementsByClassName('boxTitle')[0].innerHTML;

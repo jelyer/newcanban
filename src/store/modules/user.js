@@ -62,7 +62,7 @@ const user = {
   actions: {
     // 登录
     Login({ commit }, userInfo) {
-      const username = userInfo.username.trim();
+      var username = userInfo.username.trim();
       return new Promise((resolve, reject) => {
         login(username, userInfo.password)
           .then(response => {
@@ -89,7 +89,7 @@ const user = {
         getInfo(state.token)
           .then(response => {
             if (response.data.code == 200) {
-              const data = response.data.data;
+              var data = response.data.data;
               if (data.roles && data.roles.length > 0) {
                 // 验证返回的roles是否是一个非空数组
                 commit('SET_ROLES', data.roles);
@@ -139,13 +139,13 @@ const user = {
         getRouter()
           .then(response => {
             if (response.data.data) {
-              const result = response.data.data;
+              var result = response.data.data;
               commit('set_routerData', result);// 看板管理
               var jsondata = [];
               var roulunbo = [];
               var icon;
               if (result.length > 0) {
-                for (const n in result) {
+                for (let n in result) {
                   switch (result[n].tempurl) {
                     case '/template1':
                       icon = 'box1.png';
@@ -172,7 +172,7 @@ const user = {
                   jsondata.push(data);
                   // 轮播如果是已发布的,1系统模板，5编辑中，9已发布
                   if (parseInt(result[n].tempstat) != 5) {
-                    const list = { title: undefined, url: undefined, checked: true };
+                    let list = { title: undefined, url: undefined, checked: true };
                     list.title = result[n].tempname;
                     list.url = result[n].tempurl + '?pageId=' + result[n].tempid + '&stat=' + result[n].tempstat;
                     roulunbo.push(list);
@@ -180,7 +180,7 @@ const user = {
                 }
               }
               commit('set_routerlb', roulunbo);// 存储路由数据，用于轮播，只包含已发布的路由
-              const asyncRouter = addRouter(jsondata);// 进行递归解析
+              var asyncRouter = addRouter(jsondata);// 进行递归解析
               commit('SET_ASYNCROUTERMAP', asyncRouter);// 已转好的动态路由，存
               // eslint-disable-next-line no-undef
               if ($('#systemmenus').hasClass('actives')) {

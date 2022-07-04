@@ -1,14 +1,14 @@
 import Vue from 'vue';
 Vue.directive('dialogDrag', {
   bind(el, binding, vnode, oldVnode) {
-    const dialogHeaderEl = el.querySelector('.el-dialog__header');
-    const dragDom = el.querySelector('.el-dialog');
+    let dialogHeaderEl = el.querySelector('.el-dialog__header');
+    let dragDom = el.querySelector('.el-dialog');
     dialogHeaderEl.style.cursor = 'move';
-    const sty = dragDom.currentStyle || window.getComputedStyle(dragDom, null);
+    var sty = dragDom.currentStyle || window.getComputedStyle(dragDom, null);
 
     dialogHeaderEl.onmousedown = (e) => {
-      const disX = e.clientX - dialogHeaderEl.offsetLeft;
-      const disY = e.clientY - dialogHeaderEl.offsetTop;
+      let disX = e.clientX - dialogHeaderEl.offsetLeft;
+      let disY = e.clientY - dialogHeaderEl.offsetTop;
 
       let styL, styT;
 
@@ -21,8 +21,8 @@ Vue.directive('dialogDrag', {
       }
 
       document.onmousemove = function(e) {
-        const l = e.clientX - disX;
-        const t = e.clientY - disY;
+        let l = e.clientX - disX;
+        let t = e.clientY - disY;
 
         dragDom.style.left = `${l + styL}px`;
         dragDom.style.top = `${t + styT}px`;
@@ -39,14 +39,14 @@ Vue.directive('dialogDrag', {
 
 Vue.directive('dialogDragWidth', {
   bind(el, binding, vnode, oldVnode) {
-    const dragDom = binding.value.$el.querySelector('.el-dialog');
+    let dragDom = binding.value.$el.querySelector('.el-dialog');
 
     el.onmousedown = (e) => {
-      const disX = e.clientX - el.offsetLeft;
+      let disX = e.clientX - el.offsetLeft;
 
       document.onmousemove = function(e) {
         e.preventDefault();
-        const l = e.clientX - disX;
+        let l = e.clientX - disX;
         dragDom.style.width = `${l}px`;
       };
 

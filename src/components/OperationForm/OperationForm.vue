@@ -135,6 +135,7 @@
               v-model="queryForm.query_pub_whid"
               style="width:100%"
               clearable
+              multiple
               class="filter-item"
               filterable
               placeholder="选择仓库">
@@ -264,7 +265,7 @@ export default {
       queryForm: {
         query_pub_stdate: '', // 开始时间
         query_pub_enddate: '', // 结束时间
-        query_pub_whid: '', // 仓库
+        query_pub_whid: [], // 仓库
         query_pub_owco: '', // 货主
         query_pub_top: ''// 排名
       },
@@ -293,8 +294,8 @@ export default {
         if (this.sourcename == null || this.sourcename == '') {
           return this.$parent.allData;
         } else {
-          const datas = [];
-          for (const n of this.$parent.allData) {
+          let datas = [];
+          for (let n of this.$parent.allData) {
             if (n.dataname.indexOf(this.sourcename) != -1) {
               datas.push(n);
             }
@@ -321,12 +322,12 @@ export default {
     queryparamfun() {
       if (this.queryparams != '') {
         this.form.queryparams = this.queryparams;
-        const querydata = JSON.parse(this.queryparams);
+        let querydata = JSON.parse(this.queryparams);
         if (querydata.query_pub_stdate) { this.queryForm.query_pub_stdate = querydata.query_pub_stdate; }
         this.queryForm = {
           query_pub_stdate: querydata.query_pub_stdate ? querydata.query_pub_stdate : '', // 开始时间
           query_pub_enddate: querydata.query_pub_enddate ? querydata.query_pub_enddate : '', // 结束时间
-          query_pub_whid: querydata.query_pub_whid ? querydata.query_pub_whid : '', // 仓库
+          query_pub_whid: querydata.query_pub_whid ? querydata.query_pub_whid.split(',') : [], // 仓库
           query_pub_owco: querydata.query_pub_owco ? querydata.query_pub_owco : '', // 货主
           query_pub_top: querydata.query_pub_top ? querydata.query_pub_top : '' // 排名
         };
@@ -337,7 +338,7 @@ export default {
       this.form.dataKey = this.currDataKey;
       // 图表要显示的内容
       var datatype;
-      for (const i in this.$parent.allData) {
+      for (let i in this.$parent.allData) {
         if (this.$parent.allData[i].datakey == this.currDataKey) {
           datatype = this.$parent.allData[i].datatype;
           break;
@@ -351,7 +352,7 @@ export default {
       this.currDataKey = undefined;
       // 图表要显示的内容
       var datatype;
-      for (const i in this.$parent.allData) {
+      for (let i in this.$parent.allData) {
         if (this.$parent.allData[i].datakey == this.currDataKey) {
           datatype = this.$parent.allData[i].datatype;
           break;
@@ -377,7 +378,7 @@ export default {
       } catch (e) { console.error(e); }
       var dataname;
       var datatype;
-      for (const i in this.$parent.allData) {
+      for (let i in this.$parent.allData) {
         if (this.$parent.allData[i].datakey == this.form.dataKey) {
           datatype = this.$parent.allData[i].datatype;
           dataname = this.$parent.allData[i].dataname;
@@ -442,6 +443,13 @@ export default {
     addDataWindow: function(formName) {
       this.dialogStatus = 'create';
       this.dialogFormVisible = true;
+      this.dataForm = {
+        datakey: undefined,
+        dataname: undefined,
+        module: undefined,
+        datatype: undefined,
+        dataconfig: undefined
+      };
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate();
       });
@@ -500,12 +508,10 @@ export default {
         return;
       }
       // this.$parent.pageData.data[this.$parent.nowDivIndex] = this.form;
-      // eslint-disable-next-line prefer-const
       tempid = Date.parse(new Date());
-      // eslint-disable-next-line prefer-const
       tempname = this.mainTitle;
       tempconfig = JSON.parse(JSON.stringify(this.$parent.domConfig));
-      for (const tem of tempconfig) {
+      for (let tem of tempconfig) {
         tem.data = '';// 去掉杂乱数据
         tem.boxTitle = '';
         if (tem.x != undefined) {
@@ -517,11 +523,9 @@ export default {
         }
       }
       tempconfig = JSON.stringify(tempconfig);
-      // eslint-disable-next-line prefer-const
       tempurl = this.$parent.$data.tempurl;
-      // eslint-disable-next-line prefer-const
       tempstat = 5;// 新增编辑中页面
-      const datas = {
+      let datas = {
         tempid: tempid,
         tempname: tempname,
         tempconfig: tempconfig,
@@ -529,7 +533,7 @@ export default {
         tempurl: tempurl,
         queryparams: this.form.queryparams
       };
-      const loading = this.$loading({
+      let loading = this.$loading({
         lock: true,
         text: '提交中...',
         spinner: 'el-icon-loading',
@@ -573,10 +577,10 @@ export default {
           localStorage.reloadTime = this.reloadTime;
         }
       }
-      const tempid = this.$parent.$data.pageId;
-      const tempname = this.mainTitle;
+      let tempid = this.$parent.$data.pageId;
+      let tempname = this.mainTitle;
       let tempconfig = JSON.parse(JSON.stringify(this.$parent.domConfig));
-      for (const tem of tempconfig) {
+      for (let tem of tempconfig) {
         tem.data = '';// 去掉杂乱数据
         if (tem.x != undefined) {
           // 是拖拽式的，将宽高转换成百分比
@@ -601,13 +605,13 @@ export default {
         });
         return;
       }
-      const datas = {
+      let datas = {
         tempid: tempid,
         tempname: tempname,
         tempconfig: tempconfig,
         queryparams: this.form.queryparams
       };
-      const loading = this.$loading({
+      let loading = this.$loading({
         lock: true,
         text: '提交中...',
         spinner: 'el-icon-loading',
@@ -644,7 +648,7 @@ export default {
     submitSourData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          const datatype = this.dataForm.datatype;
+          let datatype = this.dataForm.datatype;
           if (datatype.length > 0) {
             this.dataForm.datatype = JSON.stringify(datatype);
           }
@@ -674,7 +678,7 @@ export default {
     editSourData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          const datatype = this.dataForm.datatype;
+          let datatype = this.dataForm.datatype;
           if (datatype.length > 0) {
             this.dataForm.datatype = JSON.stringify(datatype);
           }
@@ -757,14 +761,20 @@ export default {
       }).then(() => {
         this.dialogStatus = 'update';
         this.dialogFormVisible = true;
-
         if (typeof row.datatype == 'number') {
           row.datatype = '["' + row.datatype + '"]';
         }
         if (typeof row.datatype == 'string') {
           row.datatype = JSON.parse(row.datatype);
         }
-        this.dataForm = row;
+        try {
+          this.dataForm = JSON.parse(JSON.stringify(row));
+        } catch (e) {
+          debugger;
+        }
+        this.$nextTick(() => {
+          this.$refs['dataForm'].clearValidate();
+        });
       });
     },
     // 限制输入数字
@@ -804,15 +814,25 @@ export default {
           return;
         }
       }
-      var json = JSON.stringify(this.queryForm);
-      if (json == '{}') {
-        this.form.queryparams = undefined;
-        this.dialogFormParam = false;
-      } else {
-        this.form.queryparams = json;
-        this.dialogFormParam = false;
+      try {
+        var json = JSON.parse(JSON.stringify(this.queryForm));
+      } catch (e) {
+        debugger;
       }
-      const datas = {
+      var hasVal = false;
+      for (let i in json) {
+        if (json[i].length > 0) {
+          hasVal = true; break;
+        }
+      }
+      if (!hasVal) {
+        this.form.queryparams = undefined;
+      } else {
+        json.query_pub_whid = json.query_pub_whid.join(',');
+        this.form.queryparams = JSON.stringify(json);
+      }
+      this.dialogFormParam = false;
+      let datas = {
         tempid: this.$parent.$data.pageId,
         queryparams: this.form.queryparams
       };

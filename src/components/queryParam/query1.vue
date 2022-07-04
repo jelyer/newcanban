@@ -146,7 +146,7 @@ export default {
       this.form.dataKey = this.currDataKey;
       // 图表要显示的内容
       var datatype;
-      for (const i in this.$parent.allData) {
+      for (let i in this.$parent.allData) {
         if (this.$parent.allData[i].datakey == this.currDataKey) {
           datatype = this.$parent.allData[i].datatype;
           break;
@@ -159,7 +159,7 @@ export default {
       this.currDataKey = undefined;
       // 图表要显示的内容
       var datatype;
-      for (const i in this.$parent.allData) {
+      for (let i in this.$parent.allData) {
         if (this.$parent.allData[i].datakey == this.currDataKey) {
           datatype = this.$parent.allData[i].datatype;
           break;
@@ -184,7 +184,7 @@ export default {
       } catch (e) { console.error(e); }
       var dataname;
       var datatype;
-      for (const i in this.$parent.allData) {
+      for (let i in this.$parent.allData) {
         if (this.$parent.allData[i].datakey == this.form.dataKey) {
           datatype = this.$parent.allData[i].datatype;
           dataname = this.$parent.allData[i].dataname;
@@ -302,27 +302,23 @@ export default {
         return;
       }
       // this.$parent.pageData.data[this.$parent.nowDivIndex] = this.form;
-      // eslint-disable-next-line prefer-const
       tempid = Date.parse(new Date());
-      // eslint-disable-next-line prefer-const
       tempname = this.mainTitle;
       tempconfig = this.$parent.domConfig;
-      for (const c in tempconfig) {
+      for (let c in tempconfig) {
         tempconfig[c].data = '';// 去掉杂乱数据
       }
       tempconfig = JSON.stringify(tempconfig);
-      // eslint-disable-next-line prefer-const
       tempurl = this.$parent.$data.tempurl;
-      // eslint-disable-next-line prefer-const
       tempstat = 5;// 新增编辑中页面
-      const datas = {
+      var datas = {
         tempid: tempid,
         tempname: tempname,
         tempconfig: tempconfig,
         tempstat: tempstat,
         tempurl: tempurl
       };
-      const loading = this.$loading({
+      var loading = this.$loading({
         lock: true,
         text: '提交中...',
         spinner: 'el-icon-loading',
@@ -377,10 +373,10 @@ export default {
           return;
         }
       }
-      const tempid = this.$parent.$data.pageId;
-      const tempname = this.mainTitle;
+      var tempid = this.$parent.$data.pageId;
+      var tempname = this.mainTitle;
       let tempconfig = this.$parent.domConfig;
-      for (const c in tempconfig) {
+      for (let c in tempconfig) {
         tempconfig[c].data = '';// 去掉杂乱数据
       }
       tempconfig = JSON.stringify(tempconfig);
@@ -398,12 +394,12 @@ export default {
         });
         return;
       }
-      const datas = {
+      var datas = {
         tempid: tempid,
         tempname: tempname,
         tempconfig: tempconfig
       };
-      const loading = this.$loading({
+      var loading = this.$loading({
         lock: true,
         text: '提交中...',
         spinner: 'el-icon-loading',
@@ -438,7 +434,7 @@ export default {
     submitSourData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          const datatype = this.dataForm.datatype;
+          var datatype = this.dataForm.datatype;
           if (datatype.length > 0) {
             this.dataForm.datatype = JSON.stringify(datatype);
           }
@@ -467,7 +463,7 @@ export default {
     editSourData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          const datatype = this.dataForm.datatype;
+          var datatype = this.dataForm.datatype;
           if (datatype.length > 0) {
             this.dataForm.datatype = JSON.stringify(datatype);
           }
@@ -527,7 +523,7 @@ export default {
               message: '删除成功！',
               duration: 2000
             });
-            const index = this.$parent.allData.indexOf(row);
+            var index = this.$parent.allData.indexOf(row);
             this.$parent.allData.splice(index, 1);
           } else {
             this.$notify({

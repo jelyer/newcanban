@@ -110,7 +110,7 @@ export default {
     });
   },
   created() {
-    const that = this;
+    var that = this;
     if (localStorage.isBeingRotated == '1') {
       localStorage.removeItem('isBeingRotated');
       setTimeout(function() {
@@ -133,17 +133,17 @@ export default {
       }, 150);
     },
     toggleSideBar() {
-      if (this.$store.getters.name != 'admin') {
-        // 如果不是管理员，禁止编辑
-        this.$message({
-          type: 'info',
-          message: '您没用编辑权限，请登录管理员账户!'
-        });
-        return;
-      }
+      // if (this.$store.getters.name != 'admin') {
+      //   // 如果不是管理员，禁止编辑
+      //   this.$message({
+      //     type: 'info',
+      //     message: '您没用编辑权限，请登录管理员账户!'
+      //   });
+      //   return;
+      // }
       this.isActive = true;
       this.$store.dispatch('ToggleSideBar');
-      const theSideBar = document.getElementsByClassName('app-wrapper')[0];
+      var theSideBar = document.getElementsByClassName('app-wrapper')[0];
       if (theSideBar.getAttribute('class').indexOf('openSidebar') == -1) {
         /* if(document.getElementsByClassName('main-container')[0].getElementsByClassName('active').length>0){
           document.getElementsByClassName('main-container')[0].getElementsByClassName('active') [0].classList.remove('active');
@@ -181,7 +181,7 @@ export default {
 
       var _this = this;
       document.onkeydown = function() {
-        const oEvent = window.event;
+        let oEvent = window.event;
         if (oEvent.keyCode == 27) {
           document.onkeydown = undefined;
           _this.$store.dispatch('SetIsScreen', false);
@@ -199,7 +199,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        const pageId = this.$route.query.pageId;// 页面Id
+        let pageId = this.$route.query.pageId;// 页面Id
         if (!pageId) {
           this.$message({
             type: 'error',
@@ -234,7 +234,7 @@ export default {
               duration: 2000
             });
             // 如果处于编辑模式，则关闭编辑
-            const theSideBar = document.getElementsByClassName('app-wrapper')[0];
+            let theSideBar = document.getElementsByClassName('app-wrapper')[0];
             if (theSideBar.getAttribute('class').indexOf('openSidebar') == -1) {
               this.$store.dispatch('ToggleSideBar');
               if (document.getElementsByClassName('editPanel')[0].getAttribute('class').indexOf('selected') != -1) {

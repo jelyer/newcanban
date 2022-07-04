@@ -161,7 +161,7 @@ export default {
     // 模板页数据
     DrawTemplateData() {
       this.eclist = [];
-      for (const chart of this.domConfig) {
+      for (let chart of this.domConfig) {
         if (chart.key != 'data' && chart.key != 'list' && chart.data != null) {
           this.ec = this.$echarts.init(document.getElementById(chart.id));
           this.ecObj = this.GLOBAL.allChartObj[chart.key];
@@ -178,7 +178,7 @@ export default {
       this.isActive = undefined;
     },
     screenGetData() {
-      for (const c in this.eclist) {
+      for (let c in this.eclist) {
         this.eclist[c].resize();// 从新加载图表，自适应宽高
       }
     },
@@ -199,20 +199,20 @@ export default {
     toEditDiv: function(ele) {
       var index = this.COMMONFUN.contains(this.domConfig, ele);// 当前模块下标
       // eslint-disable-next-line no-unused-vars
-      const eleId = ele.id;
+      let eleId = ele.id;
       this.$refs.operation_form.currModelIndex = index;
       this.$refs.operation_form.currKey = ele.key;// 当前图表类型
       this.$refs.operation_form.currId = ele.id;// 当前选择的Id
       this.$refs.operation_form.currDataKey = ele.dataKey;// 当前图表数据源编码
       this.$refs.operation_form.form.boxTitle = ele.boxTitle;// 模块标题
-      const theStatus = document.getElementsByClassName('app-wrapper')[0];
+      let theStatus = document.getElementsByClassName('app-wrapper')[0];
       if (theStatus.getAttribute('class').indexOf('openSidebar') == -1) {
         this.isActive = index;
       }
     },
     // 根据模板id查找模板配置数据
     getTempDataById(pageId) {
-      const paramid = {
+      let paramid = {
         tempid: pageId
       };
       var _this = this;
@@ -248,7 +248,7 @@ export default {
               if (key != null) {
                 // 如果是数据表
                 if (key == 'list' || key == 'data') {
-                  const dk = {
+                  let dk = {
                     dataKey: temconfig[i].dataKey,
                     boxTitle: temconfig[i].boxTitle,
                     queryparams: this.queryparams
@@ -260,7 +260,7 @@ export default {
                     getDataByDataKey($qs.stringify(dk)).then(response => {
                       if (response.data.code == 200 && response.data.data != undefined && response.data.data != '[]') {
                         if (response.data.data != '') {
-                          const result = response.data.data;
+                          let result = response.data.data;
                           if (JSON.stringify(result).indexOf('xkey') != -1) { // 如果是典型列表
                             /* var data = _this.COMMONFUN.formatDataToEchart(JSON.parse(response.data.data));
                               _this.domConfig[para.index].data = _this.COMMONFUN.formatTables(data);*/
@@ -275,7 +275,7 @@ export default {
                   parafun(para, this.$qs);
                 } else {
                   // 如果是图表
-                  const dk = {
+                  let dk = {
                     dataKey: temconfig[i].dataKey,
                     boxTitle: temconfig[i].boxTitle,
                     queryparams: this.queryparams
@@ -295,7 +295,7 @@ export default {
                         if (response.data.data == undefined) {
                           return;
                         }
-                        const result = response.data.data;
+                        let result = response.data.data;
                         var parseData = typeof result == 'object' ? result : JSON.parse(result);
                         // 缓存id及对应数据
                         _this.echartArr.push(para.model.id);

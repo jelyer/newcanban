@@ -86,8 +86,8 @@ import { getSourDataAll, getTempById, getDataByDataKey } from '@/api/chartSettin
 import tableOne from '@/components/Kanban/table1';
 import tableTwo from '@/components/Kanban/table2';
 import { GridLayout, GridItem } from 'vue-grid-layout';
-const InitialWdth = 400;
-const Initialheight = 250;
+var InitialWdth = 400;
+var Initialheight = 250;
 export default {
   name: 'Template',
   inject: ['reload'], // 注入reload方法
@@ -167,7 +167,7 @@ export default {
     // 加载数据源
     this.getAllDatas();
     // 当前时间
-    const _this = this;
+    var _this = this;
     _this.date = this.COMMONFUN.parseTime(null, new Date());
     this.timer = setInterval(() => {
       _this.date = this.COMMONFUN.parseTime(null, new Date());
@@ -230,7 +230,7 @@ export default {
     },
     // 右键菜单点击删除
     handleClick(vm, event) {
-      for (const i in this.domConfig) {
+      for (let i in this.domConfig) {
         if (this.domConfig[i].id == this.currId) {
           this.domConfig.splice(i, 1);
           break;
@@ -241,8 +241,8 @@ export default {
       var _this = this;
       // 拖拽模块通过vue-grid-layout重新渲染宽高
       if (this.$store.state.app.isScreen) {
-        const width = document.body.clientWidth + (document.body.clientWidth / 6 - 20);
-        const height = document.body.clientHeight + (document.body.clientHeight / 6 + 50);
+        let width = document.body.clientWidth + (document.body.clientWidth / 6 - 20);
+        let height = document.body.clientHeight + (document.body.clientHeight / 6 + 50);
         // eslint-disable-next-line no-undef
         $('.vue-grid-layout').css({ 'width': width, 'height': height });
         // /var aaa = JSON.parse(JSON.stringify(this.domConfig));
@@ -257,7 +257,7 @@ export default {
       }
       this.onScreen = !this.onScreen;
       setTimeout(function() {
-        for (const c in _this.eclist) {
+        for (let c in _this.eclist) {
           _this.eclist[c].resize();// 从新加载图表，自适应宽高
         }
       }, 300);
@@ -285,12 +285,12 @@ export default {
     },
     // 点击需要编辑的div后  param: 元素id
     toEditDiv: function(ele) {
-      const theStatus = document.getElementsByClassName('app-wrapper')[0];
+      var theStatus = document.getElementsByClassName('app-wrapper')[0];
       if (theStatus.getAttribute('class').indexOf('openSidebar') != -1) {
         return;
       }
       var index = this.COMMONFUN.contains(this.domConfig, ele);// 当前模块下标
-      const eleId = ele.id;
+      var eleId = ele.id;
       this.$refs.operation_form.currModelIndex = index;
       this.$refs.operation_form.currKey = ele.key;// 当前图表类型
       this.$refs.operation_form.currId = ele.id;// 当前选择的Id
@@ -308,7 +308,7 @@ export default {
     },
     // 根据模板id查找模板配置数据
     getTempDataById(pageId) {
-      const paramid = {
+      var paramid = {
         eq_tempid: pageId
       };
       var _this = this;
@@ -340,7 +340,7 @@ export default {
               if (key != null) {
                 // 如果是数据表
                 if (key == 'list' || key == 'data') {
-                  const dk = {
+                  let dk = {
                     eq_dataKey: temconfig[i].dataKey,
                     eq_boxTitle: temconfig[i].boxTitle
                   };
@@ -365,7 +365,7 @@ export default {
                   parafun(para, this.$qs);
                 } else {
                   // 如果是图表
-                  const dk = {
+                  let dk = {
                     eq_dataKey: temconfig[i].dataKey,
                     eq_boxTitle: temconfig[i].boxTitle
                   };
@@ -416,7 +416,7 @@ export default {
     addItem: function() {
       // let self = this;
       // console.log("### LENGTH: " + this.domConfig.length);
-      const item = { 'x': 0, 'y': 0, 'w': 2, 'h': 2, 'i': this.index + '', whatever: 'bbb', id: 's' + Date.parse(new Date()) };
+      let item = { 'x': 0, 'y': 0, 'w': 2, 'h': 2, 'i': this.index + '', whatever: 'bbb', id: 's' + Date.parse(new Date()) };
       this.index++;
       this.domConfig.push(item);
       this.moserovers();
@@ -439,7 +439,7 @@ export default {
        */
     changeDirection() {
       // eslint-disable-next-line no-undef
-      const documentDirection = getDocumentDir();
+      var documentDirection = getDocumentDir();
       let toggle = '';
       if (documentDirection === 'rtl') {
         toggle = 'ltr';
@@ -470,18 +470,18 @@ export default {
 
     drop(event) {
       // console.log('drop', event)
-      const layerX = event.layerX;// 鼠标位置
-      const layerY = event.layerY;
-      const mainContent = document.getElementsByClassName('mainContent')[0];
-      const mainContentW = mainContent.clientWidth || mainContent.offsetWidth;
+      let layerX = event.layerX;// 鼠标位置
+      let layerY = event.layerY;
+      let mainContent = document.getElementsByClassName('mainContent')[0];
+      let mainContentW = mainContent.clientWidth || mainContent.offsetWidth;
       /* let mainContentH=mainContent.clientHeight||mainContent.offsetHeight;*/
-      const unitWidth = parseInt(mainContentW / 12);
-      const x = parseInt(((layerX - InitialWdth / 2) > 0 ? (layerX - InitialWdth / 2) : 0) / unitWidth);
-      const y = parseInt(((layerY - Initialheight / 2) > 0 ? (layerY - Initialheight / 2) : 0) / 30);
-      const id = 's' + Date.parse(new Date());
-      const key = this.$refs.operation_form.form.key;// 图表类型
-      const boxTitle = this.$refs.operation_form.form.boxTitle;
-      const dataKey = this.$refs.operation_form.form.dataKey;
+      let unitWidth = parseInt(mainContentW / 12);
+      let x = parseInt(((layerX - InitialWdth / 2) > 0 ? (layerX - InitialWdth / 2) : 0) / unitWidth);
+      let y = parseInt(((layerY - Initialheight / 2) > 0 ? (layerY - Initialheight / 2) : 0) / 30);
+      let id = 's' + Date.parse(new Date());
+      let key = this.$refs.operation_form.form.key;// 图表类型
+      let boxTitle = this.$refs.operation_form.form.boxTitle;
+      let dataKey = this.$refs.operation_form.form.dataKey;
       var data;
       var _this = this;
       if (key == 'list' || key == 'data') {
@@ -492,12 +492,12 @@ export default {
             ['35', '35', '343', '234']
           ]
         };
-        const item = { 'x': x, 'y': y, 'w': 4, 'h': 6, 'i': this.index + '', whatever: '', id: id, boxTitle: boxTitle, key: key, dataKey: dataKey, data: data };
+        let item = { 'x': x, 'y': y, 'w': 4, 'h': 6, 'i': this.index + '', whatever: '', id: id, boxTitle: boxTitle, key: key, dataKey: dataKey, data: data };
         this.index++;
         this.domConfig.push(item);
         this.$refs.operation_form.currId = id;
       } else {
-        const item = { 'x': x, 'y': y, 'w': 4, 'h': 6, 'i': this.index + '', whatever: '', id: id, boxTitle: boxTitle, key: key, dataKey: dataKey, data: data };
+        let item = { 'x': x, 'y': y, 'w': 4, 'h': 6, 'i': this.index + '', whatever: '', id: id, boxTitle: boxTitle, key: key, dataKey: dataKey, data: data };
         this.index++;
         this.domConfig.push(item);
         this.$refs.operation_form.currId = id;

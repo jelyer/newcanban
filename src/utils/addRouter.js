@@ -6,7 +6,7 @@ import _import from '../router/_import'; // 获取组件的方法
  * @returns
  */
 export function addRouter(routerlist) {
-  const router = [];
+  var router = [];
   routerlist.forEach(e => {
     if (e.stat == 1) { e.stat = '系统模板'; } else if (e.stat == 5) { e.stat = '编辑中'; } else { e.stat = '已发布'; }
     /* if(e.url != "/template" && e.url != "/template1" && e.url != "/template3"){

@@ -67,7 +67,7 @@ function gotoRouter(to, next) {
     var roulunbo = [];
     var icon;
     if (result.length > 0) {
-      for (const n in result) {
+      for (let n in result) {
         switch (result[n].tempurl) {
           case '/template1':
             icon = 'box1.png';
@@ -94,7 +94,7 @@ function gotoRouter(to, next) {
         jsondata.push(data);
         // lunbo 如果是已发布的,1系统模板，5编辑中，9已发布
         if (parseInt(result[n].tempstat) != 5) {
-          const list = { title: undefined, url: undefined, checked: true };
+          let list = { title: undefined, url: undefined, checked: true };
           list.title = result[n].tempname;
           list.url = result[n].tempurl + '?pageId=' + result[n].tempid + '&stat=' + result[n].tempstat;
           roulunbo.push(list);
@@ -103,7 +103,7 @@ function gotoRouter(to, next) {
     }
     store.dispatch('setRouterData', result); // 存储到路由数据，未转,看板管理
     store.dispatch('SetRouterLb', roulunbo);// 存储路由数据，用于轮播，只包含已发布的路由
-    const asyncRouter = addRouter(jsondata); // 进行递归解析
+    var asyncRouter = addRouter(jsondata); // 进行递归解析
     store.dispatch('setAsyncRouterMap', asyncRouter);// 已转好的动态路由，存
     // store.dispatch('setroles', res.data.data.permit)
     // console.log(res.data.data.permit)

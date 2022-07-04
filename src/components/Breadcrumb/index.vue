@@ -30,7 +30,7 @@ export default {
     getBreadcrumb() {
       let matched = this.$route.matched.filter(item => item.name);
 
-      const first = matched[0];
+      var first = matched[0];
       if (first && first.name !== 'dashboard') {
         matched = [{ path: '/dashboard', meta: { title: 'Dashboard' }}].concat(matched);
       }
@@ -39,12 +39,12 @@ export default {
     },
     pathCompile(path) {
       // To solve this problem https://github.com/PanJiaChen/vue-element-admin/issues/561
-      const { params } = this.$route;
+      var { params } = this.$route;
       var toPath = pathToRegexp.compile(path);
       return toPath(params);
     },
     handleLink(item) {
-      const { redirect, path } = item;
+      var { redirect, path } = item;
       if (redirect) {
         this.$router.push(redirect);
         return;

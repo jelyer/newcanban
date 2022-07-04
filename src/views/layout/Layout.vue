@@ -91,7 +91,13 @@
           <el-input v-model="diyForm.tempname" style="width:100%"/>
         </el-form-item>
         <el-form-item label="看板地址" prop="tempurl">
-          <el-input v-model="diyForm.tempurl" style="width:100%"/>
+          <el-select v-model="diyForm.tempurl" style="width:100%" clearable>
+            <el-option value="/template" label="/template" />
+            <el-option value="/template1" label="/template1" />
+            <el-option value="/template2" label="/template2" />
+            <el-option value="/template3" label="/template3" />
+            <el-option value="/template4" label="/template4" />
+          </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -176,9 +182,7 @@ export default {
     if (this.$store.state.user.mode == 'read') {
       this.visiblesysModel = false;
     } else {
-      const visiblesysModel = localStorage.visiblesysModel;
-      debugger;
-
+      let visiblesysModel = localStorage.visiblesysModel;
       if (!visiblesysModel || visiblesysModel == 'false') {
         this.visiblesysModel = false;
       } else {
@@ -203,8 +207,8 @@ export default {
       if (routerSet != undefined) {
         routerSet = JSON.parse(routerSet);
         this.lunbopage = [];// 需要轮播的页面url
-        for (const c in routerSet.routerData) {
-          for (const j in this.router) {
+        for (let c in routerSet.routerData) {
+          for (let j in this.router) {
             if (this.router[j].title == routerSet.routerData[c].title) {
               this.router[j].checked = routerSet.routerData[c].checked;
               if (this.router[j].checked) {
@@ -229,7 +233,7 @@ export default {
     getList() {
       this.list = [];
       var allrouter = this.$store.state.user.routerDatas;
-      for (const n in allrouter) {
+      for (let n in allrouter) {
         if (parseInt(allrouter[n].tempstat) != 1) {
           this.list.push(allrouter[n]);
         }
@@ -249,7 +253,7 @@ export default {
               message: '删除成功！',
               duration: 2000
             });
-            const index = this.list.indexOf(row);
+            let index = this.list.indexOf(row);
             this.list.splice(index, 1);
             // this.$store.dispatch('SetReloadRouter', false);//需要刷新路由
             // 重新加载路由
@@ -325,8 +329,8 @@ export default {
           duration: 2000
         });
         this.dialogFormVisible = false;
-        for (const c in this.dataForm.routerData) {
-          for (const j in this.router) {
+        for (let c in this.dataForm.routerData) {
+          for (let j in this.router) {
             if (this.router[j].title == this.dataForm.routerData[c].title) {
               this.router[j].checked = this.dataForm.routerData[c].checked;
               if (this.router[j].checked) {

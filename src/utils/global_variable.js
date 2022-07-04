@@ -1,10 +1,10 @@
-const data1 = [1, 2, 3, 4, 5, 6, 7];
-const data2 = [500, 480, 200, 250, 350, 186, 440];
-const data3 = [100, 280, 300, 350, 550, 126, 470];
+var data1 = [1, 2, 3, 4, 5, 6, 7];
+var data2 = [500, 480, 200, 250, 350, 186, 440];
+var data3 = [100, 280, 300, 350, 550, 126, 470];
 /**
  * @type {[null,null,null,null,null]}
  */
-const fixedChart = [
+var fixedChart = [
   { url: 'cd', name: '直观数据', key: 'data' },
   { url: 'c0', name: '数据表', key: 'list' },
   { url: 'c1', name: '环装图', key: 'ring' },
@@ -19,7 +19,7 @@ const fixedChart = [
 /**
  * @type {[null,null,null,null,null,null,null,null]}
  */
-const allChartObj = {
+var allChartObj = {
 
   // 0-环形图
   ring: {
@@ -138,7 +138,7 @@ const allChartObj = {
       }
     },
     series: [{
-      name: '深圳仓',
+      name: '',
       type: 'line',
       itemStyle: {
         normal: {
@@ -218,14 +218,13 @@ const allChartObj = {
       }
     }],
     series: [{
-      name: '销量',
+      name: '',
       type: 'bar',
       // barWidth: 15,
       barMaxWidth: 20, // 最大宽度
       itemStyle: {
         normal: {
           show: true, // 鼠标悬停时显示label数据
-          color: '',
           color: { 'x': 0, 'y': 0, 'x2': 0, 'y2': 1, 'type': 'linear', 'global': false, 'colorStops': [{ 'offset': 0, 'color': '#44cbf5' }, { 'offset': 0.25, 'color': '#44cbf5' }, { 'offset': 0.251, 'color': '#3caff2' }, { 'offset': 0.5, 'color': '#3caff2' }, { 'offset': 0.501, 'color': '#318bd8  ' }, { 'offset': 0.75, 'color': '#318bd8 ' }, { 'offset': 0.751, 'color': '#2669c5' }, { 'offset': 1, 'color': '#2669c5' }] }
         },
         emphasis: {
@@ -303,7 +302,7 @@ const allChartObj = {
       data: data1
     }],
     series: {
-      name: '销量',
+      name: '',
       type: 'bar',
       // barWidth: 15,
       barMaxWidth: 20, // 最大宽度

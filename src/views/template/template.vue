@@ -259,7 +259,7 @@ export default {
        * @param height 元素高度
        */
     onResizestop: function(x, y, width, height) {
-      for (const cdr of this.domConfig) {
+      for (let cdr of this.domConfig) {
         if (cdr.id == this.isActive) {
           cdr.x = x;
           cdr.y = y;
@@ -276,7 +276,7 @@ export default {
        * @param y 距离y轴位置
        */
     onDragstop: function(x, y) {
-      for (const cdr of this.domConfig) {
+      for (let cdr of this.domConfig) {
         if (cdr.id == this.isActive) {
           cdr.x = x;
           cdr.y = y;
@@ -290,12 +290,12 @@ export default {
        * @param ele item
        */
     onActivated: function(ele) {
-      const theStatus = document.getElementsByClassName('app-wrapper')[0];
+      var theStatus = document.getElementsByClassName('app-wrapper')[0];
       if (theStatus.getAttribute('class').indexOf('openSidebar') != -1) {
         return;
       }
       var index = this.COMMONFUN.contains(this.domConfig, ele);// 当前模块下标
-      const eleId = ele.id;
+      var eleId = ele.id;
       this.$refs.operation_form.currModelIndex = index;
       this.$refs.operation_form.currKey = ele.key;// 当前图表类型
       this.$refs.operation_form.currId = ele.id;// 当前选择的Id
@@ -328,7 +328,7 @@ export default {
     DrawTemplateData() {
       this.eclist = [];
       var that = this;
-      for (const tem of that.domConfig) {
+      for (let tem of that.domConfig) {
         if (tem.x != undefined) {
           tem.x = parseInt((tem.x * this.mainContent.width / 100).toFixed(0));
           tem.y = parseInt((tem.y * this.mainContent.height / 100).toFixed(0));
@@ -337,7 +337,7 @@ export default {
         }
       }
       setTimeout(function() {
-        for (const chart of that.domConfig) {
+        for (let chart of that.domConfig) {
           if (chart.key != 'data' && chart.key != 'list' && chart.data != null) {
             that.ec = that.$echarts.init(document.getElementById(chart.id));
             that.ecObj = that.GLOBAL.allChartObj[chart.key];
@@ -360,12 +360,12 @@ export default {
     // 右键菜单点击删除
     handleClick(vm, event) {
       if (!this.isActive) { return; }
-      for (const i in this.domConfig) {
+      for (let i in this.domConfig) {
         if (this.domConfig[i].id == this.isActive) {
           this.domConfig.splice(i, 1);
           var that = this;
           setTimeout(function() {
-            for (const cdr of that.domConfig) {
+            for (let cdr of that.domConfig) {
               if (cdr.key != 'list' && cdr.key != 'data') {
                 that.ec = that.$echarts.init(document.getElementById(cdr.id));
                 that.ec.resize();
@@ -390,7 +390,7 @@ export default {
           that.maxMainContent.height = document.getElementById('mainContent').offsetHeight;
           that.scale.xbl = (that.maxMainContent.width / that.mainContent.width).toFixed(4);
           that.scale.ybl = (that.maxMainContent.height / that.mainContent.height).toFixed(4);
-          for (const cdr of that.domConfig) {
+          for (let cdr of that.domConfig) {
             cdr.w = parseInt(cdr.w * that.scale.xbl);
             cdr.h = parseInt(cdr.h * that.scale.ybl);
             cdr.x = parseInt(cdr.x * that.scale.xbl);
@@ -398,7 +398,7 @@ export default {
           }
         }, 200);
       } else {
-        for (const cdr of this.domConfig) {
+        for (let cdr of this.domConfig) {
           cdr.w = parseInt(cdr.w / this.scale.xbl);
           cdr.h = parseInt(cdr.h / this.scale.ybl);
           cdr.x = parseInt(cdr.x / this.scale.xbl);
@@ -407,7 +407,7 @@ export default {
       }
       this.onScreen = !this.onScreen;
       setTimeout(function() {
-        for (const c in that.eclist) {
+        for (let c in that.eclist) {
           that.eclist[c].resize();// 从新加载图表，自适应宽高
         }
       }, 300);
@@ -430,7 +430,7 @@ export default {
 
     // 根据模板id查找模板配置数据
     getTempDataById(pageId) {
-      const paramid = {
+      let paramid = {
         tempid: pageId
       };
       var _this = this;
@@ -458,7 +458,7 @@ export default {
           var temconfig = response.data.data.tempconfig;
           if (temconfig != null && temconfig != '') {
             temconfig = JSON.parse(temconfig);
-            for (const tem of temconfig) {
+            for (let tem of temconfig) {
               if (tem.x != undefined) {
                 // 是拖拽式的，将宽高转换成像素
                 tem.x = parseInt((tem.x * this.mainContent.width / 100).toFixed(0));
@@ -476,7 +476,7 @@ export default {
               if (key != null) {
                 // 如果是数据表
                 if (key == 'list' || key == 'data') {
-                  const dk = {
+                  let dk = {
                     dataKey: temconfig[i].dataKey,
                     boxTitle: temconfig[i].boxTitle,
                     queryparams: this.queryparams
@@ -488,7 +488,7 @@ export default {
                     getDataByDataKey($qs.stringify(dk)).then(response => {
                       if (parseInt(response.data.code) == 200 && response.data.data != undefined && response.data.data != '[]') {
                         if (response.data.data != '') {
-                          const result = response.data.data;
+                          let result = response.data.data;
                           if (JSON.stringify(result).indexOf('xkey') != -1) { // 如果是典型列表
                             /* var data = _this.COMMONFUN.formatDataToEchart(JSON.parse(response.data.data));
                               _this.domConfig[para.index].data = _this.COMMONFUN.formatTables(data);*/
@@ -503,7 +503,7 @@ export default {
                   parafun(para, this.$qs);
                 } else {
                   // 如果是图表
-                  const dk = {
+                  let dk = {
                     dataKey: temconfig[i].dataKey,
                     boxTitle: temconfig[i].boxTitle,
                     queryparams: this.queryparams
@@ -523,7 +523,7 @@ export default {
                         if (response.data.data == undefined) {
                           return;
                         }
-                        const result = response.data.data;
+                        let result = response.data.data;
                         var parseData = typeof result === 'object' ? result : JSON.parse(result);
                         // 缓存id及对应数据
                         _this.echartArr.push(para.model.id);
@@ -555,16 +555,16 @@ export default {
         });
         return;
       }
-      const mainContent = document.getElementsByClassName('mainContent')[0];
-      const mainContentW = mainContent.clientWidth || mainContent.offsetWidth;
+      let mainContent = document.getElementsByClassName('mainContent')[0];
+      let mainContentW = mainContent.clientWidth || mainContent.offsetWidth;
       // eslint-disable-next-line no-unused-vars
-      const unitWidth = parseInt(mainContentW / 12);
-      const x = event.layerX;// 鼠标位置
-      const y = event.layerY;
-      const id = 's' + Date.parse(new Date());
-      const key = this.$refs.operation_form.currKey;// 图表类型
-      const boxTitle = this.$refs.operation_form.form.boxTitle;
-      const dataKey = this.$refs.operation_form.form.dataKey;
+      let unitWidth = parseInt(mainContentW / 12);
+      let x = event.layerX;// 鼠标位置
+      let y = event.layerY;
+      let id = 's' + Date.parse(new Date());
+      let key = this.$refs.operation_form.currKey;// 图表类型
+      let boxTitle = this.$refs.operation_form.form.boxTitle;
+      let dataKey = this.$refs.operation_form.form.dataKey;
       var data;
       var _this = this;
       if (key == 'list' || key == 'data') {
@@ -575,12 +575,12 @@ export default {
             ['35', '35', '343', '234']
           ]
         };
-        const item = { 'x': x, 'y': y, 'w': 400, 'h': 200, id: id, boxTitle: boxTitle, key: key, dataKey: dataKey, data: data };
+        let item = { 'x': x, 'y': y, 'w': 400, 'h': 200, id: id, boxTitle: boxTitle, key: key, dataKey: dataKey, data: data };
         this.index++;
         this.domConfig.push(item);
         this.$refs.operation_form.currId = id;
       } else {
-        const item = { 'x': x, 'y': y, 'w': 400, 'h': 200, id: id, boxTitle: boxTitle, key: key, dataKey: dataKey, data: data };
+        let item = { 'x': x, 'y': y, 'w': 400, 'h': 200, id: id, boxTitle: boxTitle, key: key, dataKey: dataKey, data: data };
         this.index++;
         this.domConfig.push(item);
         this.$refs.operation_form.currId = id;

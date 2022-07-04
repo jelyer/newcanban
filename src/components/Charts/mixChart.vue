@@ -44,8 +44,8 @@ export default {
   methods: {
     initChart() {
       this.chart = echarts.init(document.getElementById(this.id));
-      const xData = (function() {
-        const data = [];
+      var xData = (function() {
+        var data = [];
         for (let i = 1; i < 13; i++) {
           data.push(i + 'month');
         }

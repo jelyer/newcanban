@@ -15,7 +15,7 @@ export const mixinsMain = {
   },
   mounted() {
     // 当前时间
-    const _this = this;
+    var _this = this;
     _this.date = this.COMMONFUN.parseTime(null, new Date());
     this.timer = setInterval(() => {
       _this.date = this.COMMONFUN.parseTime(null, new Date());

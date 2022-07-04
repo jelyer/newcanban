@@ -45,9 +45,9 @@ export default {
     initChart() {
       this.chart = echarts.init(document.getElementById(this.id));
 
-      const xAxisData = [];
-      const data = [];
-      const data2 = [];
+      var xAxisData = [];
+      var data = [];
+      var data2 = [];
       for (let i = 0; i < 50; i++) {
         xAxisData.push(i);
         data.push((Math.sin(i / 5) * (i / 5 - 10) + i / 6) * 5);
