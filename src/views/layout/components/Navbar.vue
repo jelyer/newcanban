@@ -133,14 +133,14 @@ export default {
       }, 150);
     },
     toggleSideBar() {
-      // if (this.$store.getters.name != 'admin') {
-      //   // 如果不是管理员，禁止编辑
-      //   this.$message({
-      //     type: 'info',
-      //     message: '您没用编辑权限，请登录管理员账户!'
-      //   });
-      //   return;
-      // }
+      if (this.$store.getters.name != 'admin') {
+        // 如果不是管理员，禁止编辑
+        this.$message({
+          type: 'info',
+          message: '您没用编辑权限，请登录管理员账户!'
+        });
+        return;
+      }
       this.isActive = true;
       this.$store.dispatch('ToggleSideBar');
       var theSideBar = document.getElementsByClassName('app-wrapper')[0];
