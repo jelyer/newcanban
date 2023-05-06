@@ -6,6 +6,7 @@ const getters = {
   name: state => state.user.name,
   routerList: state => state.user.RouterList,
   roles: state => state.user.roles,
+  mode: state => state.user.mode,
   routerstat: state => state.app.routerstat,
   routerDatas: state => state.user.routerDatas,
   AsyncRouterMap: state => state.user.AsyncRouterMap,

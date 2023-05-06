@@ -4,6 +4,7 @@
     <div id="mainBox" class="mainBox" style="z-index:100;position:absolute">
       <div class="bigTitle">
         <img class="titlebgstr" src="@/assets/titleBg.png" alt="">
+        <img class="titlebgstr skin-mode-2" src="@/assets/titleBg3.png" alt="">
         <h1 class="bigTitleName" v-text="mainTitle"/>
         <p>{{ date }}</p>
       </div>

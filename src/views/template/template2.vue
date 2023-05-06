@@ -4,11 +4,12 @@
     <div id="mainBox" class="mainBox" style="z-index:100;position:absolute">
       <div class="bigTitle">
         <img class="titlebgstr" src="@/assets/titleBg2.png" alt="" >
+        <img class="titlebgstr skin-mode-2" src="@/assets/titleBg3.png" alt="">
         <h1 class="bigTitleName">
           {{ mainTitle }}
           <i
             v-show="dataloading"
-            style="position:absolute;right:0"
+            style="position:absolute;right:-40px"
             class="el-icon-loading"
           />
         </h1>

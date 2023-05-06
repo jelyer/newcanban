@@ -47,7 +47,8 @@ Vue.use(ElementUI, { locale });
 directive();
 Vue.config.productionTip = false;
 
-new Vue({
+// eslint-disable-next-line no-unused-vars
+var vm = new Vue({
   el: '#app',
   router,
   store,

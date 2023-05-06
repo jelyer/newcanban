@@ -3,7 +3,7 @@
     <img class="pagebgsty" src="@/assets/blur-bg.jpg" alt="">
     <div id="mainBox" class="mainBox" style="z-index:100;position:absolute">
       <div class="bigTitle">
-        <h1 class="bigTitleName">——· {{ mainTitle }} ·—— <i v-show="dataloading" style="position:absolute;right:0" class="el-icon-loading"/></h1>
+        <h1 class="bigTitleName">——· {{ mainTitle }} ·—— <i v-show="dataloading" style="position:absolute;right:-40px" class="el-icon-loading"/></h1>
         <p>{{ date }}</p>
       </div>
       <!--firstLeftTop-->

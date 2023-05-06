@@ -100,7 +100,7 @@ var allChartObj = {
       },
       axisLine: {
         lineStyle: {
-          color: '#cccccc'
+          color: '#053a70'
         }
       },
       axisTick: {
@@ -180,7 +180,7 @@ var allChartObj = {
       type: 'category', // 纵向柱状图，若需要为横向，则此处值为'value'， 下面 yAxis 的type值为'category'
       axisLine: {
         lineStyle: {
-          color: '#eee'
+          color: '#053a70'
         }
       },
       axisTick: {
@@ -205,7 +205,7 @@ var allChartObj = {
       axisLine: {
         show: true,
         lineStyle: {
-          color: '#eee'
+          color: '#053a70'
         }
       },
       axisTick: {
@@ -261,7 +261,7 @@ var allChartObj = {
       },
       axisLine: {
         lineStyle: {
-          color: '#363e43'
+          color: '#053a70'
         }
       },
       axisTick: {
@@ -288,7 +288,7 @@ var allChartObj = {
       axisLine: {
         show: true,
         lineStyle: {
-          color: '#cbcbcb'
+          color: '#053a70'
         }
       },
       axisTick: {
@@ -370,7 +370,7 @@ var allChartObj = {
       },
       axisLine: {
         lineStyle: {
-          color: '#cccccc'
+          color: '#053a70'
         }
       },
       axisTick: {
@@ -389,7 +389,7 @@ var allChartObj = {
       splitLine: {
         show: true,
         lineStyle: {
-          color: '#cecece',
+          color: '#053a70',
           type: 'dashed'
         }
       }, // 网格线
@@ -505,7 +505,7 @@ var allChartObj = {
       },
       axisLine: {
         lineStyle: {
-          color: '#cccccc'
+          color: '#053a70'
         }
       },
       axisTick: {
@@ -639,7 +639,7 @@ var allChartObj = {
       },
       axisLine: {
         lineStyle: {
-          color: '#eee'
+          color: '#053a70'
         }
       },
       axisTick: {
@@ -662,7 +662,7 @@ var allChartObj = {
       axisLine: {
         show: true,
         lineStyle: {
-          color: '#eee'
+          color: '#053a70'
         }
       },
       axisTick: {

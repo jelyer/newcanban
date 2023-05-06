@@ -26,6 +26,11 @@
             <span class="selected"/>
           </el-tooltip>
         </li>
+        <li id="editSkin" class="editSkin" @click="editSkin()">
+          <el-tooltip content="切换皮肤" effect="dark" placement="bottom">
+            <span class="selected"/>
+          </el-tooltip>
+        </li>
         <li class="elpGuide" @click.prevent.stop="guide">
           <el-tooltip effect="dark" placement="bottom">
             <div slot="content" style="text-align: center;line-height: 20px">我是平台帮助系统<br>需要我向您做个简短的操作介绍吗？</div>
@@ -133,11 +138,12 @@ export default {
       }, 150);
     },
     toggleSideBar() {
-      if (this.$store.getters.name != 'admin') {
+      // if (this.$store.getters.name != 'admin') {  //只有admin才有编辑权限
+      if (this.$store.getters.mode != 'edit') { // 按后端配置来
         // 如果不是管理员，禁止编辑
         this.$message({
           type: 'info',
-          message: '您没用编辑权限，请登录管理员账户!'
+          message: '您没有编辑权限，请登录管理员账户!'
         });
         return;
       }
@@ -187,6 +193,22 @@ export default {
           _this.$store.dispatch('SetIsScreen', false);
         }
       };
+    },
+    editSkin() {
+      if (document.getElementsByClassName('skin-model2').length == 0) {
+        // 皮肤2
+        document.getElementsByTagName('body')[0].classList.add('skin-model2');
+        window.localStorage.setItem('gwall_board_skin', '2');
+      } else {
+        document.getElementsByTagName('body')[0].classList.remove('skin-model2');
+        window.localStorage.setItem('gwall_board_skin', '1');
+      }
+      this.$notify({
+        title: '提示',
+        message: '切换成功！',
+        type: 'success',
+        duration: 2000
+      });
     },
     // 刷新看板数据
     reloadboald() {

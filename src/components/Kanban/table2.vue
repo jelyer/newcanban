@@ -12,7 +12,8 @@
         <div class="Tb-content">
           <el-row v-for="(item,index) in domConfig.data" :key="index">
             <!--  <el-col :style="{'width':parseInt(100/domConfig.legend.length)+'%'}" v-for="it in item" :title="it">{{it==""?"...":it}}</el-col>-->
-            <el-col v-for="(it,key) in item" :key="key" :style="{'width':key == 0 ? parseInt(100/domConfig.legend.length + 12)+'%' : parseInt(100/domConfig.legend.length - (12/(domConfig.legend.length-1)))+'%'}" :title="it">{{ it==""?"...":it }}</el-col>
+            <!-- it==""?"...":it -->
+            <el-col v-for="(it,key) in item" :key="key" :style="{'width':key == 0 ? parseInt(100/domConfig.legend.length + 12)+'%' : parseInt(100/domConfig.legend.length - (12/(domConfig.legend.length-1)))+'%'}" :title="it"><div v-html="formatList(it)"/></el-col>
           </el-row>
         </div>
       </vue-seamless-scroll>
@@ -44,20 +45,31 @@ export default {
     return {
       options: {
         'mainCell': '.bd ul',
-        'autoPlay': true,
+        'autoPlay': customCfg.list.vis,
         'effect': 'topMarquee',
-        'vis': 5,
-        'interTime': 50,
-        'trigger': 'click'
+        'vis': customCfg.list.vis,
+        'interTime': customCfg.list.interTime,
+        'trigger': customCfg.list.trigger
       }
     };
   },
   computed: {
     optionSingleHeight() {
       return {
-        singleHeight: 70,
-        limitMoveNum: 10
+        singleHeight: customCfg.list.singleHeight,
+        limitMoveNum: customCfg.list.singleHeight,
+        step: customCfg.list.step
       };
+    }
+  },
+  methods: {
+    formatList(text) {
+      if (!text) return '';
+      if (customCfg.list.format[text]) {
+        return '<span class="list-item-fmt" style="background:' + customCfg.list.format[text] + '">' + text + '</span>';
+      } else {
+        return text;
+      }
     }
   }
 };

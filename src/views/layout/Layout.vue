@@ -189,6 +189,9 @@ export default {
         this.visiblesysModel = true;
       }
     }
+    if (window.localStorage.gwall_board_skin == '2') {
+      document.getElementsByTagName('body')[0].classList.add('skin-model2');
+    }
     /*
       为了处理轮播时内存泄露自动刷新
     if(localStorage.isBeingRotated=='1'){
