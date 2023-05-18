@@ -138,9 +138,23 @@ export default {
       }, 150);
     },
     toggleSideBar() {
-      // if (this.$store.getters.name != 'admin') {  //只有admin才有编辑权限
-      if (this.$store.getters.mode != 'edit') { // 按后端配置来
-        // 如果不是管理员，禁止编辑
+      let authority = true;
+      if (customCfg.authority == 'Back') {
+        // 按后端返回来控制
+        if (this.$store.getters.mode != 'edit') {
+          authority = false;
+        }
+      } else if (customCfg.authority == 'admin') {
+        // 只有admin才有编辑权限
+        debugger;
+        if (this.$store.getters.name != 'admin') {
+          authority = false;
+        }
+      } else if (customCfg.authority == 'none') {
+        // 谁都没权限
+        authority = false;
+      }
+      if (!authority) {
         this.$message({
           type: 'info',
           message: '您没有编辑权限，请登录管理员账户!'

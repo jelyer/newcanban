@@ -179,14 +179,20 @@ export default {
   },
   created() {
     // 是否显示系统模板
-    if (this.$store.state.user.mode == 'read') {
+    if (customCfg.showTemplate == 1) {
+      this.visiblesysModel = true;
+    } else if (customCfg.showTemplate == 2) {
       this.visiblesysModel = false;
     } else {
-      let visiblesysModel = localStorage.visiblesysModel;
-      if (!visiblesysModel || visiblesysModel == 'false') {
+      if (this.$store.state.user.mode == 'read') {
         this.visiblesysModel = false;
       } else {
-        this.visiblesysModel = true;
+        let visiblesysModel = localStorage.visiblesysModel;
+        if (!visiblesysModel || visiblesysModel == 'false') {
+          this.visiblesysModel = false;
+        } else {
+          this.visiblesysModel = true;
+        }
       }
     }
     if (window.localStorage.gwall_board_skin == '2') {

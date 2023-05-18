@@ -236,8 +236,10 @@ export default {
     '$store.state.app.reloadData': 'getData'// 监听刷新页面
   },
   created() {
-    if (!this.$store.state.user.mode || this.$store.state.user.mode == 'read') {
-      this.domConfig = [];
+    if (!customCfg.showIndexModel) {
+      if (!this.$store.state.user.mode || this.$store.state.user.mode == 'read') {
+        this.domConfig = [];// 不显示第一个的模型
+      }
     }
     let pageId = this.$route.query.pageId;// 页面Id
     if (pageId != undefined) {

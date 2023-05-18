@@ -651,10 +651,6 @@ export default {
   color: #00ffd8;
   margin-top: 2.5%;
 }
-.titlebgstr {
-  height: 60%;
-  top: 40%;
-}
 .box1 {
   border-color: #00ffd8;
 }

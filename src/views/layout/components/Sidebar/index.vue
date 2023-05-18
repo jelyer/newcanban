@@ -90,7 +90,7 @@ export default { // 标题
     text-align: center;
     font-size: 1.1rem;
     color: #999;
-    background: #27343e;
+    background: #11254e;
     display: flex;
     margin: auto;
     margin-bottom: 6px;
